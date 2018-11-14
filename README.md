@@ -11,7 +11,7 @@ Magento Version | Composer prefix
 ----            | ---- 
 2.2.x           | 100.x.x
 
-So if you are in magento 2.0.x to install by composer just execute: `composer require wagento/module-braintree:100.0.5`
+So if you are in magento 2.2.x to install by composer just execute: `composer require wagento/module-braintree:100.0.5`
 
 BUT in file `etc/module.xml` version will be the same for all composer version, use `setup_version` as global version reference.
 
