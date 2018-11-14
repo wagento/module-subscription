@@ -9,7 +9,7 @@ We are adding a new version management to make module installation available thr
 
 Magento Version | Composer prefix 
 ----            | ---- 
-2.2.x           | 220.x.x
+2.2.x           | 100.x.x
 
 So if you are in magento 2.0.x to install by composer just execute: `composer require wagento/module-braintree:100.0.5`
 
