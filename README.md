@@ -22,4 +22,4 @@ If you are facing any issue with module installation and configuration please se
 Based in `setup_version`
 
 v2.1.1
-- Initial module integration for Zendesk 
+- Initial module integration for Braintree Subscription 
