@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="catalog" translate="label" sortOrder="200">
+            <label>Catalog</label>
+        </tab>
+        <section id="braintree_subscription" translate="label" type="text" sortOrder="400" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Braintree Subscription</label>
+            <tab>catalog</tab>
+            <resource>Wagento_Subscription::subscription</resource>
+            <group id="subscription_config" translate="label" type="text" sortOrder="90" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Configurations</label>
+                <field id="enable" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_scheduled_billing" translate="label" type="select" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Scheduled Billing</label>
+                    <comment>If set to NO, subscriptions will not be re billed automatically via Magento’s scheduler.
+                        <br/>
+                        Note: Changing from NO to YES will result in all outstanding subscriptions running on the next
+                        billing event.
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_howmany_subscription" translate="label" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow Customer to select number of subscription cycle</label>
+                    <comment>If set to YES, customers can enter “Maximum Number of Subscription Cycles” value from subscription popup.
+                        If set to NO, then subscription plan's subscription cycle will be applied.
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_cancel_subscription" translate="label" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow Customers to Cancel Subscription</label>
+                    <comment>If set to YES, customers will have a “cancel” button when viewing their subscription (if
+                        the subscription is not already cancelled or complete). Once cancelled, you (admin) cannot
+                        re-bill, edit, or reactivate a subscription.
+                        If set to NO, the customer will have to contact you (admin) to cancel.
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_pause_subscription" translate="label" type="select" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Allow Customers to Pause Subscription</label>
+                    <comment>If set to YES, customers will have a “pause” button when viewing their subscription (if the
+                        subscription is active). While paused, the subscription will not re-bill. The customer will be
+                        able to reactivate it themselves.
+                        If set to NO, the customer will have to contact you (admin) to pause.
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_option_label" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Product Option Label</label>
+                    <comment>This text (Subscription) is used as the custom option label for each subscription product.
+                    </comment>
+                </field>
+            </group>
+            <group id="email_config" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Email Configurations</label>
+                <field id="enable_email" translate="label" type="select" showInDefault="1">
+                    <label>Enable Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="email_options" translate="label" type="multiselect" sortOrder="40" showInDefault="1"
+                       showInWebsite="0" showInStore="1">
+                    <label>Enable Email For</label>
+                    <source_model>Wagento\Subscription\Model\Config\EmailOptions</source_model>
+                </field>
+                <field id="email_sender" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="0" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="email_reciever" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="0" showInStore="1">
+                    <label>Email Reciever</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

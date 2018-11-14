@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">subscription_form.subscription_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Subscription Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save_and_continue" class="Wagento\Subscription\Block\Adminhtml\Edit\SaveAndContinueButton"/>
+            <button name="save" class="Wagento\Subscription\Block\Adminhtml\Edit\SaveButton"/>
+            <button name="reset" class="Wagento\Subscription\Block\Adminhtml\Edit\ResetButton"/>
+            <button name="delete" class="Wagento\Subscription\Block\Adminhtml\Edit\DeleteButton"/>
+            <button name="back" class="Wagento\Subscription\Block\Adminhtml\Edit\BackButton"/>
+        </buttons>
+        <namespace>subscription_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>subscription_form.subscription_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="subscription_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="subscription/index/save"/>
+        </settings>
+        <dataProvider class="\Wagento\Subscription\Ui\Component\Form\DataProvider" name="subscription_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>subscription_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="subscription">
+        <settings>
+            <label translate="true">Subscription Information</label>
+        </settings>
+        <field name="subscription_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">subscription</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">subscription</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+            </settings>
+        </field>
+        <field name="frequency" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">subscription</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>number</dataType>
+                <visible>true</visible>
+                <label translate="true">Frequency</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="\Wagento\Subscription\Model\Source\FrequencyOptions"/>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="fee" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">subscription</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Fee</label>
+            </settings>
+        </field>
+        <field name="discount" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">subscription</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Discount</label>
+            </settings>
+        </field>
+        <field name="how_many" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">subscription</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Maximum Subscription Cycle(s)</label>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="assign_products" sortOrder="40">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Products (Simple, Virtual and Downloadable)</label>
+        </settings>
+        <container name="release_notification_text" template="ui/form/components/complex">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string"/>
+                    <item name="additionalClasses" xsi:type="string">release-notification-text</item>
+                </item>
+            </argument>
+        </container>
+        <container name="assign_products_container" sortOrder="160">
+            <htmlContent name="html__suncsription_content">
+                <argument name="block" xsi:type="object">Wagento\Subscription\Block\Adminhtml\Subscription\ProductGrid
+                </argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

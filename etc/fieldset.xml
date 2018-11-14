@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_order">
+            <field name="initial_fee">
+                <aspect name="to_quote"/>
+                <aspect name="to_invoice"/>
+                <aspect name="to_cm"/>
+            </field>
+        </fieldset>
+    </scope>
+</config>

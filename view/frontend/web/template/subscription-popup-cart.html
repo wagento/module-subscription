@@ -1,0 +1,178 @@
+<!--
+    /**
+    * Copyright Wagento Creative LLC ©, All rights reserved.
+    * See COPYING.txt for license details.
+    */
+--><script src="../js/view/subscription-popup-cart.js"></script>
+<div class="block-subscription"
+     data-bind="afterRender: setModalElement"
+     style="display: none">
+    <div class="popup-authentication" id="subscribe">
+        <div class="block block-new-customer">
+            <div class="block-title">
+                <strong id="block-new-customer-heading"
+                        role="heading"
+                        aria-level="2"
+                        data-bind="i18n: 'Subscriptions Options'"></strong>
+            </div>
+            <div class="block-content">
+                <div>
+                    <div class="field subscription-name">
+                        <span data-bind="i18n: 'Name:'"></span>
+                        <span data-bind="text: subscriptionName"></span>
+                    </div>
+
+                    <div class="field subscription-frequency">
+                        <span data-bind="i18n: 'Frequency:'"></span>
+                        <span data-bind="text: subscriptionFrequency"></span>
+                    </div>
+
+                    <!-- ko if: isEnableHowMany == "0" -->
+                    <!-- ko if: howMany != "0" -->
+                    <div class="field subscription-howmany">
+                        <span data-bind="i18n: 'Subscription Cycles:'"></span>
+                        <span data-bind="text: howMany"></span>
+                        <span data-bind="text: howManyUnit"></span>
+                    </div>
+                    <!--/ko-->
+                    <!--/ko-->
+
+                    <div class="field subscription-discount">
+                        <span data-bind="i18n: 'Discount:'"></span>
+                        <span data-bind="text: subscriptionDiscount"></span>
+                    </div>
+
+                    <!-- ko if: costWithoutCurrency != "0.0000" -->
+                    <div class="field subscription-fee">
+                        <span data-bind="i18n: 'Fee:'"></span>
+                        <span data-bind="text: subscriptionFee"></span>
+                    </div>
+                    <!--/ko-->
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <!-- ko foreach: getRegion('messages') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <!-- ko foreach: getRegion('before') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+            <!--<div class="block-title">-->
+            <!--<strong role="heading"-->
+            <!--aria-level="2"-->
+            <!--data-bind="i18n: 'Subscription Detail'"></strong>-->
+            <!--</div>-->
+            <div class="block-content">
+                <!-- ko if: state == "Subscribe" -->
+                <div class="block-title">
+                    <strong role="heading"
+                            aria-level="2"
+                            data-bind="i18n: 'Subscription Detail'"></strong>
+                </div>
+                <form class="form subscription-form"
+                      method="post"
+                      data-bind="event: {submit: subscribe },attr: { id:'subscription-form-'+itemId}">
+                    <input type="hidden" name='subItemId'
+                           data-bind="attr: { id:'subscription_item'+itemId, value:itemId}">
+                    <div class="fieldset login">
+                        <div class="field subscription-howmany required">
+                            <!-- ko if: isEnableHowMany == "1" -->
+                            <span data-bind="i18n: 'Enter Subscription Cycle Number'"></span><em> * </em>
+                            <div class="control">
+                                <input type="number"
+                                       name="how_many"
+                                       value=""
+                                       title="<?= /* @escapeNotVerified */ __('Enter Subscription Cycle Number') ?>"
+                                       class="input-text howmany"
+                                       data-validate="{'required-number':true,digits:true}"
+                                       data-bind="value: subHowMany"/>
+                            </div>
+                            <!-- /ko -->
+
+                            <div class="field subscription-qty required">
+                                <span data-bind="i18n: 'Qty'"></span><em> *</em>
+                                <div class="control">
+                                    <input type="number"
+                                           name="subqty"
+                                           value=""
+                                           title="<?= /* @escapeNotVerified */ __('Subscription Qty') ?>"
+                                           class="input-text sub_qty"
+                                           data-validate="{'required-number':true,digits:true}"
+                                           data-bind="value: subqty"/>
+                                </div>
+                            </div>
+                            <!-- ko if: isSaleable == "1" -->
+                            <!-- ko if: hasLinks == "1" -->
+                            <br>
+                            <legend class="legend links-title">
+                                <span data-bind="text: linksTitle"></span>
+                            </legend>
+                            <br>
+
+                            <div class="field required downloads-no-separately">
+                                <div class="field choice" data-role="link">
+                                    <!-- ko if: linksPurchasedSeparately == "1" -->
+
+                                    <!-- ko foreach: {data: Object.keys(links).map(function(e) {
+                                    return links[e]}), as: 'link' } -->
+                                    <input type="checkbox" name="links[]" data-bind="checkedValue: link.link_id"
+                                           data-validate="{'validate-one-checkbox-required-by-name':'downloadable-links-list'}"/>
+
+                                    <label class="label" for="links_'+link.link_id"></label>
+                                    <span data-bind="text:link.title"></span>
+                                    <span data-bind="text:link.price"></span> <br/>
+                                    <!-- /ko -->
+                                    <!-- /ko -->
+
+                                    <!-- ko if: linksPurchasedSeparately == "0" -->
+                                        <!-- ko foreach: {data: Object.keys(links).map(function(e) {return links[e]}), as: 'link' } -->
+                                    <label class="label" for="links_'+link.link_id"></label>
+                                    <span data-bind="text:link.title"></span><br/>
+                                        <!-- /ko -->
+                                    <!-- /ko -->
+                                    
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- /ko -->
+
+                            <input name="productId" type="hidden" data-bind="value:subscriptionProductId"/>
+                            <input type="hidden" name="isEnableHowMany"
+                                   data-bind="attr: { id:'isEnableHowMany'+itemId, value:isEnableHowMany}">
+                            <input type="hidden" name="howMany" data-bind="attr: { id:'howMany'+itemId, value:howMany}">
+                        </div>
+                        <div class="actions-toolbar">
+                            <div class="primary">
+                                <button type="submit" class="action action-subscribe secondary"
+                                        name="send">
+                                    <span data-bind="text: state"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--/ko-->
+                <!-- ko if: state == "Unsubscribe" -->
+                <form class="form unsubscription-form"
+                      method="post"
+                      data-bind="event: {submit: unsubscribe},attr: { id:'unsubscription-form-'+itemId}">
+                    <div class="content">
+                        <p class="content" data-bind="i18n: 'Are you sure, you want to unsubscribe this product?'"></p>
+                    </div>
+                    <input id="un_product_id" name="product_id" type="hidden" data-bind="value:subscriptionProductId"/>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button type="submit" class="action action-unsubscribe secondary action delete"
+                                    name="unsubscribe" id="unsubscribe"
+                                    data-bind="attr: {'data-cart-item': subscriptionProductId, title: $t('Remove item')}">
+                                <span data-bind="i18n: 'Unsubscribe'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!--/ko-->
+            </div>
+        </div>
+    </div>
+</div>

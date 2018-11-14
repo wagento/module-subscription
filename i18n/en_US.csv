@@ -1,0 +1,177 @@
+Back,Back
+Delete Subscription,Delete Subscription
+Reset,Reset
+Save and Continue Edit,Save and Continue Edit
+Save Subscription,Save Subscription
+ID,ID
+Price,Price
+Position,Position
+Subscription Profile View,Subscription Profile View
+Information,Information
+Subscription Details,Subscription Details
+Save Subscription,Save Subscription
+Cancel Subscription,Cancel Subscription
+Pause Subscription,Pause Subscription
+Activate Subscription,Activate Subscription
+Subscription Initial Fee,Subscription Initial Fee
+Subscription Info,Subscription Info
+Subscription Information,Subscription Information
+Next Renewal Date,Next Renewal Date
+Shipping Address,Shipping Address
+Billing Address,Billing Address
+Card Details,Card Details
+My Subscriptions,My Subscriptions
+Edit Subscription Profile #,Edit Subscription Profile #
+Subscription Profile #,Subscription Profile #
+The subscription can’t be deleted because of associated products,The subscription can’t be deleted because of associated products
+You deleted the subscription.,You deleted the subscription.
+Something went wrong while editing the subscription.,Something went wrong while editing the subscription.
+New Subscription,New Subscription
+Subscriptions,Subscriptions
+Manage Subscriptions,Manage Subscriptions
+Please correct the data sent.,Please correct the data sent.
+You saved the subscription.,You saved the subscription.
+A total of %1 record(s) were not deleted because of associated products,A total of %1 record(s) were not deleted because of associated products
+A total of %1 record(s) were deleted.,A total of %1 record(s) were deleted.
+%1 products were not deleted because they have some associated subscription plans and subscription profiles.,%1 products were not deleted because they have some associated subscription plans and subscription profiles.
+%1 products were not deleted because they have some associated subscription plans.,%1 products were not deleted because they have some associated subscription plans.
+%1 products were not deleted  because they have some associated subscription profiles.,%1 products were not deleted  because they have some associated subscription profiles.
+A total of %1 record(s) have been deleted.,A total of %1 record(s) have been deleted.
+Unable to save product,Unable to save product
+You saved the product.,You saved the product.
+You duplicated the product.,You duplicated the product.
+The image cannot be removed as it has been assigned to the other image role,The image cannot be removed as it has been assigned to the other image role
+Subscription Status Change Email Sent Successfully %1,Subscription Status Change Email Sent Successfully %1
+Email configuration is disabled,Email configuration is disabled
+Subscription Profile #%1 Activated Successfully.,Subscription Profile #%1 Activated Successfully.
+Subscription Status Change Email Sent Successfully %1,Subscription Status Change Email Sent Successfully %1
+Subscription Profile #%1 Canceled Successfully.,Subscription Profile #%1 Canceled Successfully.
+Manage Subscription Sale,Manage Subscription Sale
+Subscription Profile #%1 Paused Successfully.,Subscription Profile #%1 Paused Successfully.
+Subscription Profile #%1 Saved Successfully.,Subscription Profile #%1 Saved Successfully.
+Product %1 Unsubscibed Successfully,Product %1 Unsubscibed Successfully
+'We can\''t remove the item.','We can\''t remove the item.'
+The Product have already been Unsubscribed,The Product have already been Unsubscribed
+Subscription Profile #%1 Reactivated Successfully.,Subscription Profile #%1 Reactivated Successfully.
+Subscription Profile #%1 Cancelled Successfully.,Subscription Profile #%1 Cancelled Successfully.
+Subscription Profile #%1 Updated Successfully.,Subscription Profile #%1 Updated Successfully.
+Cancel,Cancel
+Activate,Activate
+Pause,Pause
+Completed,Completed
+N/A,N/A
+Please Select Address,Please Select Address
+--- Please Select ---,--- Please Select ---
+Reminder Email,Reminder Email
+Billing Failed Email,Billing Failed Email
+Payment Failed Email,Payment Failed Email
+Status Change by Admin ? Email to Customer,Status Change by Admin ? Email to Customer
+Status Change by Customer ? Email to Merchant,Status Change by Customer ? Email to Merchant
+Subscription order placed Successfully order#%1,Subscription order placed Successfully order#%1
+No collection found for the date %1 .,No collection found for the date %1 .
+Cron reminder email configuration is disabled,Cron reminder email configuration is disabled
+Subscription Email sent Successfully %1,Subscription Email sent Successfully %1
+Could not save the Product: %1,Could not save the Product: %1
+"Product with id ""%1"" does not exist.","Product with id ""%1"" does not exist."
+No,No
+Subscription Only,Subscription Only
+Optional,Optional
+Could not save the subscription: %1,Could not save the subscription: %1
+"Subscription with id ""%1"" does not exist.","Subscription with id ""%1"" does not exist."
+Quantity was recalculated from %1 to %2,Quantity was recalculated from %1 to %2
+We adjusted product quantities to fit the required increments.,We adjusted product quantities to fit the required increments.
+Edit,Edit
+View,View
+Subscription Options,Subscription Options
+Subscription Name,Subscription Name
+Subscription Profile # %1,Subscription Profile # %1
+Subscription Status,Subscription Status
+Subscription Frequency,Subscription Frequency
+Subscription Started Date,Subscription Started Date
+Last Renewed,Last Renewed
+Customer Information,Customer Information
+Edit Customer,Edit Customer
+Customer Name,Customer Name
+Email,Email
+Subscription Billing Count,Subscription Billing Count
+Purchased From,Purchased From
+Subscription Address Information,Subscription Address Information
+Credit Card Type,Credit Card Type
+Credit Card Number,Credit Card Number
+Payment Information,Payment Information
+Shipping & Handling Information,Shipping & Handling Information
+Item Subscribed,Item Subscribed
+Product,Product
+Original Price,Original Price
+Price,Price
+Initial Fee,Initial Fee
+Qty,Qty
+Subtotal,Subtotal
+Row Total,Row Total
+SKU:,SKU:
+Subscribed,Subscribed
+Note: Any Change in Subscription will affect next run,Note: Any Change in Subscription will affect next run
+Reactivate,Reactivate
+Subscription Profile,Subscription Profile
+Subscription Cycle,Subscription Cycle
+- Times Billed,- Times Billed
+0 - Times Billed,0 - Times Billed
+Next Renewal,Next Renewal
+Subscription Item Details,Subscription Item Details
+Product Name,Product Name
+Quantity,Quantity
+Card Details,Card Details
+Select Card,Select Card
+Select Shipping Address,Select Shipping Address
+Shipping Method,Shipping Method
+Select Billing Address,Select Billing Address
+Payment Method,Payment Method
+Update Subscription,Update Subscription
+Subscription Note,Subscription Note
+You can stop subscription at any time by pausing or cancelling the subscription,You can stop subscription at any time by pausing or cancelling the subscription
+Profile #,Profile #
+Purchase Date,Purchase Date
+Last Renewed Date,Last Renewed Date
+Ship To,Ship To
+Status,Status
+Action,Action
+Order Total,Order Total
+You have no subscription profiles,You have no subscription profiles
+Non Subscription Items,Non Subscription Items
+Item,Item
+Subscription Items,Subscription Items
+Continue Shopping,Continue Shopping
+Clear Shopping Cart,Clear Shopping Cart
+Update Shopping Cart,Update Shopping Cart
+Print This Page,Print This Page
+Compare Products,Compare Products
+Remove Product,Remove Product
+Add to Cart,Add to Cart
+View Details,View Details
+In stock,In stock
+Out of stock,Out of stock
+Add to Wish List,Add to Wish List
+You have no items to compare.,You have no items to compare.
+sample,sample
+Select all,Select all
+Unselect all,Unselect all
+We can\''t find products matching the selection,We can’t find products matching the selection.
+Learn More,Learn More
+Edit item parameters,Edit item parameters
+Subscription Qty,Subscription Qty
+Last Added Items,Last Added Items
+Remove This Item,Remove This Item
+Go to Wish List,Go to Wish List
+You have no items in your wish list.,You have no items in your wish list.
+Availability,Availability
+Comment,Comment
+Continue,Continue
+Daily,Daily
+Weekly,Weekly
+Monthly,Monthly
+Yearly,Yearly
+Day(s),Day(s)
+Week(s),Week(s)
+Month(s),Month(s)
+Year(s),Year(s)
+View Subscription,View Subscription

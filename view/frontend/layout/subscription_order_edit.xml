@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="seller_account_products_head_components"
+                   template="Magento_Customer::js/components.phtml"/>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Wagento\Subscription\Block\Frontend\Account\SubscriptionView" name="subscription.order.view"
+                   template="Wagento_Subscription::account/subscription-order-view.phtml" />
+        </referenceContainer>
+    </body>
+</page>
+

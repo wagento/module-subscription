@@ -1,0 +1,84 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject Subscription Next Order Reminder Email @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{template config_path="design/email/header_template"}}
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+        <td align="center" valign="top" style="padding:20px 0 20px 0">
+            <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650"
+                   style="border:1px solid #E0E0E0;">
+                <tr>
+                    <td valign="top">
+                        <h1 style="font-size:22px;font-weight:normal;line-height:22px;margin:0 0 11px 0;">{{trans "Dear
+                            "}} {{var customer_name|nl2br}},</h1>
+                        <p class="greeting">{{trans "This is just a friendly reminder that your subscription product "
+                            }}
+                            {{trans "has next renewal on "}} {{var date_of_next_run|nl2br}}.</p>
+                        <p>{{trans "Your order will be placed automatically using below payment details." }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <table class="order-details">
+                            <tr>
+                                <td>
+                                    <h2>{{trans "Subscription Information"}}</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="address-details">
+                                    <h3>{{trans "Billing Info"}}</h3>
+                                    <p>{{var formattedBillingAddress|raw}}</p>
+                                </td>
+                                <td class="address-details">
+                                    <h3>{{trans "Shipping Info"}}</h3>
+                                    <p>{{var formattedShippingAddress|raw}}</p>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="method-info">
+                                    <h3>{{trans "Payment Method"}}</h3>
+                                    <p>{{var payment_html|raw}}</p>
+                                </td>
+                                <td class="method-info">
+                                    <h3>{{trans "Shipping Method"}}</h3>
+                                    <p>{{var shipping_escription}}</p>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" border="0" width="650">
+                            <tbody>
+                            <tr>
+                                <td colspan="2" valign="top"
+                                    style="font-size:12px;padding:7px 9px 9px 9px;border:1px solid #EAEAEA;">
+                                    {{layout handle="sales_email_order_items" order=$order area="frontend"}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../Email/etc/email_templates.xsd">
+    <template id="reminder_email_template"
+              label="Subscription Reminder Email"
+              file="reminderemail.html"
+              type="html"
+              module="Wagento_Subscription" area="frontend"/>
+
+    <template id="change_status_email_template"
+              label="Subscription Status Change Email"
+              file="changestatus.html"
+              type="html"
+              module="Wagento_Subscription" area="frontend"/>
+</config>

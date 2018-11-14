@@ -1,0 +1,122 @@
+// Common
+// (for styles used in both mobile and desktop views)
+& when (@media-common = true) {
+  .subscription-order-view, .subscription-order-edit {
+    .col2-set {
+      overflow: hidden;
+      tr {
+        line-height: 0;
+      }
+    }
+  }
+
+  .subscription-order-view {
+    .page-title-wrapper {
+      .page-title {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .subscription-order-actions-toolbar {
+    margin-bottom: 20px;
+    a:hover {
+      text-decoration: none;
+    }
+  }
+  .block-subscription-details-view .edit-subscription {
+    width: 100%;
+    float: left;
+    button {
+      margin-top: 20px;
+    }
+  }
+
+  .subscription-info {
+    padding: 0 0 15px 0;
+    .subscription-status {
+      display: inline-block;
+      vertical-align: middle;
+      span {
+        border: 2px solid #cccccc;
+        border-radius: 3px;
+        display: inline-block;
+        margin: 3px 0 0;
+        padding: 3px 7px;
+        text-transform: uppercase;
+        vertical-align: top;
+      }
+    }
+    .subscription-order-date {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .form-subscription-edit .order-details-items {
+    tbody {
+      td {
+        padding: 11px 10px;
+      }
+      th.card_detail {
+        vertical-align: middle;
+      }
+    }
+    .payment-method {
+      th, td {
+        padding-top: 10px;
+      }
+    }
+  }
+
+  .subscription-popup-cart .modal-inner-wrap,
+  .subscription-popup .modal-inner-wrap {
+    width: 430px;
+  }
+  #unsubscription-form {
+    .actions-toolbar {
+      margin-top: 20px;
+    }
+  }
+  .cart #shopping-cart-table {
+    .subscription-state {
+      padding-bottom: 0px;
+    }
+  }
+}
+
+// Mobile
+// (for all mobile styles.)
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+  .col-1-sub, .col-2-sub {
+    width: 100%;
+    display: inline-block;
+    font-size: 11px;
+  }
+}
+
+// Tablet
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+  .col-1-sub, .col-2-sub {
+    width: 100%;
+    display: inline-block;
+  }
+  .order-details-items .box {
+    select {
+      width: 88%;
+    }
+  }
+}
+
+// Desktop
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+  .col-1-sub, .col-2-sub {
+    width: 48%;
+    float: left;
+    display: inline-block;
+  }
+  .order-details-items .box {
+    select {
+      width: 88%;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <braintree_subscription>
+            <subscription_config>
+                <enable>1</enable>
+                <enable_scheduled_billing>1</enable_scheduled_billing>
+                <customer_cancel_subscription>1</customer_cancel_subscription>
+                <customer_pause_subscription>1</customer_pause_subscription>
+                <product_option_label>Subscription</product_option_label>
+            </subscription_config>
+        </braintree_subscription>
+    </default>
+</config>

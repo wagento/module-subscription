@@ -1,0 +1,103 @@
+<?php
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+$subHelper = $this->helper('Wagento\Subscription\Helper\Data');
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+                <?php if ($_product->getData('subscription_configurate') !== 'subscription_only') : ?>
+                    <div class="field qty">
+                        <label class="label" for="qty"><span><?= /* @escapeNotVerified */
+                                __('Qty') ?></span></label>
+                        <div class="control">
+                            <input type="number"
+                                   name="qty"
+                                   id="qty"
+                                   value="<?= /* @escapeNotVerified */
+                                   $block->getProductDefaultQty() * 1 ?>"
+                                   title="<?= /* @escapeNotVerified */
+                                   __('Qty') ?>"
+                                   class="input-text qty"
+                                   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                            />
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            <div class="actions">
+                <!-- If product is Subscription only -->
+                <?php if (($_product->getData('subscription_configurate') == 'subscription_only' ||
+                        $_product->getData('subscription_configurate') == 'optional') &&
+                    !(is_null($_product->getData('subscription_attribute_product')))) : ?>
+                    <div class="field subscription">
+                        <input<?php if ($subHelper->getProductSubscribed($_product->getId())): ?>
+                            checked="checked"<?php endif; ?>
+                                type="checkbox" id="subscriptionPopup" data-bind="scope:'subscriptionPopup'"
+                                data-role="subscriptionPopup" class="subscriptionPopup"
+                                title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>" class="checkbox"/>
+                        <label class="label" for="product_subscription">
+                    <span>
+                        <?php $label = $subHelper->getProductOptionLabel(); ?>
+                        <?php if(is_null($label)):?>
+                            <?php echo _('Subscription'); ?>
+                        <?php else:?>
+                            <?= $subHelper->getProductOptionLabel(); ?>
+                        <?php endif;?>
+
+                    </span>
+                        </label>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($_product->getData('subscription_configurate') == 'no' ||
+                    $_product->getData('subscription_configurate') == 'optional' ||
+                    is_null($_product->getData('subscription_configurate'))) : ?>
+                    <button type="submit"
+                            title="<?= /* @escapeNotVerified */
+                            $buttonTitle ?>"
+                            class="action primary tocart"
+                            id="product-addtocart-button">
+                        <span><?= /* @escapeNotVerified */
+                            $buttonTitle ?></span>
+                    </button>
+                <?php endif; ?>
+                <?= $block->getChildHtml('', true) ?>
+
+            </div>
+        </div>
+    </div>
+    <div id="popup-mpdal" style="display: none;">
+        <h1>hello world</h1>
+    </div>
+<?php endif; ?>
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+    <script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+
+    </script>
+<?php else : ?>
+    <script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+
+    </script>
+<?php endif; ?>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">subscription_listing.subscription_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add New Subscription</label>
+            </button>
+        </buttons>
+        <spinner>subscription_columns</spinner>
+        <deps>
+            <dep>subscription_listing.subscription_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="subscription_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">
+                Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider
+            </argument>
+            <argument name="name" xsi:type="string">subscription_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">subscription_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">subscription_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <exportButton name="export_button"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure to delete selected subscriptions?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="subscription/index/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>subscription_listing.subscription_listing.subscription_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="subscription_columns">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="subscription/index/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">subscription_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">
+                    subscription_listing.subscription_listing.subscription_columns.ids
+                </param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">
+                        subscription_listing.subscription_listing.subscription_columns_editor
+                    </item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids" sortOrder="10">
+            <settings>
+                <indexField>subscription_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="subscription_id" sortOrder="20">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="frequency" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+            <settings>
+                <options class="Wagento\Subscription\Model\Source\FrequencyOptions"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Frequency</label>
+            </settings>
+        </column>
+        <column name="fee" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="50">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Fee</label>
+            </settings>
+        </column>
+        <column name="discount" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="60">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Discount</label>
+            </settings>
+        </column>
+
+        <column name="how_many" class="Wagento\Subscription\Ui\Component\Listing\Column\HowMany" sortOrder="70">
+            <settings>
+                <label translate="true">Subscription Cycle</label>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Wagento\Subscription\Ui\Component\Listing\Column\Actions" sortOrder="1000">
+            <settings>
+                <indexField>subscription_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

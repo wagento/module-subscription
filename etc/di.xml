@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="subscription_listing_data_source" xsi:type="string">
+                    Wagento\Subscription\Model\ResourceModel\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- service repository for wagento_subscription table -->
+    <preference for="Wagento\Subscription\Api\SubscriptionRepositoryInterface"
+                type="Wagento\Subscription\Model\SubscriptionRepository"/>
+    <preference for="Wagento\Subscription\Api\Data\SubscriptionInterface"
+                type="Wagento\Subscription\Model\Subscription"/>
+
+    <!-- service repository for wagento_subscription_products table -->
+    <preference for="Wagento\Subscription\Api\ProductRepositoryInterface"
+                type="Wagento\Subscription\Model\ProductRepository"/>
+    <preference for="Wagento\Subscription\Api\Data\ProductInterface"
+                type="Wagento\Subscription\Model\Product"/>
+
+    <preference for="Wagento\Subscription\Api\Data\SubscriptionSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+
+    <preference for="Magento\Catalog\Controller\Adminhtml\Product\MassDelete"
+                type="Wagento\Subscription\Controller\Adminhtml\Product\MassDelete"/>
+
+    <!--Braintree Customer Subscription Sales Orders-->
+    <virtualType name="Wagento\Subscription\Model\ResourceModel\SubscriptionSales\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wagento_subscription_order</argument>
+            <argument name="resourceModel" xsi:type="string">
+                Wagento\Subscription\Model\ResourceModel\SubscriptionSales
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <!--data provider name which used in grid ui component file -->
+                <item name="subscription_sales_listing_data_source" xsi:type="string">
+                    Wagento\Subscription\Ui\DataProvider\Grid\SubscriptionSales
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface"
+                type="Wagento\Subscription\Model\SubscriptionSalesRepository"/>
+
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="wagento_subscription_to_orderItem" type="Wagento\Subscription\Plugin\ToOrderItem"/>
+    </type>
+
+    <type name="Magento\Checkout\Helper\Data">
+        <plugin name="wagento_subscription_isguestcheckout" type="Wagento\Subscription\Plugin\GuestCheckout"/>
+    </type>
+    <type name="Magento\Braintree\Gateway\Request\ChannelDataBuilder">
+        <plugin name="channel_braintree" type="Wagento\Subscription\Plugin\Gateway\Request\ChannelDataBuilder"
+                sortOrder="1" disabled="false"/>
+    </type>
+
+</config>

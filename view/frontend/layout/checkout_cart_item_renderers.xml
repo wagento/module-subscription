@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceBlock name="checkout.cart.item.renderers">
+            <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" name="checkout.cart.item.renderers.bundle"
+                   as="bundle" template="Magento_Checkout::cart/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions"
+                       name="checkout.cart.item.renderers.bundle.actions" as="actions">
+                    <block class="Wagento\Subscription\Block\Frontend\Cart\Item\Renderer\Edit"
+                           name="subscriptopn.edit.bundle" template="Wagento_Subscription::product/view/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit"
+                           name="checkout.cart.item.renderers.bundle.actions.edit"
+                           template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove"
+                           name="checkout.cart.item.renderers.bundle.actions.remove"
+                           template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.default"
+                   as="default" template="Magento_Checkout::cart/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions"
+                       name="checkout.cart.item.renderers.default.actions" as="actions">
+                    <block class="Wagento\Subscription\Block\Frontend\Cart\Item\Renderer\Edit"
+                           name="subscriptopn.edit.default" template="Wagento_Subscription::product/view/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit"
+                           name="checkout.cart.item.renderers.default.actions.edit"
+                           template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove"
+                           name="checkout.cart.item.renderers.default.actions.remove"
+                           template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.simple"
+                   as="simple" template="Magento_Checkout::cart/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions"
+                       name="checkout.cart.item.renderers.simple.actions" as="actions">
+                    <block class="Wagento\Subscription\Block\Frontend\Cart\Item\Renderer\Edit"
+                           name="subscriptopn.edit.simple" template="Wagento_Subscription::product/view/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit"
+                           name="checkout.cart.item.renderers.simple.actions.edit"
+                           template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove"
+                           name="checkout.cart.item.renderers.simple.actions.remove"
+                           template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer"
+                   name="checkout.cart.item.renderers.downloadable" as="downloadable"
+                   template="Magento_Checkout::cart/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions"
+                       name="checkout.cart.item.renderers.downloadable.actions" as="actions">
+                    <block class="Wagento\Subscription\Block\Frontend\Cart\Item\Renderer\Edit"
+                           name="subscriptopn.edit.downloadable"
+                           template="Wagento_Subscription::product/view/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit"
+                           name="checkout.cart.item.renderers.downloadable.actions.edit"
+                           template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove"
+                           name="checkout.cart.item.renderers.downloadable.actions.remove"
+                           template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer" name="checkout.cart.item.renderers.virtual"
+                       as="virtual" template="Magento_Checkout::cart/item/default.phtml">
+                    <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions"
+                           name="checkout.cart.item.renderers.virtual.actions" as="actions">
+                        <block class="Wagento\Subscription\Block\Frontend\Cart\Item\Renderer\Edit"
+                               name="subscriptopn.edit.virtual"
+                               template="Wagento_Subscription::product/view/edit.phtml"/>
+                        <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit"
+                               name="checkout.cart.item.renderers.virtual.actions.edit"
+                               template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                        <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove"
+                               name="checkout.cart.item.renderers.virtual.actions.remove"
+                               template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

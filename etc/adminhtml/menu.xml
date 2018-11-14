@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wagento_Subscription::subscription_catalog" title="Subscription" translate="title"
+             module="Wagento_Subscription" sortOrder="20" parent="Magento_Catalog::catalog"
+             dependsOnModule="Magento_Catalog" resource="Wagento_Subscription::subscription_catalog"/>
+        <add id="Wagento_Subscription::manage" title="Manage Subscription" translate="title"
+             module="Wagento_Subscription" sortOrder="10" parent="Wagento_Subscription::subscription_catalog"
+             action="subscription/" resource="Wagento_Subscription::manage"/>
+        <add id="Wagento_Subscription::subscription_list" title="Sales Subscription" translate="title"
+             module="Wagento_Subscription" sortOrder="20" parent="Magento_Sales::sales"
+             resource="Wagento_Subscription::subscription_list"/>
+        <add id="Wagento_Subscription::subscription_grid" title="Subscription" translate="title"
+             module="Wagento_Subscription" sortOrder="70" parent="Wagento_Subscription::subscription_list"
+             action="subscription/sales/" resource="Wagento_Subscription::subscription_grid"/>
+    </menu>
+</config>

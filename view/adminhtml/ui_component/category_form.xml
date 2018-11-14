@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="content">
+        <field name="subscription_configuration" sortOrder="400" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Subscription options</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Wagento\Subscription\Model\Subscription\Attribute\Source\SubscriptionOptions"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="subscription_attribute_product" sortOrder="00" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Subscription Name</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="\Wagento\Subscription\Model\Subscription\Attribute\Source\SubscriptionOptions"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

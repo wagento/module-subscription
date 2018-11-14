@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="wagento_subscription">
+        <job name="wagento_subscriptions_bill" instance="Wagento\Subscription\Model\Cron\Bill"
+             method="runSubscriptionCron">
+            <schedule>0 0 * * *</schedule>
+        </job>
+
+        <job name="wagento_subscriptions_reminderemail" instance="Wagento\Subscription\Model\Cron\ReminderEmail"
+             method="subscriptionReminderEmail">
+            <schedule>0 0 * * *</schedule>
+        </job>
+    </group>
+</config>

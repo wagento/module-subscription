@@ -1,0 +1,44 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Update to your %store_name Subscription Profile" store_name=$store.getFrontendName()}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL"
+}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <h1 style="font-size:22px;font-weight:normal;line-height:22px;margin:0 0 11px 0;">{{trans "Dear "}} {{var
+                customer_name|nl2br}},</h1>
+            <h4> {{trans 'Subscription Profile #'}}<strong>{{var increament_id|nl2br}}</strong>.</h4>
+
+            <p>
+                {{trans "Your subscription has been updated with a status of "}}<strong>{{var status|nl2br}}</strong>.
+            </p>
+            <p>{{trans 'You can check the status of your subscription profile by <a href="%account_url">logging into
+                your account</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}</p>
+            <p>
+                {{trans 'If you have questions about your subscription profile, you can email us at <a
+                    href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}}
+                {{trans 'or call us at <a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone
+                |raw}}{{/depend}}.
+                {{depend store_hours}}
+                {{trans 'Our hours are <span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+                {{/depend}}
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

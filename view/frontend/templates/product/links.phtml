@@ -1,0 +1,77 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+$productId = $this->getData('productId');
+$subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
+?>
+<?php $_linksPurchasedSeparately = $block->getLinksPurchasedSeparately($productId); ?>
+<?php if ($subHelperLinks->getProduct($productId)->isSaleable() && $block->hasLinks($productId)): ?>
+    <?php $_links = $block->getLinks($productId); ?>
+    <?php $_linksLength = 0; ?>
+    <?php $_isRequired = $block->getLinkSelectionRequired($productId); ?>
+    <legend class="legend links-title"><span><?= /* @escapeNotVerified */
+            $block->getLinksTitle($productId) ?></span></legend><br>
+    <div class="field downloads<?php if ($_isRequired) echo ' required' ?><?php if (!$_linksPurchasedSeparately) echo ' downloads-no-separately' ?>">
+        <label class="label"><span><?= /* @escapeNotVerified */
+                $block->getLinksTitle($productId) ?></span></label>
+        <div class="control" id="downloadable-links-list"
+             data-mage-init='{"downloadable":{
+                 "linkElement":"input:checkbox[value]",
+                 "allElements":"#links_all",
+                 "config":<?= /* @escapeNotVerified */
+             $block->getJsonConfig1($productId) ?>}
+             }'
+             data-container-for="downloadable-links">
+            <?php foreach ($_links as $_link): ?>
+                <?php $_linksLength++; ?>
+                <div class="field choice" data-role="link">
+                    <?php if ($_linksPurchasedSeparately): ?>
+                        <input type="checkbox"
+                               <?php if ($_isRequired): ?>data-validate="{'validate-one-checkbox-required-by-name':'downloadable-links-list'}" <?php endif; ?>
+                               name="links[]"
+                               id="links_<?= /* @escapeNotVerified */
+                               $_link->getId() ?>"
+                               value="<?= /* @escapeNotVerified */
+                               $_link->getId() ?>" <?= /* @escapeNotVerified */
+                        $block->getLinkCheckedValue($_link, $productId) ?> />
+                    <?php endif; ?>
+                    <label class="label" for="links_<?= /* @escapeNotVerified */
+                    $_link->getId() ?>">
+                        <span><?= $block->escapeHtml($_link->getTitle()) ?></span>
+                        <?php if ($_link->getSampleFile() || $_link->getSampleUrl()): ?>
+                            <a class="sample link"
+                               href="<?= /* @escapeNotVerified */
+                               $block->getLinkSampleUrl($_link, $productId) ?>" <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>>
+                                <?= /* @escapeNotVerified */
+                                __('sample') ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php if ($_linksPurchasedSeparately): ?>
+                            <?= /* @escapeNotVerified */
+                            $block->getLinkPrice($_link, $productId) ?>
+                        <?php endif; ?>
+                    </label>
+                </div>
+            <?php endforeach; ?>
+            <?php if ($_linksPurchasedSeparately && $_linksLength > 1): ?>
+                <div class="field choice downloads-all">
+                    <input type="checkbox"
+                           data-notchecked="<?= /* @escapeNotVerified */
+                           __('Select all') ?>"
+                           data-checked="<?= /* @escapeNotVerified */
+                           __('Unselect all') ?>"
+                           id="links_all"/>
+                    <label class="label" for="links_all"><span><?= /* @escapeNotVerified */
+                            __('Select all') ?></span></label>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php if ($_isRequired): ?>
+            <span id="links-advice-container"></span>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="sidebar.additional">
+            <block class="Magento\Wishlist\Block\Customer\Sidebar" name="wishlist_sidebar" as="wishlist"
+                   template="Wagento_Subscription::sidebar.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../
+../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="Wagento\Subscription\Block\Adminhtml\Sales\Edit\Tabs"
+                   name="subscription_information.edit.tabs"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Wagento\Subscription\Block\Adminhtml\Sales\Edit" name="subscription_information.edit"/>
+        </referenceContainer>
+
+        <!--<referenceContainer name="content">
+            <uiComponent name="subscription_sales_form"/>
+        </referenceContainer>-->
+    </body>
+</page>

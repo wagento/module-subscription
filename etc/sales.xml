@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="initialfee" instance="Wagento\Subscription\Model\Quote\Address\Total\InitialFee" sort_order="300"/>
+        </group>
+    </section>
+    <section name="order_invoice">
+        <group name="totals">
+            <item name="initialfee" instance="Wagento\Subscription\Model\Invoice\Total\InitialFee" sort_order="160"/>
+        </group>
+    </section>
+    <section name="order_creditmemo">
+        <group name="totals">
+            <item name="initialfee" instance="Wagento\Subscription\Model\Creditmemo\Total\InitialFee" sort_order="160"/>
+        </group>
+    </section>
+</config>

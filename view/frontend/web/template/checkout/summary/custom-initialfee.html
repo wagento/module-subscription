@@ -1,0 +1,15 @@
+<!--
+    /**
+    * Copyright Wagento Creative LLC ©, All rights reserved.
+    * See COPYING.txt for license details.
+    */
+-->
+<!-- ko if: isDisplayedInitialFee() -->
+<script src="../../../js/view/checkout/summary/custom-initialfee.js"></script>
+<tr class="totals initialfee excl">
+    <th class="mark" colspan="1" scope="row" data-bind="text: title"></th>
+    <td class="amount">
+        <span class="price" data-bind="text: getInitialFee()"></span>
+    </td>
+</tr>
+<!-- /ko -->

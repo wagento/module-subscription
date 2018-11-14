@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<script>
+    require([
+        'jquery',
+        'Wagento_Subscription/js/form',
+        'domReady!'
+    ], function ($, form) {
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('div[data-index="subscription-options"]').click(function () {
+                    form.update();
+                });
+
+                $("select[name='product[subscription_configurate]']").change(function () {
+                    form.update();
+                });
+            }, 5000);
+        });
+
+    });
+</script>

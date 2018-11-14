@@ -1,0 +1,106 @@
+<?php
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+$subHelper = $this->helper('Wagento\Subscription\Helper\Data');
+$subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
+?>
+<?php if ($block->isProductVisibleInSiteVisibility()): ?>
+    <?php
+    $itemId = $block->getItem()->getId();
+    $productId = $block->getItem()->getProductId();
+    $isSubscribed = $block->getItem()->getIsSubscribed();
+    $actionSubscription = ($isSubscribed) ? "Unsubscribe" : "Subscribe";
+    $productType = $subHelper->getProductType($productId);
+    ?>
+    <!-- Show Subscription popup Only for non subscription Items-->
+    <?php //if($isSubscribed): ?>
+    <?php if ($subHelper->getSubscriptionConfigurations($productId) == 'optional' && !$isSubscribed): ?>
+        <?php //if(!$isSubscribed): ?>
+        <div class="field subscription">
+            <input type="checkbox" id="subscriptionPopup<?= $itemId ?>"
+                   data-bind="scope: subscriptionPopup<?= $itemId ?>"
+                   data-role="subscriptionPopup<?= $itemId ?>"
+                   class="subscriptionPopup<?= $itemId ?>"
+                   title="<?= $subHelper->getProductOptionLabel() ?>" class="checkbox">
+            <label class="label" for="product_subscription">
+                <span>
+                    <!--get label value from system configurations -->
+                    <?= $subHelper->getProductOptionLabel() ?>
+                </span>
+            </label>
+        </div>
+        <?php $subId = $subHelper->getSubscriptionId($productId); ?>
+        <!-- if subscription plan assigned start -->
+        <?php if (isset($subId)) : ?>
+            <?php
+            $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+            $fee = $priceHelper->currency(number_format($subHelper->getSubFee($subId), 2), true, false);
+            $discount = $priceHelper->currency(number_format($subHelper->getSubscriptionDiscount($subId), 2), true, false);
+            $_linksPurchasedSeparately = $subHelperLinks->getLinksPurchasedSeparately($productId);
+            $isSaleable = $subHelperLinks->getProduct($productId)->isSaleable();
+            $hasLinks = $subHelperLinks->hasLinks($productId);
+            $getLinksTitle = $subHelperLinks->getLinksTitle($productId);
+            $_isRequired = $subHelperLinks->getLinkSelectionRequired($productId);
+            $_links = $subHelperLinks->getLinks($productId);
+            ?>
+            <div id="subscriptionPopup<?= $itemId ?>" data-bind="scope:'subscriptionPopup<?= $itemId ?>'"
+                 data-role="subscriptionPopup<?= $itemId ?>" class="subscriptionPopup<?= $itemId ?>">
+
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <script type="text/x-magento-init">
+                {
+                    "#subscriptionPopup<?php echo $itemId ?>": {
+                        "Magento_Ui/js/core/app": {
+                            "components": {
+                                "subscriptionPopup<?php echo $itemId ?>": {
+                                    "component": "Wagento_Subscription/js/view/subscription-popup-cart",
+                                    "isVisible": true,
+                                    "subsname": "<?php echo $subHelper->getSubName($subId) ?>",
+                                    "frequency": "<?php echo $subHelper->getSubFrequency($subId) ?>",
+                                    "discountWithoutCurrency": "<?php echo $subHelper->getSubscriptionDiscount($subId) ?>",
+                                    "discount": "<?php echo $discount ?>",
+                                    "cost": "<?php echo $fee ?>",
+                                    "costWithoutCurrency": "<?php echo $subHelper->getSubFee($subId) ?>",
+                                    "subscriptionId" : "<?php echo $subHelper->getSubscriptionId($productId) ?>",
+                                    "state": "<?php echo $actionSubscription ?>",
+                                    "productId" : "<?php echo $productId ?>",
+                                    "itemId":"<?php echo $itemId ?>",
+                                    "howMany" : "<?php echo $subHelper->getDefaultSubscriptionHowMany($subId) ?>",
+                                    "isEnableHowMany" : "<?php echo $subHelper->isSubscriptionEnableHowMany() ?>",
+                                    "howManyUnit": "<?php echo $subHelper->getHowManyUnits($subId) ?>",
+                                    "linksPurchasedSeparately" : "<?php echo $_linksPurchasedSeparately ?>",
+                                    "isSaleable" : "<?php echo $isSaleable ?>",
+                                    "hasLinks" : "<?php echo $hasLinks ?>",
+                                    "linksTitle" : "<?php echo $getLinksTitle ?>",
+                                    "isRequired" : "<?php echo $_isRequired ?>",
+                                    "links" : <?php echo \Zend_Json::encode($subHelperLinks->getLinks($productId)) ?>
+                                }
+                            }
+                        }
+                    }
+                }
+
+                </script>
+            </div>
+        <?php endif; ?>
+        <!-- if subscription plan assigned End -->
+    <?php endif; ?>
+
+
+    <!-- edit is only for non subscription items -->
+    <?php if (!$isSubscribed): ?>
+        <a class="action action-edit"
+           href="<?= /* @escapeNotVerified */
+           $block->getConfigureUrl() ?>"
+           title="<?= $block->escapeHtml(__('Edit item parameters')) ?>">
+            <span>
+                <?= /* @escapeNotVerified */
+                __('Edit') ?>
+            </span>
+        </a>
+    <?php endif; ?>
+
+<?php endif ?>
