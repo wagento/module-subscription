@@ -120,8 +120,9 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
             $collectionSubscriptions->setPageSize($pageSize);
             $collectionSubscriptions->setCurPage($page);
             $collectionSubscriptions->setOrder('id', 'DESC');
+            return $collectionSubscriptions;
         }
-        return $collectionSubscriptions;
+        return;
     }
 
     /** Return the pager of the grid */
