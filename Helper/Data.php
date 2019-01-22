@@ -159,7 +159,7 @@ class Data extends AbstractHelper
         parent::__construct($context);
         $this->scopeConfig = $context->getScopeConfig();
         $this->_serializer = $serializer ?: ObjectManager::getInstance()->get(Json::class);
-        $this->subProductFactory = $subProductFactory->create();
+        $this->subProductFactory = $subProductFactory;
         $this->subscriptionRepository = $subscriptionRepository;
         $this->productRepository = $productRepository;
         $this->checkoutSession = $checkoutSession;

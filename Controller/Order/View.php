@@ -55,6 +55,7 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
     {
         /** @var \Magento\Framework\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
+        $resultPage->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0', true);
         if ($this->session->isLoggedIn()) {
             $customerId = $this->session->getCustomerId();
             $customerDataObject = $this->customerRepository->getById($customerId);

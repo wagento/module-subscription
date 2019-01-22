@@ -86,6 +86,11 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
     protected $subscriptionHelperData;
 
     /**
+     * @var customerSessionFactory
+     */
+    protected $customerSessionFactory;
+
+    /**
      * SubscriptionView constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
@@ -124,6 +129,7 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
         CustomerFactory $customer,
         \Magento\Directory\Model\CountryFactory $countryFactory,
         subscriptionHelperData $subscriptionHelperData,
+        \Magento\Customer\Model\SessionFactory $customerSessionFactory,
         array $data = []
     ) {
         $this->_stockState = $stockState;
@@ -138,6 +144,7 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
         $this->encryptor = $encryptor;
         $this->customer = $customer;
         $this->countryFactory = $countryFactory;
+        $this->customerSessionFactory = $customerSessionFactory;
         $this->subscriptionHelperData = $subscriptionHelperData;
         parent::__construct($context, $customerSession, $subscriberFactory, $customerRepository, $customerAccountManagement, $data);
     }
@@ -163,7 +170,7 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
      */
     public function getSubscriptions()
     {
-        $customerId = $this->customerSession->getCustomerId();
+        $customerId = $this->customerSessionFactory->create()->getCustomerId();
         $id = $this->getRequest()->getParam('order_id');
         $connection = $this->_resource->getConnection();
         $salesOrderItemTable = $connection->getTableName('sales_order_item');
