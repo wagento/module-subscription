@@ -77,7 +77,7 @@ class Pause extends \Magento\Backend\App\Action
                     //send email to customer
                     $emailTempVariables = $this->emailHelper->getStatusEmailVariables($subProfileId, self::SUB_STATUS_PAUSE, $customerId);
                     $senderInfo = $this->emailHelper->getEmailSenderInfo(self::XML_PATH_EMAIL_TEMPLATE_FIELD_SENDER);
-                    $receiverInfo = $this->emailHelper->getReceieverInfo($customerId);
+                    $receiverInfo = $this->emailHelper->getRecieverInfo($customerId);
                     $result = $this->emailHelper->sentStatusChangeEmail($emailTempVariables, $senderInfo, $receiverInfo);
                     if (isset($result['success'])) {
                         $message = __('Subscription Status Change Email Sent Successfully %1' . $receiverInfo['email']);
