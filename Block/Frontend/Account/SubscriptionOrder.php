@@ -43,12 +43,14 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory,
         CustomerRepositoryInterface $customerRepository,
+        \Magento\Customer\Model\SessionFactory $customerSessionFactory,
         AccountManagementInterface $customerAccountManagement,
         array $data = []
     ) {
         $this->resource = $resource;
         $this->subscriptionOrderFactory = $subscriptionOrderFactory;
         $this->_isScopePrivate = true;
+        $this->customerSessionFactory = $customerSessionFactory;
         parent::__construct(
             $context,
             $customerSession,
@@ -86,7 +88,7 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
      */
     public function getSubscriptions()
     {
-        $customerId = $this->customerSession->getCustomerId();
+        $customerId = $this->customerSessionFactory->create()->getCustomerId();
         $connection = $this->resource->getConnection();
         $salesOrderItemTable = $connection->getTableName('sales_order_item');
         $wagentoSubProductTable = $connection->getTableName('wagento_subscription_products');
