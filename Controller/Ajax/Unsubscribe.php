@@ -11,7 +11,7 @@ use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Checkout\Model\Cart as CustomerCart;
 
-class Unubscribe extends \Magento\Framework\App\Action\Action
+class Unsubscribe extends \Magento\Framework\App\Action\Action
 {
 
     /**
