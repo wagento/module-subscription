@@ -21,15 +21,15 @@ class StatusOptions implements OptionSourceInterface
         return [
             [
                 'value' => 0,
-                'label' => __('Cancel')
+                'label' => __('Canceled')
             ],
             [
                 'value' => 1,
-                'label' => __('Activate')
+                'label' => __('Active')
             ],
             [
                 'value' => 2,
-                'label' => __('Pause')
+                'label' => __('Paused')
             ],
             [
                 'value' => 3,
