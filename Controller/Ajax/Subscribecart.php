@@ -81,7 +81,7 @@ class Subscribecart extends \Magento\Framework\App\Action\Action
             $qty = $subOptions['subqty'];
             $links = $subOptions['links'];
             $addProduct = $this->subProductHelper
-                ->addToCartSubscriptionProduct($product_id, $qty, $links);
+                ->addToCartSubscriptionProduct($product_id, $qty, $links, true);
             if ($addProduct == 1) {
                 $_product = $this->product->getById($subOptions['productId'])->getName();
                 $message = 'product ' . $_product . ' subscribed successfully';

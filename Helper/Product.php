@@ -75,7 +75,7 @@ class Product extends AbstractHelper
      * @param $qty
      * @return bool
      */
-    public function addToCartSubscriptionProduct($productId, $qty, $links)
+    public function addToCartSubscriptionProduct($productId, $qty, $links, $refreshFlag = null)
     {
         try {
             $params = [
@@ -86,7 +86,9 @@ class Product extends AbstractHelper
             $_product = $this->product->getById($productId);
             if ($_product) {
                 $this->cart->addProduct($_product, $params);
-                $this->cart->save();
+                if ($refreshFlag == null) {
+                    $this->cart->save();
+                }
             }
         } catch (\Exception $exception) {
             return $exception->getMessage();
