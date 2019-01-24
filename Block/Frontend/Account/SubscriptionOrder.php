@@ -26,6 +26,11 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
     protected $subscriptionOrderFactory;
 
     /**
+     * @var \Magento\Customer\Model\SessionFactory
+     */
+    protected $customerSessionFactory;
+
+    /**
      * SubscriptionOrder constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Framework\App\ResourceConnection $resource
@@ -49,7 +54,6 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
     ) {
         $this->resource = $resource;
         $this->subscriptionOrderFactory = $subscriptionOrderFactory;
-        $this->_isScopePrivate = true;
         $this->customerSessionFactory = $customerSessionFactory;
         parent::__construct(
             $context,
