@@ -93,12 +93,17 @@ class SubAdditionalOption implements ObserverInterface
             $subOptions = $this->helper->jsonDecode($subOptionsJson);
 
             if ($subOptions['isEnableHowMany'] == 1) {
-                $howMany = $subOptions['subHowMany'];
+                if(isset($subOptions['subHowMany'])) {
+                       //for PDP
+                       $howMany = $subOptions['subHowMany'];
+                } else {
+                       //for cart
+                       $howMany = $subOptions['how_many'];
+                }
             }
             if ($subOptions['isEnableHowMany'] == 0) {
-                $howMany = $subOptions['howMany'];
+               $howMany = $subOptions['howMany'];
             }
-
             $productCollection = $this->productFactory->getCollection()
                 ->addFieldToFilter('product_id', ['eq' => $product->getId()]);
             $subscriptionData = $this->subscriptionFactory
