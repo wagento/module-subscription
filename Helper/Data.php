@@ -210,11 +210,11 @@ class Data extends AbstractHelper
     public function getSubscriptionStatus($status)
     {
         if ($status == '0') {
-            return __('Cancel');
+            return __('Canceled');
         } elseif ($status == '1') {
-            return $status = __('Activate');
+            return $status = __('Active');
         } elseif ($status == '2') {
-            return $status = __('Pause');
+            return $status = __('Paused');
         } elseif ($status == '3') {
             return $status = __('Completed');
         }
