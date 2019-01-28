@@ -29,26 +29,17 @@ define(
 
             var parseData = ko.toJSON(productData);
             var sentData = JSON.stringify(parseData);
-
+            $('body').trigger('processStart');
             return storage.post(
                 'subscription/ajax/unsubscribecart',
                 sentData,
                 false
             ).done(
                 function (response) {
-                    if (response.status == 'success') {
-                        var cart = customerData.get('cart')().items;
-                        console.log(cart['item_id']);
-                        alert(response.message);
-                        subscription.closeModal();
-                        window.location.reload(true);
-                    } else {
-                        var cart = customerData.get('cart')().items;
-                        console.log(customerData.get('cart')().items);
-                        alert(response.message);
-                        subscription.closeModal();
-                        window.location.reload(true);
-                    }
+                    alert(response.message);
+                    subscription.closeModal();
+                    $('body').trigger('processStop');
+                    window.location.reload(true);
                 }
             ).fail(
                 function (error) {

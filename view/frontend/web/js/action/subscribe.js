@@ -22,23 +22,17 @@ define(
         return function (subscriptionData) {
             var parseData = ko.toJSON(subscriptionData);
             var sentData = JSON.stringify(parseData);
+            $('body').trigger('processStart');
             return storage.post(
                 'subscription/ajax/subscribe',
                 sentData,
                 false
             ).done(
                 function (response) {
-                    if (response.status == 'success') {
-                        $('body').trigger('processStart');
-                        alert(response.message);
-                        subscription.closeModal();
-                        window.location.reload(true);
-                    } else {
-                        $('body').trigger('processStart');
-                        alert(response.message);
-                        subscription.closeModal();
-                        window.location.reload(true);
-                    }
+                    alert(response.message);
+                    subscription.closeModal();
+                    $('body').trigger('processStop');
+                    window.location.reload(true);
                 }
             ).fail(
                 function (error) {

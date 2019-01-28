@@ -49,8 +49,15 @@ class Edit extends \Magento\Sales\Controller\AbstractController\View implements 
      */
     public function execute()
     {
+        if (!$this->session->isLoggedIn()) {
+            /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $resultRedirect->setPath('*/*');
+            return $resultRedirect;
+        }
         /** @var \Magento\Framework\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
+        $resultPage->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0', true);
         $customerId = $this->session->getCustomerId();
         $customerDataObject = $this->customerRepository->getById($customerId);
         $this->session->setCustomerData($customerDataObject);
