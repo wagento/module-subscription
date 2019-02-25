@@ -45,7 +45,7 @@ class ToOrderItem
     
         $orderItem = $proceed($item, $data);
         $additionalOptions = $item->getOptionByCode('additional_options');
-        if (count($additionalOptions) > 0) {
+        if (!is_null($additionalOptions)) {
             $options = $orderItem->getProductOptions();
             // Set additional options to Order Item
             $options['additional_options'] = $this->_serializer->unserialize($additionalOptions->getValue());
