@@ -40,12 +40,12 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                         $_product->getData('subscription_configurate') == 'optional') &&
                     !(is_null($_product->getData('subscription_attribute_product')))) : ?>
                     <div class="field subscription">
-                        <input<?php if ($subHelper->getProductSubscribed($_product->getId())): ?>
+                        <input <?php if ($subHelper->getProductSubscribed($_product->getId())): ?>
                             checked="checked"<?php endif; ?>
                                 type="checkbox" id="subscriptionPopup" data-bind="scope:'subscriptionPopup'"
                                 data-role="subscriptionPopup" class="subscriptionPopup"
                                 title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>" class="checkbox"/>
-                        <label class="label" for="product_subscription">
+                        <label class="label" for="subscriptionPopup">
                     <span>
                         <?php $label = $subHelper->getProductOptionLabel(); ?>
                         <?php if(is_null($label)):?>
