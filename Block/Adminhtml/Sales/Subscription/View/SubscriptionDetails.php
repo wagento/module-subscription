@@ -3,7 +3,6 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View;
 
 use Magento\Backend\Block\Widget\Form\Generic;
@@ -56,6 +55,7 @@ class SubscriptionDetails extends Generic implements TabInterface
     protected function _prepareForm()
     {
         $model = $this->_coreRegistry->registry('sales_subscription');
+
         $customerId = $model->getCustomerId();
 
         /** @var \Magento\Framework\Data\Form $form */
@@ -99,16 +99,18 @@ class SubscriptionDetails extends Generic implements TabInterface
             ]
         );
 
-        $fieldset->addField(
-            'shipping_address_id',
-            'select',
-            [
-                'name' => 'shipping_address_id',
-                'label' => __('Shipping Address'),
-                'required' => true,
-                'values' => $this->helper->getCustomerAddressInline($customerId)
-            ]
-        );
+        if($this->getIsRequiredShipping()) {
+            $fieldset->addField(
+                'shipping_address_id',
+                'select',
+                [
+                    'name' => 'shipping_address_id',
+                    'label' => __('Shipping Address'),
+                    'required' => true,
+                    'values' => $this->helper->getCustomerAddressInline($customerId)
+                ]
+            );
+        }
 
         $fieldset->addField(
             'billing_address_id',
@@ -172,6 +174,18 @@ class SubscriptionDetails extends Generic implements TabInterface
      */
     public function isHidden()
     {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsRequiredShipping(){
+        $model = $this->_coreRegistry->registry('sales_subscription');
+        $isShippingAddress = $model->getShippingAddressId();
+        if(isset($isShippingAddress)){
+            return true;
+        }
         return false;
     }
 }
