@@ -223,9 +223,12 @@ $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
                     <?= __('Subscribed') ?>
                     <?= (int)$subDetails->getQtyOrdered() ?>
                 </td>
-                <?php $total = ($subDetails->getPrice()) + $subDetails->getShipping() ?>
+                <?php
+                    $total = ($subDetails->getPrice()) + $subDetails->getShipping();
+                    $rowTotal = $subDetails->getPrice() * (int)$subDetails->getQtyOrdered();
+                ?>
                 <td><?= $priceHelper->currency(number_format($total, 2), true, false) ?></td>
-                <td><?= $priceHelper->currency(number_format($total, 2), true, false) ?></td>
+                <td><?= $priceHelper->currency(number_format($rowTotal, 2), true, false) ?></td>
             </tr>
             </tbody>
         </table>
