@@ -17,14 +17,16 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
     ?>
     <!-- Show Subscription popup Only for non subscription Items-->
     <?php //if($isSubscribed): ?>
-    <?php if ($subHelper->getSubscriptionConfigurations($productId) == 'optional' && !$isSubscribed): ?>
+    <?php if ($subHelper->getSubscriptionConfigurations($productId) == 'optional'): ?>
         <?php //if(!$isSubscribed): ?>
         <div class="field subscription">
             <input type="checkbox" id="subscriptionPopup<?= $itemId ?>"
                    data-bind="scope: subscriptionPopup<?= $itemId ?>"
                    data-role="subscriptionPopup<?= $itemId ?>"
                    class="subscriptionPopup<?= $itemId ?>"
-                   title="<?= $subHelper->getProductOptionLabel() ?>" class="checkbox">
+                   title="<?= $subHelper->getProductOptionLabel() ?>" class="checkbox"
+                   <?php if($isSubscribed): ?> checked="checked" <?php endif; ?>
+            >
             <label class="label" for="product_subscription">
                 <span>
                     <!--get label value from system configurations -->
@@ -88,19 +90,4 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
         <?php endif; ?>
         <!-- if subscription plan assigned End -->
     <?php endif; ?>
-
-
-    <!-- edit is only for non subscription items -->
-    <?php if (!$isSubscribed): ?>
-        <a class="action action-edit"
-           href="<?= /* @escapeNotVerified */
-           $block->getConfigureUrl() ?>"
-           title="<?= $block->escapeHtml(__('Edit item parameters')) ?>">
-            <span>
-                <?= /* @escapeNotVerified */
-                __('Edit') ?>
-            </span>
-        </a>
-    <?php endif; ?>
-
 <?php endif ?>

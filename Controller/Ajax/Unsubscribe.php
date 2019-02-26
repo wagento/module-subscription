@@ -9,7 +9,6 @@ namespace Wagento\Subscription\Controller\Ajax;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\UrlInterface;
-use Magento\Checkout\Model\Cart as CustomerCart;
 
 class Unsubscribe extends \Magento\Framework\App\Action\Action
 {

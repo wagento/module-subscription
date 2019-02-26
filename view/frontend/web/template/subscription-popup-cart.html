@@ -7,7 +7,29 @@
 <div class="block-subscription"
      data-bind="afterRender: setModalElement"
      style="display: none">
+    <!-- ko if: state == "Unsubscribe" -->
+    <div class="content unsuscription alert" id="unsubscription-form">
+        <form class="form unsubscription-form"
+              method="post"
+              data-bind="event: {submit: unsubscribe},attr: { id:'unsubscription-form-'+itemId}">
+            <div class="content">
+                <p class="content" data-bind="i18n: 'Are you sure, you want to unsubscribe this product?'"></p>
+            </div>
+            <input id="un_product_id" name="product_id" type="hidden" data-bind="value:subscriptionProductId"/>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action action-unsubscribe secondary action delete"
+                            name="unsubscribe" id="unsubscribe"
+                            data-bind="attr: {'data-cart-item': subscriptionProductId, title: $t('Remove item')}">
+                        <span data-bind="i18n: 'Unsubscribe'"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--/ko-->
     <div class="popup-authentication" id="subscribe">
+        <!-- ko if: state == "Subscribe" -->
         <div class="block block-new-customer">
             <div class="block-title">
                 <strong id="block-new-customer-heading"
@@ -51,6 +73,7 @@
                 </div>
             </div>
         </div>
+        <!--/ko-->
         <div class="block">
             <!-- ko foreach: getRegion('messages') -->
             <!-- ko template: getTemplate() --><!-- /ko -->
@@ -149,25 +172,6 @@
                                     <span data-bind="text: state"></span>
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </form>
-                <!--/ko-->
-                <!-- ko if: state == "Unsubscribe" -->
-                <form class="form unsubscription-form"
-                      method="post"
-                      data-bind="event: {submit: unsubscribe},attr: { id:'unsubscription-form-'+itemId}">
-                    <div class="content">
-                        <p class="content" data-bind="i18n: 'Are you sure, you want to unsubscribe this product?'"></p>
-                    </div>
-                    <input id="un_product_id" name="product_id" type="hidden" data-bind="value:subscriptionProductId"/>
-                    <div class="actions-toolbar">
-                        <div class="primary">
-                            <button type="submit" class="action action-unsubscribe secondary action delete"
-                                    name="unsubscribe" id="unsubscribe"
-                                    data-bind="attr: {'data-cart-item': subscriptionProductId, title: $t('Remove item')}">
-                                <span data-bind="i18n: 'Unsubscribe'"></span>
-                            </button>
                         </div>
                     </div>
                 </form>
