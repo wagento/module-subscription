@@ -185,6 +185,10 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     /* your send mail method*/
     public function sentStatusChangeEmail($emailTemplateVariables, $senderInfo, $receiverInfo)
     {
+        if(is_array($receiverInfo)) {
+            $receiverInfo = $receiverInfo['email'];
+        }
+        
         $templateOptions = ['area' => \Magento\Framework\App\Area::AREA_FRONTEND,
             'store' => $this->getStore()->getStoreId()];
         $this->inlineTranslation->suspend();
