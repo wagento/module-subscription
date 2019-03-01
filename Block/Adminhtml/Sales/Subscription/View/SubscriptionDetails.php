@@ -12,6 +12,7 @@ use Magento\Framework\Registry;
 use Magento\Framework\Data\FormFactory;
 use Wagento\Subscription\Model\SubscriptionSales;
 use Wagento\Subscription\Helper\Data;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class SubscriptionDetails extends Generic implements TabInterface
 {
@@ -24,6 +25,10 @@ class SubscriptionDetails extends Generic implements TabInterface
      * @var Data
      */
     protected $helper;
+    /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
 
     /**
      * SubscriptionDetails constructor.
@@ -32,6 +37,7 @@ class SubscriptionDetails extends Generic implements TabInterface
      * @param FormFactory $formFactory
      * @param SubscriptionSales $subscriptionSales
      * @param Data $helper
+     * @param ProductRepositoryInterface $productRepository
      * @param array $data
      */
     public function __construct(
@@ -40,11 +46,13 @@ class SubscriptionDetails extends Generic implements TabInterface
         FormFactory $formFactory,
         SubscriptionSales $subscriptionSales,
         Data $helper,
+        ProductRepositoryInterface $productRepository,
         array $data = []
     ) {
         $this->subscriptionSales = $subscriptionSales;
         $this->helper = $helper;
         parent::__construct($context, $registry, $formFactory, $data);
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -179,12 +187,20 @@ class SubscriptionDetails extends Generic implements TabInterface
 
     /**
      * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function getIsRequiredShipping(){
+    public function getIsRequiredShipping()
+    {
         $model = $this->_coreRegistry->registry('sales_subscription');
-        $isShippingAddress = $model->getShippingAddressId();
-        if(isset($isShippingAddress)){
-            return true;
+        $productId = $model->getSubProductId();
+        $product = $this->productRepository->getById($productId);
+        $productTypes = ['virtual', 'downloadable'];
+
+        if ($product) {
+            $productType = $product->getTypeId();
+            if (!in_array($productType, $productTypes)) {
+                return true;
+            }
         }
         return false;
     }
