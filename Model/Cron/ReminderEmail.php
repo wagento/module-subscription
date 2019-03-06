@@ -9,6 +9,7 @@ namespace Wagento\Subscription\Model\Cron;
 use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory;
 use Wagento\Subscription\Model\ResourceModel\SubscriptionSalesFactory;
 use Wagento\Subscription\Helper\Email;
+use Magento\Payment\Helper\Data as PaymentHelper;
 
 class ReminderEmail
 {
@@ -52,10 +53,6 @@ class ReminderEmail
      */
     protected $customers;
     /**
-     * @var \Magento\Sales\Model\Order
-     */
-    private $salesOrder;
-    /**
      * @var \Magento\Sales\Api\OrderRepositoryInterface
      */
     private $orderRepository;
@@ -68,6 +65,10 @@ class ReminderEmail
      * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
      */
     private $date;
+    /**
+     * @var PaymentHelper
+     */
+    private $paymentHelper;
 
     /**
      * ReminderEmail constructor.
@@ -86,10 +87,10 @@ class ReminderEmail
         \Wagento\Subscription\Model\SubscriptionSales $subscriptionSales,
         Email $emailHelper,
         \Magento\Customer\Model\CustomerRegistry $customers,
-        \Magento\Sales\Model\OrderRepository $salesOrder,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Sales\Model\Order\Address\Renderer $addressRenderer,
-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date,
+        PaymentHelper $paymentHelper
     ) {
         $this->collectionFactory = $collectionFactory;
         $this->dateProcessor = $dateProcessor;
@@ -98,10 +99,10 @@ class ReminderEmail
         $this->subscriptionSales = $subscriptionSales;
         $this->emailHelper = $emailHelper;
         $this->customers = $customers;
-        $this->salesOrder = $salesOrder;
         $this->orderRepository = $orderRepository;
         $this->addressRenderer = $addressRenderer;
         $this->date = $date;
+        $this->paymentHelper = $paymentHelper;
     }
 
     /**
@@ -141,10 +142,15 @@ class ReminderEmail
             foreach ($subscriptions as $subscription) {
                 try {
                     $customerId = $subscription->getCustomerId();
+                    $subscriptionProductId = $subscription->getSubProductId();
                     $receiverInfo = $this->getReceiverInfo($customerId);
 
+                    if (is_array($receiverInfo)) {
+                        $receiverInfo = $receiverInfo['email'];
+                    }
+
                     $order = $this->orderRepository->get($subscription->getSubscribeOrderId());
-                    $neworder = $this->salesOrder->get($subscription->getSubscribeOrderId());
+                    $order->setSubProductId($subscriptionProductId);
                     $nextRunDateFormat = $this->date->formatDate($subscription->getNextRenewed(), \IntlDateFormatter::LONG, false);
 
                     /* Assign values for your template variables  */
@@ -153,16 +159,16 @@ class ReminderEmail
                         'customer_name' => $order->getCustomerFirstname() . ' ' . $order->getCustomerLastname(),
                         'date_of_next_run' => $nextRunDateFormat,
                         'formattedBillingAddress' => $this->addressRenderer->format($order->getBillingAddress(), 'html'),
-                        'formattedShippingAddress' => $this->addressRenderer->format($neworder->getShippingAddress(), 'html'),
-                        'payment_html' => $neworder->getPayment()->getAdditionalInformation('method_title'),
-                        'shipping_escription' => $order->getShippingDescription(),
+                        'formattedShippingAddress' => $this->addressRenderer->format($order->getShippingAddress(), 'html'),
+                        'payment_html' => $this->getPaymentHtml($order),
+                        'shipping_description' => $order->getShippingDescription(),
                         'order' => $order
                     ];
 
                     $result = $this->emailHelper->sentReminderEmail($emailTempVariables, $senderInfo, $receiverInfo);
 
                     if (isset($result['success'])) {
-                        $message = __('Subscription Email sent Successfully %1' . $receiverInfo['email']);
+                        $message = __('Subscription Email sent Successfully %1' . $receiverInfo);
                         $this->logger->info((string)$message);
                     } elseif (isset($result['error'])) {
                         $message = __($result['error_msg']);
@@ -237,5 +243,13 @@ class ReminderEmail
             'email' => $customer->getEmail()
         ];
         return $receiverInfo;
+    }
+
+    protected function getPaymentHtml($order)
+    {
+        return $this->paymentHelper->getInfoBlockHtml(
+            $order->getPayment(),
+            $order->getStoreId()
+        );
     }
 }
