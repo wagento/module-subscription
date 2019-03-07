@@ -12,6 +12,10 @@ use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\TemporaryState\CouldNotSaveException;
 
+/**
+ * Class Update
+ * @package Wagento\Subscription\Controller\Order
+ */
 class Update extends Action
 {
     /**
@@ -35,6 +39,7 @@ class Update extends Action
 
     /**
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute()

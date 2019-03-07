@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Sales;
-
+/**
+ * Class Index
+ * @package Wagento\Subscription\Controller\Adminhtml\Sales
+ */
 class Index extends \Magento\Backend\App\Action
 {
     /**

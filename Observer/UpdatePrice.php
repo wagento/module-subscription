@@ -8,7 +8,6 @@ namespace Wagento\Subscription\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\App\RequestInterface;
-use Magento\Framework\Serialize\Serializer\Json;
 use Wagento\Subscription\Helper\Data as subHelper;
 
 class UpdatePrice implements ObserverInterface
@@ -31,13 +30,11 @@ class UpdatePrice implements ObserverInterface
     /**
      * UpdatePrice constructor.
      * @param RequestInterface $request
-     * @param Json $serializer
      * @param \Magento\Framework\Json\Helper\Data $helper
      * @param subHelper $subHelper
      */
     public function __construct(
         RequestInterface $request,
-        Json $serializer,
         \Magento\Framework\Json\Helper\Data $helper,
         subHelper $subHelper
     ) {
@@ -49,6 +46,8 @@ class UpdatePrice implements ObserverInterface
 
     /**
      * @param \Magento\Framework\Event\Observer $observer
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {

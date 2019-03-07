@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Block\Adminhtml\Subscription;
 
 use Wagento\Subscription\Model\ResourceModel\Product\CollectionFactory;
 
+/**
+ * Class ProductGrid
+ * @package Wagento\Subscription\Block\Adminhtml\Subscription
+ */
 class ProductGrid extends \Magento\Backend\Block\Template
 {
     /**

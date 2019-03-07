@@ -10,6 +10,10 @@ use Magento\Backend\App\Action;
 use Magento\Framework\Controller\ResultFactory;
 use Wagento\Subscription\Controller\Adminhtml\Index;
 
+/**
+ * Class Delete
+ * @package Wagento\Subscription\Controller\Adminhtml\Index
+ */
 class Delete extends Index
 {
     /**
@@ -95,13 +99,19 @@ class Delete extends Index
                 }
                 $storeId = 0;
                 //set subscription attribute value no to product
-                if(!empty($objSubscriptionProducts->getData())) {
+                if (!empty($objSubscriptionProducts->getData())) {
                     foreach ($objSubscriptionProducts as $subProducts) {
-                        $this->product->updateAttributes([$subProducts->getProductId()],
-                            ['subscription_configurate' => 'no'],$storeId);
+                        $this->product->updateAttributes(
+                            [$subProducts->getProductId()],
+                            ['subscription_configurate' => 'no'],
+                            $storeId
+                        );
 
-                        $this->product->updateAttributes([$subProducts->getProductId()],
-                            ['subscription_attribute_product' => 'NULL'],$storeId);
+                        $this->product->updateAttributes(
+                            [$subProducts->getProductId()],
+                            ['subscription_attribute_product' => 'NULL'],
+                            $storeId
+                        );
                     }
                 }
 

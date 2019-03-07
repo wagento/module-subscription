@@ -13,6 +13,10 @@ use function var_dump;
 use Wagento\Subscription\Controller\Adminhtml\Index as IndexAction;
 use Magento\Framework\Controller\ResultFactory;
 
+/**
+ * Class MassDelete
+ * @package Wagento\Subscription\Controller\Adminhtml\Index
+ */
 class MassDelete extends IndexAction
 {
     /**
@@ -97,11 +101,17 @@ class MassDelete extends IndexAction
                     foreach ($productIds as $key => $productId) {
                         //update product attributes
                         $storeId = 0;
-                        $this->product->updateAttributes([$productId],
-                            ['subscription_configurate' => 'no'],$storeId);
+                        $this->product->updateAttributes(
+                            [$productId],
+                            ['subscription_configurate' => 'no'],
+                            $storeId
+                        );
 
-                        $this->product->updateAttributes([$productId],
-                            ['subscription_attribute_product' => 'NULL'],$storeId);
+                        $this->product->updateAttributes(
+                            [$productId],
+                            ['subscription_attribute_product' => 'NULL'],
+                            $storeId
+                        );
                     }
                 }
                 $this->subscriptionRepository->deleteById($subscriptionId);

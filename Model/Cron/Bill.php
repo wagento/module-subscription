@@ -10,6 +10,10 @@ use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory
 use Wagento\Subscription\Model\ResourceModel\SubscriptionSalesFactory;
 use Wagento\Subscription\Helper\Email;
 
+/**
+ * Class Bill
+ * @package Wagento\Subscription\Model\Cron
+ */
 class Bill
 {
     const XML_PATH_EMAIL_TEMPLATE_ENABLE = 'braintree_subscription/email_config/enable_email';
@@ -80,7 +84,7 @@ class Bill
     }
 
     /**
-     *
+     * Run subscription cron
      */
     public function runSubscriptionCron()
     {

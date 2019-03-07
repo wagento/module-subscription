@@ -3,6 +3,7 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View;
 
 use Magento\Backend\Block\Widget\Form\Generic;
@@ -14,6 +15,10 @@ use Wagento\Subscription\Model\SubscriptionSales;
 use Wagento\Subscription\Helper\Data;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
+/**
+ * Class SubscriptionDetails
+ * @package Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View
+ */
 class SubscriptionDetails extends Generic implements TabInterface
 {
     /**
@@ -56,9 +61,9 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
-     * Prepare form fields
-     *
-     * @return \Magento\Backend\Block\Widget\Form
+     * @return Generic
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function _prepareForm()
     {
@@ -92,7 +97,7 @@ class SubscriptionDetails extends Generic implements TabInterface
                 'name' => 'how_many',
                 'label' => __('Maximum Number of Subscription Cycle'),
                 'required' => false,
-                'after_element_html' =>$this->helper->getHowManyUnits($frequency)
+                'after_element_html' => $this->helper->getHowManyUnits($frequency)
             ]
         );
 
@@ -107,7 +112,7 @@ class SubscriptionDetails extends Generic implements TabInterface
             ]
         );
 
-        if($this->getIsRequiredShipping()) {
+        if ($this->getIsRequiredShipping()) {
             $fieldset->addField(
                 'shipping_address_id',
                 'select',

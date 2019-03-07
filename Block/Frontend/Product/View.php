@@ -79,10 +79,9 @@ class View extends \Magento\Catalog\Block\Product\View
     // @codingStandardsIgnoreEnd
 
     /**
-     * Return wishlist widget options
-     *
-     * @return array
-     * @deprecated 101.0.1
+     * @param $productId
+     * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getInCart($productId)
     {

@@ -11,6 +11,10 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface;
 
+/**
+ * Class SubscriptionSalesRepository
+ * @package Wagento\Subscription\Model
+ */
 class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterface
 {
     /**
@@ -37,7 +41,9 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscription
+     * @return \Wagento\Subscription\Api\Data\SalesSubscriptionInterface
+     * @throws CouldNotSaveException
      */
     public function save(\Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscription)
     {
@@ -54,7 +60,9 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @param int $subscriptionId
+     * @return \Wagento\Subscription\Api\Data\SalesSubscriptionInterface|Subscription|SubscriptionSales
+     * @throws NoSuchEntityException
      */
     public function getById($subscriptionId)
     {
@@ -67,7 +75,10 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * @param int $subscriptionSalesId
+     * @return bool
+     * @throws CouldNotDeleteException
+     * @throws NoSuchEntityException
      */
     public function deleteById($subscriptionSalesId)
     {

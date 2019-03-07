@@ -11,6 +11,10 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\App\Action\Context;
 
+/**
+ * Class Orders
+ * @package Wagento\Subscription\Controller\Account
+ */
 class Orders extends \Magento\Customer\Controller\AbstractAccount
 {
     /** @var CustomerRepositoryInterface */
@@ -45,9 +49,9 @@ class Orders extends \Magento\Customer\Controller\AbstractAccount
     }
 
     /**
-     * Forgot customer account information page
-     *
-     * @return \Magento\Framework\View\Result\Page
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute()
     {

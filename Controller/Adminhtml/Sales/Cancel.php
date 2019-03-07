@@ -10,6 +10,10 @@ use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Magento\Framework\Controller\ResultFactory;
 use Wagento\Subscription\Helper\Email;
 
+/**
+ * Class Cancel
+ * @package Wagento\Subscription\Controller\Adminhtml\Sales
+ */
 class Cancel extends \Magento\Backend\App\Action
 {
     const XML_PATH_EMAIL_TEMPLATE_FIELD_SENDER = 'braintree_subscription/email_config/email_sender';

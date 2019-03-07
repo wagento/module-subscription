@@ -11,6 +11,10 @@ use Magento\Framework\App\Helper\Context;
 use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 
+/**
+ * Class Subscription
+ * @package Wagento\Subscription\Helper
+ */
 class Subscription extends AbstractHelper
 {
 
@@ -54,7 +58,7 @@ class Subscription extends AbstractHelper
 
     /**
      * @param $productId
-     * @return $this
+     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
      */
     private function initProduct($productId)
     {
@@ -64,7 +68,7 @@ class Subscription extends AbstractHelper
 
     /**
      * @param $productFactory
-     * @return $this
+     * @return \Wagento\Subscription\Model\Subscription
      */
     private function initSubcription($productFactory)
     {

@@ -12,6 +12,10 @@ use Magento\Framework\Event\ManagerInterface as EventManager;
 use Psr\Log\LoggerInterface as Logger;
 use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory;
 
+/**
+ * Class SubscriptionSales
+ * @package Wagento\Subscription\Ui\DataProvider\Grid
+ */
 class SubscriptionSales extends \Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult
 {
     /**

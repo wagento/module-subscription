@@ -210,7 +210,10 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
 
     /**
      * @param $orderId
-     * @return null|string
+     * @param $shippingAddressId
+     * @return \Magento\Framework\Phrase|mixed|string|null
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getShippingAddress($orderId, $shippingAddressId)
     {
@@ -240,7 +243,11 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
 
     /**
      * @param $orderId
-     * @return string[]
+     * @param $publicHash
+     * @param $customerId
+     * @return array
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getPaymentMethod($orderId, $publicHash, $customerId)
     {
@@ -260,7 +267,9 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
 
     /**
      * @param $orderId
-     * @return null|string
+     * @return string|null
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getShippingMethod($orderId)
     {

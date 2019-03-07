@@ -10,6 +10,10 @@ use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Magento\Framework\Controller\ResultFactory;
 use Wagento\Subscription\Helper\Email;
 
+/**
+ * Class Pause
+ * @package Wagento\Subscription\Controller\Adminhtml\Sales
+ */
 class Pause extends \Magento\Backend\App\Action
 {
     const XML_PATH_EMAIL_TEMPLATE_FIELD_SENDER = 'braintree_subscription/email_config/email_sender';
@@ -42,6 +46,8 @@ class Pause extends \Magento\Backend\App\Action
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param SubscriptionSalesRepository $subscriptionSalesRepository
+     * @param Email $emailHelper
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,

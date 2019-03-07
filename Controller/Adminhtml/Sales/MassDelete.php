@@ -12,6 +12,10 @@ use Magento\Ui\Component\MassAction\Filter;
 use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory;
 use Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface;
 
+/**
+ * Class MassDelete
+ * @package Wagento\Subscription\Controller\Adminhtml\Sales
+ */
 class MassDelete extends \Magento\Backend\App\Action
 {
     protected $redirectUrl = 'subscription/sales/index';

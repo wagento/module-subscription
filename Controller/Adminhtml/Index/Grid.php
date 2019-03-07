@@ -3,8 +3,12 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Wagento\Subscription\Controller\Adminhtml\Index;
 
+namespace Wagento\Subscription\Controller\Adminhtml\Index;
+/**
+ * Class Grid
+ * @package Wagento\Subscription\Controller\Adminhtml\Index
+ */
 class Grid extends \Wagento\Subscription\Controller\Adminhtml\Index\Product
 {
     /**
@@ -42,7 +46,7 @@ class Grid extends \Wagento\Subscription\Controller\Adminhtml\Index\Product
     {
         /** @var \Magento\Framework\Controller\Result\Raw $resultRaw */
         $resultRaw = $this->resultRawFactory->create();
-        $row =  $resultRaw->setContents(
+        $row = $resultRaw->setContents(
             $this->layoutFactory->create()->createBlock(
                 \Wagento\Subscription\Block\Adminhtml\Products\Edit\Tab\Product::class,
                 'subscription.product.grid'

@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Model\Sales\Pdf;
-
+/**
+ * Class InitialFee
+ * @package Wagento\Subscription\Model\Sales\Pdf
+ */
 class InitialFee extends \Magento\Sales\Model\Order\Pdf\Total\DefaultTotal
 {
     /**

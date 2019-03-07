@@ -12,6 +12,10 @@ use Magento\Framework\Registry;
 use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Wagento\Subscription\Model\SubscriptionSales;
 
+/**
+ * Class Edit
+ * @package Wagento\Subscription\Block\Adminhtml\Sales
+ */
 class Edit extends Container
 {
     /**
@@ -54,6 +58,7 @@ class Edit extends Container
     }
 
     /**
+     * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function _construct()
@@ -183,6 +188,9 @@ class Edit extends Container
         return $this->getUrl('subscription/sales/activate', ['id' => $id]);
     }
 
+    /**
+     * @return string
+     */
     protected function getResetUrl()
     {
         $id = $this->getRequest()->getParam('id');

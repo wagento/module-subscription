@@ -15,6 +15,10 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Helper\Data as SubscriptionHelper;
 
+/**
+ * Class SubAdditionalOption
+ * @package Wagento\Subscription\Observer
+ */
 class SubAdditionalOption implements ObserverInterface
 {
     const FLOAT_VALUE = 0.0000;
@@ -93,16 +97,16 @@ class SubAdditionalOption implements ObserverInterface
             $subOptions = $this->helper->jsonDecode($subOptionsJson);
 
             if ($subOptions['isEnableHowMany'] == 1) {
-                if(isset($subOptions['subHowMany'])) {
-                       //for PDP
-                       $howMany = $subOptions['subHowMany'];
+                if (isset($subOptions['subHowMany'])) {
+                    //for PDP
+                    $howMany = $subOptions['subHowMany'];
                 } else {
-                       //for cart
-                       $howMany = $subOptions['how_many'];
+                    //for cart
+                    $howMany = $subOptions['how_many'];
                 }
             }
             if ($subOptions['isEnableHowMany'] == 0) {
-               $howMany = $subOptions['howMany'];
+                $howMany = $subOptions['howMany'];
             }
             $productCollection = $this->productFactory->getCollection()
                 ->addFieldToFilter('product_id', ['eq' => $product->getId()]);

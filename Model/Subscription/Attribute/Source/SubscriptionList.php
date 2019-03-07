@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Model\Subscription\Attribute\Source;
-
+/**
+ * Class SubscriptionList
+ * @package Wagento\Subscription\Model\Subscription\Attribute\Source
+ */
 class SubscriptionList extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
     /**

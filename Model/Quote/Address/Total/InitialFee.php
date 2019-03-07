@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Model\Quote\Address\Total;
 
 use Magento\Checkout\Model\Cart;
 
+/**
+ * Class InitialFee
+ * @package Wagento\Subscription\Model\Quote\Address\Total
+ */
 class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 {
     /**
@@ -33,6 +37,7 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      * @param \Magento\Quote\Model\QuoteValidator $quoteValidator
      * @param Cart $cart
      * @param \Wagento\Subscription\Helper\Product $subProductHelper
+     * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
      */
     public function __construct(
         \Magento\Quote\Model\QuoteValidator $quoteValidator,

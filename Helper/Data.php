@@ -26,6 +26,10 @@ use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Sales\Model\Order\AddressRepository;
 use Magento\Catalog\Model\Product\Type\Price;
 
+/**
+ * Class Data
+ * @package Wagento\Subscription\Helper
+ */
 class Data extends AbstractHelper
 {
 
@@ -192,15 +196,18 @@ class Data extends AbstractHelper
      */
     public function getSubscriptionFrequency($subFrequency)
     {
-        if ($subFrequency == 1) {
-            return __("Daily");
-        } elseif ($subFrequency == 2) {
-            return __("Weekly");
-        } elseif ($subFrequency == 3) {
-            return __("Monthly");
-        } elseif ($subFrequency == 4) {
-            return __("Yearly");
+        $frequencyLabels = [
+            1 => "Daily",
+            2 => "Weekly",
+            3 => "Monthly",
+            4 => "Yearly",
+        ];
+
+        if (array_key_exists($subFrequency, $frequencyLabels)) {
+            return __($frequencyLabels[$subFrequency]);
         }
+
+        return __('N/A');
     }
 
     /**
@@ -209,16 +216,18 @@ class Data extends AbstractHelper
      */
     public function getSubscriptionStatus($status)
     {
-        if ($status == '0') {
-            return __('Canceled');
-        } elseif ($status == '1') {
-            return $status = __('Active');
-        } elseif ($status == '2') {
-            return $status = __('Paused');
-        } elseif ($status == '3') {
-            return $status = __('Completed');
+        $statusLabels = [
+            0 => __('Canceled'),
+            1 => __('Active'),
+            2 => __('Paused'),
+            3 => __('Completed'),
+        ];
+
+        if (array_key_exists($status, $statusLabels)) {
+            return __($statusLabels[$status]);
         }
-        return $status = __('N/A');
+
+        return __('N/A');
     }
 
     /**
@@ -286,7 +295,7 @@ class Data extends AbstractHelper
         if ($subConfig) {
             return $subConfig->getValue();
         }
-        return ;
+        return;
     }
 
     /**
@@ -338,9 +347,9 @@ class Data extends AbstractHelper
      */
     public function getIsGuestCheckout()
     {
-        $isLoggedIn= $this->customerSession->isLoggedIn();
-        if($isLoggedIn) {
-            return true ;
+        $isLoggedIn = $this->customerSession->isLoggedIn();
+        if ($isLoggedIn) {
+            return true;
         } else {
             //check quote contain subscription items
             $subCount = 0;

@@ -24,6 +24,10 @@ use Magento\Customer\Model\Address\Config as AddressConfig;
 use Magento\Customer\Model\AddressFactory;
 use Magento\Sales\Model\Order\Email\Sender\OrderSender;
 
+/**
+ * Class SubscriptionService
+ * @package Wagento\Subscription\Model
+ */
 class SubscriptionService
 {
     const FLOAT_VALUE = 0.0000;
@@ -157,6 +161,7 @@ class SubscriptionService
      * @param QuoteItemFactory $quoteItem
      * @param AddressConfig $addressConfig
      * @param AddressFactory $address
+     * @param OrderSender $orderSender
      */
     public function __construct(
         \Magento\Store\Model\App\Emulation $emulator,
@@ -260,13 +265,13 @@ class SubscriptionService
         $shipAddress = $this->getShippingAddress($_order, $subShipAddressId);
         $billAddress = $this->getBillingAddress($_order, $subBillAddressId);
         $shippingMethod = $this->getShippingMethod($_order);
-        if (!$shippingMethod || $shippingMethod=='' || $shippingMethod=="NULL") {
+        if (!$shippingMethod || $shippingMethod == '' || $shippingMethod == "NULL") {
             $response['error_msg'] = __('Shipping Method not found');
             $response['error'] = true;
             return $response;
         }
         $paymentMethod = $this->getPaymentMethod($_order);
-        if (!$paymentMethod || $paymentMethod=='' || $paymentMethod=="NULL") {
+        if (!$paymentMethod || $paymentMethod == '' || $paymentMethod == "NULL") {
             $response['error_msg'] = __('Payment Method not found');
             $response['error'] = true;
             return $response;
@@ -641,6 +646,7 @@ class SubscriptionService
 
     /**
      * @return bool
+     * @throws \Exception
      */
     public function deleteQuoteItems()
     {

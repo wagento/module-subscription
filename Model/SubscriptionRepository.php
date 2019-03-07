@@ -11,6 +11,10 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Wagento\Subscription\Api\SubscriptionRepositoryInterface;
 
+/**
+ * Class SubscriptionRepository
+ * @package Wagento\Subscription\Model
+ */
 class SubscriptionRepository implements SubscriptionRepositoryInterface
 {
     /**
@@ -52,7 +56,9 @@ class SubscriptionRepository implements SubscriptionRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param int $subscriptionId
+     * @return \Wagento\Subscription\Api\Data\SubscriptionInterface|Subscription
+     * @throws NoSuchEntityException
      */
     public function getById($subscriptionId)
     {
@@ -65,7 +71,10 @@ class SubscriptionRepository implements SubscriptionRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param int $subscriptionId
+     * @return bool
+     * @throws CouldNotDeleteException
+     * @throws NoSuchEntityException
      */
     public function deleteById($subscriptionId)
     {
@@ -73,8 +82,6 @@ class SubscriptionRepository implements SubscriptionRepositoryInterface
     }
 
     /**
-     * Delete Page
-     *
      * @param \Wagento\Subscription\Api\Data\SubscriptionInterface $subscription
      * @return bool
      * @throws CouldNotDeleteException

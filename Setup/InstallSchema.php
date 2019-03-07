@@ -11,11 +11,16 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 
+/**
+ * Class InstallSchema
+ * @package Wagento\Subscription\Setup
+ */
 class InstallSchema implements InstallSchemaInterface
 {
     /**
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
+     * @throws \Zend_Db_Exception
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
@@ -25,7 +30,7 @@ class InstallSchema implements InstallSchemaInterface
         /**
          * Create table 'wagento_subscription'
          */
-        if(!$installer->tableExists('wagento_subscription')) {
+        if (!$installer->tableExists('wagento_subscription')) {
             $subtableName = $setup->getTable('wagento_subscription');
             $subtable = $installer->getConnection()->newTable(
                 $installer->getTable($subtableName)
@@ -57,7 +62,7 @@ class InstallSchema implements InstallSchemaInterface
                 'how_many',
                 \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
                 null,
-                ['unsigned' => true,'nullable' => false,'default' => '0'],
+                ['unsigned' => true, 'nullable' => false, 'default' => '0'],
                 'No of Subscription Cycles'
             )->addColumn(
                 'discount',
@@ -82,7 +87,7 @@ class InstallSchema implements InstallSchemaInterface
         /**
          * Create table 'wagento_subscription_products'
          */
-        if(!$installer->tableExists('wagento_subscription_products')) {
+        if (!$installer->tableExists('wagento_subscription_products')) {
             $subProductstableName = $setup->getTable('wagento_subscription_products');
             $subProductstable = $installer->getConnection()->newTable(
                 $installer->getTable($subProductstableName)
@@ -123,7 +128,7 @@ class InstallSchema implements InstallSchemaInterface
         /**
          * Create table 'wagento_subscription_order'
          */
-        if(!$installer->tableExists('wagento_subscription_order')) {
+        if (!$installer->tableExists('wagento_subscription_order')) {
             $subOrdertableName = $setup->getTable('wagento_subscription_order');
             $subOrdertable = $installer->getConnection()->newTable(
                 $installer->getTable($subOrdertableName)
@@ -131,7 +136,7 @@ class InstallSchema implements InstallSchemaInterface
                 'id',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 null,
-                ['identity' => true,'unsigned' => true,'nullable' => false,'primary' => true],
+                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
                 'Id'
             )->addColumn(
                 'customer_id',
@@ -203,25 +208,25 @@ class InstallSchema implements InstallSchemaInterface
                 'billing_count',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 '12',
-                ['default' => null,'nullable' => true],
+                ['default' => null, 'nullable' => true],
                 'Wagento subscription number of times billing'
             )->addColumn(
                 'billing_address_id',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 '12',
-                ['default' => null,'nullable' => true],
+                ['default' => null, 'nullable' => true],
                 'If Customer Change Billing Address'
             )->addColumn(
                 'shipping_address_id',
                 \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 '12',
-                ['default' => null,'nullable' => true],
+                ['default' => null, 'nullable' => true],
                 'If Customer Change Shipping Address'
             )->addColumn(
                 'public_hash',
                 \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                 null,
-                ['default' => null,'nullable' => true],
+                ['default' => null, 'nullable' => true],
                 'If Customer Change Credit Card Details'
             )->addColumn(
                 'sub_name',

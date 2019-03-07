@@ -38,6 +38,7 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory
      * @param CustomerRepositoryInterface $customerRepository
+     * @param \Magento\Customer\Model\SessionFactory $customerSessionFactory
      * @param AccountManagementInterface $customerAccountManagement
      * @param array $data
      */

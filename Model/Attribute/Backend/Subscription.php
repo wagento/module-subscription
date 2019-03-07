@@ -5,7 +5,13 @@
  */
 
 namespace Wagento\Subscription\Model\Attribute\Backend;
+
 use Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend;
+
+/**
+ * Class Subscription
+ * @package Wagento\Subscription\Model\Attribute\Backend
+ */
 class Subscription extends AbstractBackend
 {
     /**
@@ -32,8 +38,8 @@ class Subscription extends AbstractBackend
 
     /**
      * @param \Magento\Framework\DataObject $object
-     *
-     * @return $this
+     * @return $this|AbstractBackend
+     * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
     public function afterSave($object)
     {
@@ -44,7 +50,7 @@ class Subscription extends AbstractBackend
         $subscriptionConfig = $object->getSubscriptionConfigurate();
 
         /*add subscription record in wagento_subscription_products*/
-        if ($subscriptionConfig != 'no' &&  $subscriptionConfig != NULL) {
+        if ($subscriptionConfig != 'no' && $subscriptionConfig != null) {
             if (!empty($rowData)) {
                 $updateArray = [
                     'entity_id' => $rowData[0]['entity_id'],

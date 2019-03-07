@@ -11,6 +11,10 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Wagento\Subscription\Api\ProductRepositoryInterface;
 
+/**
+ * Class ProductRepository
+ * @package Wagento\Subscription\Model
+ */
 class ProductRepository implements ProductRepositoryInterface
 {
     /**
@@ -38,7 +42,7 @@ class ProductRepository implements ProductRepositoryInterface
         \Wagento\Subscription\Model\ResourceModel\Product $productResource,
         \Wagento\Subscription\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
     ) {
-    
+
         $this->productFactory = $productFactory;
         $this->productResource = $productResource;
         $this->_productCollectionFactory = $productCollectionFactory;

@@ -11,6 +11,10 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Eav\Setup\EavSetupFactory;
 
+/**
+ * Class InstallData
+ * @package Wagento\Subscription\Setup
+ */
 class InstallData implements InstallDataInterface
 {
     /**
@@ -23,8 +27,9 @@ class InstallData implements InstallDataInterface
     private $eavSetup;
 
     /**
-     * UpgradeSchema constructor.
+     * InstallData constructor.
      * @param EavSetupFactory $eavSetupFactory
+     * @param ModuleDataSetupInterface $eavSetup
      */
     public function __construct(EavSetupFactory $eavSetupFactory, ModuleDataSetupInterface $eavSetup)
     {

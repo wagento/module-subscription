@@ -12,6 +12,10 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Model\SubscriptionService;
 
+/**
+ * Class AddSubscriptionDetails
+ * @package Wagento\Subscription\Observer
+ */
 class AddSubscriptionDetails implements ObserverInterface
 {
     /**

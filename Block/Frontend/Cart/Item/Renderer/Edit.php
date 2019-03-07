@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Block\Frontend\Cart\Item\Renderer;
 
 use Magento\Checkout\Block\Cart\Item\Renderer\Actions\Generic;
 
+/**
+ * Class Edit
+ * @package Wagento\Subscription\Block\Frontend\Cart\Item\Renderer
+ */
 class Edit extends Generic
 {
     /**
@@ -30,22 +34,22 @@ class Edit extends Generic
 
     /**
      * Edit constructor.
-     * @param Template\Context $context
-     * @param array $data
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Wagento\Subscription\Model\ProductFactory $productFactory
      * @param \Wagento\Subscription\Model\SubscriptionFactory $subscriptionFactory
      * @param \Wagento\Subscription\Helper\Subscription $subscription
      * @param \Wagento\Subscription\Helper\Data $subscriptionDataHelper
+     * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        array $data = [],
         \Wagento\Subscription\Model\ProductFactory $productFactory,
         \Wagento\Subscription\Model\SubscriptionFactory $subscriptionFactory,
         \Wagento\Subscription\Helper\Subscription $subscription,
-        \Wagento\Subscription\Helper\Data $subscriptionDataHelper
+        \Wagento\Subscription\Helper\Data $subscriptionDataHelper,
+        array $data = []
     ) {
-    
+
         parent::__construct($context, $data);
         $this->productFactory = $productFactory->create();
         $this->subscriptionFactory = $subscriptionFactory->create();
@@ -72,18 +76,9 @@ class Edit extends Generic
     }
 
     /**
-     * @param string $fileName
-     * @return string
-     */
-    public function fetchView($fileName)
-    {
-        return parent::fetchView($fileName);
-    }
-
-    /**
      * @return mixed
      */
-    function getSubscriptionData()
+    public function getSubscriptionData()
     {
         return $this->subscription->getSubscriptionData($this->getItem()->getProduct()->getId());
     }

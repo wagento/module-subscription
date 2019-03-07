@@ -10,6 +10,10 @@ use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
 use Magento\Ui\DataProvider\Modifier\ModifierInterface;
 use Wagento\Subscription\Model\Subscription\Attribute\Source\SubscriptionList;
 
+/**
+ * Class SubscriptionPanel
+ * @package Wagento\Subscription\Ui\DataProvider\Product\Form\Modifier
+ */
 class SubscriptionPanel extends AbstractModifier implements ModifierInterface
 {
     /**

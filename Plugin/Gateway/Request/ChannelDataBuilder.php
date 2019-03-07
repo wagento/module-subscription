@@ -12,7 +12,7 @@ namespace Wagento\Subscription\Plugin\Gateway\Request;
 class ChannelDataBuilder
 {
     /**
-     * @param $subject
+     * @param \Magento\Braintree\Gateway\Request\ChannelDataBuilder $subject
      * @param $result
      * @return mixed
      */

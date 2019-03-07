@@ -11,6 +11,10 @@ use Wagento\Subscription\Model\ResourceModel\SubscriptionSalesFactory;
 use Wagento\Subscription\Helper\Email;
 use Magento\Payment\Helper\Data as PaymentHelper;
 
+/**
+ * Class ReminderEmail
+ * @package Wagento\Subscription\Model\Cron
+ */
 class ReminderEmail
 {
     const XML_PATH_EMAIL_TEMPLATE_ENABLE = 'braintree_subscription/email_config/enable_email';
@@ -78,6 +82,11 @@ class ReminderEmail
      * @param \Wagento\Subscription\Model\SubscriptionService $subscriptionService
      * @param \Wagento\Subscription\Model\SubscriptionSales $subscriptionSales
      * @param Email $emailHelper
+     * @param \Magento\Customer\Model\CustomerRegistry $customers
+     * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
+     * @param \Magento\Sales\Model\Order\Address\Renderer $addressRenderer
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $date
+     * @param PaymentHelper $paymentHelper
      */
     public function __construct(
         CollectionFactory $collectionFactory,
@@ -122,6 +131,7 @@ class ReminderEmail
 
     /**
      * @return $this
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function getActiveSubscriptions()
     {
@@ -188,6 +198,7 @@ class ReminderEmail
     /**
      * @param $xmlPath
      * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getIsEmailConfigEnable($xmlPath)
     {
@@ -196,7 +207,8 @@ class ReminderEmail
 
     /**
      * @param $xmlPath
-     * @return mixed
+     * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function getIsSelectRemEmail($xmlPath)
     {
@@ -212,6 +224,7 @@ class ReminderEmail
     /**
      * @param $xmlPath
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getEmailSenderInfo($xmlPath)
     {
@@ -232,6 +245,7 @@ class ReminderEmail
     /**
      * @param $customerId
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getReceiverInfo($customerId)
     {
@@ -245,6 +259,11 @@ class ReminderEmail
         return $receiverInfo;
     }
 
+    /**
+     * @param $order
+     * @return string
+     * @throws \Exception
+     */
     protected function getPaymentHtml($order)
     {
         return $this->paymentHelper->getInfoBlockHtml(

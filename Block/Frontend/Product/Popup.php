@@ -3,6 +3,7 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Wagento\Subscription\Block\Frontend\Product;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
@@ -10,6 +11,10 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Helper\Data;
 
+/**
+ * Class Popup
+ * @package Wagento\Subscription\Block\Frontend\Product
+ */
 class Popup extends \Magento\Catalog\Block\Product\View
 {
     /**
@@ -60,10 +65,10 @@ class Popup extends \Magento\Catalog\Block\Product\View
      * @param ProductRepositoryInterface $productRepository
      * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
      * @param \Magento\Checkout\Model\Cart $cart
-     * @param array $data
      * @param SubscriptionFactory $subscriptionFactory
      * @param ProductFactory $productFactory
      * @param Data $helper
+     * @param array $data
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
@@ -77,10 +82,10 @@ class Popup extends \Magento\Catalog\Block\Product\View
         ProductRepositoryInterface $productRepository,
         \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
         \Magento\Checkout\Model\Cart $cart,
-        array $data = [],
         SubscriptionFactory $subscriptionFactory,
         ProductFactory $productFactory,
-        Data $helper
+        Data $helper,
+        array $data = []
     ) {
         parent::__construct(
             $context,
@@ -99,7 +104,7 @@ class Popup extends \Magento\Catalog\Block\Product\View
         $this->productFactory = $productFactory->create()->getCollection()
             ->addFieldToFilter('product_id', ['eq' => $this->getProductId()]);
         $this->subscriptionFactory = $subscriptionFactory->create()
-         ->load($this->returnSubscriptionId($this->productFactory));
+            ->load($this->returnSubscriptionId($this->productFactory));
         $this->cart = $cart;
         $this->helper = $helper;
     }
@@ -164,7 +169,7 @@ class Popup extends \Magento\Catalog\Block\Product\View
     public function getProductId()
     {
         $pRegistory = $this->_coreRegistry->registry('product');
-        if(isset($pRegistory)) {
+        if (isset($pRegistory)) {
             return $this->_coreRegistry->registry('product')->getEntityId();
         }
     }

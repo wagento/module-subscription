@@ -60,15 +60,15 @@ class Wishlist extends CoreWishlist
     }
 
     /**
-     * Retrieve wishlist item data
-     *
      * @param \Magento\Wishlist\Model\Item $wishlistItem
      * @return array
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * Retrieve wishlist item data
      */
     protected function getItemData(\Magento\Wishlist\Model\Item $wishlistItem)
     {
         $product = $wishlistItem->getProduct();
-        $dataArray =  [
+        $dataArray = [
             'image' => $this->getImageData($product),
             'product_url' => $this->wishlistHelper->getProductUrl($wishlistItem),
             'product_name' => $product->getName(),
@@ -85,7 +85,7 @@ class Wishlist extends CoreWishlist
         ];
 
         $subscriptionAttribute = $product->getCustomAttribute('subscription_configurate');
-        if(isset($subscriptionAttribute)) {
+        if (isset($subscriptionAttribute)) {
             $subAttributeValue = ['subscription_configurate' => $subscriptionAttribute->getValue()];
             array_push($dataArray, $subAttributeValue);
         }

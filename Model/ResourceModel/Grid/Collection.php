@@ -12,6 +12,10 @@ use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult;
 use Psr\Log\LoggerInterface as Logger;
 
+/**
+ * Class Collection
+ * @package Wagento\Subscription\Model\ResourceModel\Grid
+ */
 class Collection extends SearchResult
 {
     /**
@@ -27,6 +31,7 @@ class Collection extends SearchResult
      * @param EventManager $eventManager
      * @param string $mainTable
      * @param string $resourceModel
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function __construct(
         EntityFactory $entityFactory,

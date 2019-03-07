@@ -10,6 +10,10 @@ use Magento\Backend\Block\Widget\Grid;
 use Magento\Backend\Block\Widget\Grid\Column;
 use Magento\Backend\Block\Widget\Grid\Extended;
 
+/**
+ * Class Product
+ * @package Wagento\Subscription\Block\Adminhtml\Products\Edit\Tab
+ */
 class Product extends \Magento\Backend\Block\Widget\Grid\Extended
 {
     protected $logger;
@@ -83,7 +87,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
 
     /**
      * @param Column $column
-     * @return $this
+     * @return $this|Extended
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function _addColumnFilterToCollection($column)
     {
@@ -110,7 +115,7 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareCollection()
     {
-        $types = ['simple','virtual','downloadable'];
+        $types = ['simple', 'virtual', 'downloadable'];
         if ($this->getRequest()->getParam('id')) {
             $this->setDefaultFilter(['in_category' => 1]);
         }
@@ -127,8 +132,7 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
         )->addAttributeToSelect(
             'price'
         )->addFieldToFilter('entity_id', ['nin' => $allProductIds])->addAttributeToFilter('visibility', 4)
-            ->addAttributeToFilter('type_id', array('in' => $types))
-        ;
+            ->addAttributeToFilter('type_id', array('in' => $types));
 
 
         $storeId = (int)$this->getRequest()->getParam('store', 0);
@@ -142,6 +146,7 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
 
     /**
      * @return Extended
+     * @throws \Exception
      */
     protected function _prepareColumns()
     {

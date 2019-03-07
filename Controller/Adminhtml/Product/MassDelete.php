@@ -16,6 +16,10 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Model\SubscriptionSalesFactory;
 
+/**
+ * Class MassDelete
+ * @package Wagento\Subscription\Controller\Adminhtml\Product
+ */
 class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelete
 {
     /**
@@ -67,6 +71,9 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
 
     /**
      * @return \Magento\Backend\Model\View\Result\Redirect
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws \Magento\Framework\Exception\StateException
      */
     public function execute()
     {

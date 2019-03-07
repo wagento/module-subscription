@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Model\ResourceModel\Subscription;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
+/**
+ * Class Collection
+ * @package Wagento\Subscription\Model\ResourceModel\Subscription
+ */
 class Collection extends AbstractCollection
 {
     protected $_idFieldName = 'subscription_id';

@@ -13,6 +13,10 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\TemporaryState\CouldNotSaveException;
 use Wagento\Subscription\Helper\Email;
 
+/**
+ * Class Activate
+ * @package Wagento\Subscription\Controller\Order
+ */
 class Activate extends Action
 {
     const XML_PATH_EMAIL_TEMPLATE_FIELD_RECIEVER = 'braintree_subscription/email_config/email_reciever';
@@ -57,6 +61,7 @@ class Activate extends Action
 
     /**
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute()

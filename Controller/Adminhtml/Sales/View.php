@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Sales;
-
+/**
+ * Class View
+ * @package Wagento\Subscription\Controller\Adminhtml\Sales
+ */
 class View extends \Magento\Backend\App\Action
 {
     /**

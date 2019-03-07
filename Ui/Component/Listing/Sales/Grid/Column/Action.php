@@ -11,6 +11,10 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 
+/**
+ * Class Action
+ * @package Wagento\Subscription\Ui\Component\Listing\Sales\Grid\Column
+ */
 class Action extends Column
 {
     /** Url path */

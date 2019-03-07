@@ -9,6 +9,10 @@ namespace Wagento\Subscription\Model;
 use Magento\Framework\Model\AbstractExtensibleModel;
 use Wagento\Subscription\Api\Data\SubscriptionInterface;
 
+/**
+ * Class Subscription
+ * @package Wagento\Subscription\Model
+ */
 class Subscription extends AbstractExtensibleModel implements SubscriptionInterface
 {
     /**

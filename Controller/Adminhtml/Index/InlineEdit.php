@@ -31,7 +31,7 @@ class InlineEdit extends IndexAction
 
         $postItems = $this->getRequest()->getParam('items', []);
         if (!($this->getRequest()->getParam('isAjax') && count($postItems))) {
-            $data =  $resultJson->setData([
+            $data = $resultJson->setData([
                 'messages' => [__('Please correct the data sent.')],
                 'error' => true,
             ]);
@@ -44,7 +44,7 @@ class InlineEdit extends IndexAction
             $this->saveSubscription($this->getSubscription());
         }
 
-        $data =  $resultJson->setData([
+        $data = $resultJson->setData([
             'messages' => $this->getErrorMessages(),
             'error' => $this->isErrorExists()
         ]);

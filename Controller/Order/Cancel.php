@@ -13,13 +13,17 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\TemporaryState\CouldNotSaveException;
 use Wagento\Subscription\Helper\Email;
 
+/**
+ * Class Cancel
+ * @package Wagento\Subscription\Controller\Order
+ */
 class Cancel extends Action
 {
     const XML_PATH_EMAIL_TEMPLATE_FIELD_RECIEVER = 'braintree_subscription/email_config/email_reciever';
     const XML_PATH_EMAIL_TEMPLATE_ENABLE = 'braintree_subscription/email_config/enable_email';
     const XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS = 'braintree_subscription/email_config/email_options';
 
-    const SUB_STATUS_CANCEL = 0 ;
+    const SUB_STATUS_CANCEL = 0;
     /**
      * @var SubscriptionSalesRepository
      */

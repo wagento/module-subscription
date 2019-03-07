@@ -9,6 +9,10 @@ namespace Wagento\Subscription\Controller\Adminhtml\Index;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Wagento\Subscription\Controller\Adminhtml\Index;
 
+/**
+ * Class Edit
+ * @package Wagento\Subscription\Controller\Adminhtml\Index
+ */
 class Edit extends Index
 {
     /**

@@ -63,6 +63,10 @@ class Subscribe extends \Magento\Framework\App\Action\Action
         $this->product = $product;
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function execute()
     {
         $subOptionsJson = $this->helper->jsonDecode($this->getRequest()->getContent());

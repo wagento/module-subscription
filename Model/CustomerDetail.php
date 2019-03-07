@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Model;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
+/**
+ * Class CustomerDetail
+ * @package Wagento\Subscription\Model
+ */
 class CustomerDetail implements OptionSourceInterface
 {
     /**

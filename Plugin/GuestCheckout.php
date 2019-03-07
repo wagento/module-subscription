@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Plugin;
-
+/**
+ * Class GuestCheckout
+ * @package Wagento\Subscription\Plugin
+ */
 class GuestCheckout
 {
     /**
@@ -14,7 +17,7 @@ class GuestCheckout
     public $dataHelper;
 
     /**
-     * GuestCheckouts constructor.
+     * GuestCheckout constructor.
      * @param \Wagento\Subscription\Helper\Data $dataHelper
      */
     public function __construct(\Wagento\Subscription\Helper\Data $dataHelper)

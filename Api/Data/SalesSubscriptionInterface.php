@@ -34,7 +34,7 @@ interface SalesSubscriptionInterface extends ExtensibleDataInterface
     const SUB_FEE = 'sub_fee';
     const SUB_DISCOUNT = 'sub_discount';
     const SUB_PRODUCT_ID = 'sub_product_id';
-    
+
     /**
      * Get Id
      *
@@ -241,6 +241,7 @@ interface SalesSubscriptionInterface extends ExtensibleDataInterface
      * @return mixed
      */
     public function getSubFee();
+
     /**
      * @param $subFee
      * @return mixed

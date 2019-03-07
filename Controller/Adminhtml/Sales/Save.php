@@ -9,6 +9,10 @@ namespace Wagento\Subscription\Controller\Adminhtml\Sales;
 use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Wagento\Subscription\Model\SubscriptionSalesFactory;
 
+/**
+ * Class Save
+ * @package Wagento\Subscription\Controller\Adminhtml\Sales
+ */
 class Save extends \Magento\Backend\App\Action
 {
     /**
@@ -27,10 +31,11 @@ class Save extends \Magento\Backend\App\Action
     protected $subSalesFactory;
 
     /**
-     * Activate constructor.
+     * Save constructor.
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param SubscriptionSalesRepository $subscriptionSalesRepository
+     * @param SubscriptionSalesFactory $subSalesFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,

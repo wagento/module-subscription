@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Model\ResourceModel\SubscriptionSales;
-
+/**
+ * Class Collection
+ * @package Wagento\Subscription\Model\ResourceModel\SubscriptionSales
+ */
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     /**

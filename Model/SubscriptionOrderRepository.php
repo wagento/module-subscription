@@ -75,9 +75,7 @@ class SubscriptionOrderRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
-     * Delete Page
-     *
-     * @param \Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscription
+     * @param \Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscriptionSales
      * @return bool
      * @throws CouldNotDeleteException
      */

@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Helper;
-
+/**
+ * Class Email
+ * @package Wagento\Subscription\Helper
+ */
 class Email extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const TRANS_IDENT_EMAIL_NAME = 'trans_email/ident_%s/name';
@@ -99,9 +102,8 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Return store
-     *
-     * @return Store
+     * @return \Magento\Store\Api\Data\StoreInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getStore()
     {
@@ -109,9 +111,9 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Return template id according to store
-     *
+     * @param $xmlPath
      * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getTemplateId($xmlPath)
     {
@@ -119,11 +121,11 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * [generateTemplate description]  with template file and tempaltes variables values
-     * @param  Mixed $emailTemplateVariables
-     * @param  Mixed $senderInfo
-     * @param  Mixed $receiverInfo
-     * @return void
+     * @param $emailTemplateVariables
+     * @param $senderInfo
+     * @param $receiverInfo
+     * @return $this
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function generateTemplate($emailTemplateVariables, $senderInfo, $receiverInfo)
     {
@@ -142,13 +144,12 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * [sendInvoicedOrderEmail description]
-     * @param  Mixed $emailTemplateVariables
-     * @param  Mixed $senderInfo
-     * @param  Mixed $receiverInfo
-     * @return void
+     * @param $emailTemplateVariables
+     * @param $senderInfo
+     * @param $receiverInfo
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    /* your send mail method*/
     public function sentReminderEmail($emailTemplateVariables, $senderInfo, $receiverInfo)
     {
         $templateOptions = ['area' => \Magento\Framework\App\Area::AREA_FRONTEND,
@@ -176,19 +177,18 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * [sendInvoicedOrderEmail description]
-     * @param  Mixed $emailTemplateVariables
-     * @param  Mixed $senderInfo
-     * @param  Mixed $receiverInfo
-     * @return void
+     * @param $emailTemplateVariables
+     * @param $senderInfo
+     * @param $receiverInfo
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    /* your send mail method*/
     public function sentStatusChangeEmail($emailTemplateVariables, $senderInfo, $receiverInfo)
     {
-        if(is_array($receiverInfo)) {
+        if (is_array($receiverInfo)) {
             $receiverInfo = $receiverInfo['email'];
         }
-        
+
         $templateOptions = ['area' => \Magento\Framework\App\Area::AREA_FRONTEND,
             'store' => $this->getStore()->getStoreId()];
         $this->inlineTranslation->suspend();
@@ -216,6 +216,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @param $xmlPath
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getEmailSenderInfo($xmlPath)
     {
@@ -252,7 +253,6 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @param $customerId
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getCustomerName($customerId)
     {
@@ -265,6 +265,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
      * @param $status
      * @param $customerId
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getStatusEmailVariables($id, $status, $customerId)
     {
@@ -280,6 +281,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @param $xmlPath
      * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getIsEmailConfigEnable($xmlPath)
     {
@@ -288,7 +290,8 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * @param $xmlPath
-     * @return mixed
+     * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getIsStatusChangeEmailCustomer($xmlPath)
     {
@@ -303,7 +306,8 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
 
     /**
      * @param $xmlPath
-     * @return mixed
+     * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getIsStatusChangeEmailAdmin($xmlPath)
     {

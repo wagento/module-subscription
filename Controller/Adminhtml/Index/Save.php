@@ -168,12 +168,18 @@ class Save extends Index
 
             if (count($deletedIds)) {
                 foreach ($deletedIds as $deletedId) {
-                    $storeId = 0 ;
-                    $this->product->updateAttributes([$deletedId],
-                        ['subscription_attribute_product' => 'NULL'],$storeId);
+                    $storeId = 0;
+                    $this->product->updateAttributes(
+                        [$deletedId],
+                        ['subscription_attribute_product' => 'NULL'],
+                        $storeId
+                    );
 
-                    $this->product->updateAttributes([$deletedId],
-                        ['subscription_configurate' => 'no'],$storeId);
+                    $this->product->updateAttributes(
+                        [$deletedId],
+                        ['subscription_configurate' => 'no'],
+                        $storeId
+                    );
                 }
             }
 
@@ -181,13 +187,19 @@ class Save extends Index
                 foreach ($productIds as $productId) {
                     if (!in_array($productId, $subscriptionIds)) {
 
-                        $storeId = 0 ;
-                        $this->product->updateAttributes([$productId],
-                            ['subscription_attribute_product' => $subscriptionId],$storeId);
+                        $storeId = 0;
+                        $this->product->updateAttributes(
+                            [$productId],
+                            ['subscription_attribute_product' => $subscriptionId],
+                            $storeId
+                        );
 
-                        $storeId = 0 ;
-                        $this->product->updateAttributes([$productId],
-                            ['subscription_configurate' => 'optional'],$storeId);
+                        $storeId = 0;
+                        $this->product->updateAttributes(
+                            [$productId],
+                            ['subscription_configurate' => 'optional'],
+                            $storeId
+                        );
                     }
 
                     $subscriptionProduct = $this->productDataFactory->create();

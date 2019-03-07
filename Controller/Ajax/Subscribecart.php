@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Controller\Ajax;
-
+/**
+ * Class Subscribecart
+ * @package Wagento\Subscription\Controller\Ajax
+ */
 class Subscribecart extends \Magento\Framework\App\Action\Action
 {
 
@@ -68,7 +71,8 @@ class Subscribecart extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * @return $this|\Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute()
     {

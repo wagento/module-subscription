@@ -14,6 +14,10 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\UrlInterface;
 
+/**
+ * Class View
+ * @package Wagento\Subscription\Controller\Order
+ */
 class View extends \Magento\Sales\Controller\AbstractController\View implements OrderInterface
 {
     /**
@@ -51,6 +55,11 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
         $this->urlInterface = $context->getUrl();
     }
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function execute()
     {
         /** @var \Magento\Framework\View\Result\Page $resultPage */

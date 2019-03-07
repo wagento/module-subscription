@@ -13,6 +13,10 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\View\Result\PageFactory;
 
+/**
+ * Class Edit
+ * @package Wagento\Subscription\Controller\Order
+ */
 class Edit extends \Magento\Sales\Controller\AbstractController\View implements OrderInterface
 {
 

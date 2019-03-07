@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Index;
-
+/**
+ * Class Product
+ * @package Wagento\Subscription\Controller\Adminhtml\Index
+ */
 abstract class Product extends \Magento\Backend\App\Action
 {
     /**

@@ -10,6 +10,10 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\UrlInterface;
 
+/**
+ * Class Unsubscribe
+ * @package Wagento\Subscription\Controller\Ajax
+ */
 class Unsubscribe extends \Magento\Framework\App\Action\Action
 {
 
@@ -98,12 +102,7 @@ class Unsubscribe extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Execute action based on request and return result
-     *
-     * Note: Request will be added as operation argument in future
-     *
-     * @return \Magento\Framework\Controller\ResultInterface|ResponseInterface
-     * @throws \Magento\Framework\Exception\NotFoundException
+     * @return ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {

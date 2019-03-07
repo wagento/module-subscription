@@ -5,7 +5,10 @@
  */
 
 namespace Wagento\Subscription\Block\Adminhtml\Sales;
-
+/**
+ * Class Totals
+ * @package Wagento\Subscription\Block\Adminhtml\Sales
+ */
 class Totals extends \Magento\Framework\View\Element\Template
 {
 

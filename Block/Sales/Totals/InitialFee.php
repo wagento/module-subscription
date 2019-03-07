@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Block\Sales\Totals;
 
 use Magento\Sales\Model\Order;
 
+/**
+ * Class InitialFee
+ * @package Wagento\Subscription\Block\Sales\Totals
+ */
 class InitialFee extends \Magento\Framework\View\Element\Template
 {
     /**

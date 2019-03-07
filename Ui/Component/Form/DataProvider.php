@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Ui\Component\Form;
 
 use Magento\Ui\DataProvider\AbstractDataProvider;
 
+/**
+ * Class DataProvider
+ * @package Wagento\Subscription\Ui\Component\Form
+ */
 class DataProvider extends AbstractDataProvider
 {
     /**
@@ -39,6 +43,21 @@ class DataProvider extends AbstractDataProvider
      */
     protected $messageManager;
 
+    /**
+     * DataProvider constructor.
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
+     * @param \Magento\Framework\Registry $registry
+     * @param \Wagento\Subscription\Model\ResourceModel\Subscription\CollectionFactory $collectionFactory
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @param \Wagento\Subscription\Model\SubscriptionFactory $subscriptionFactory
+     * @param \Wagento\Subscription\Model\ResourceModel\Subscription $subscriptionResource
+     * @param \Magento\Backend\Model\Session $session
+     * @param \Magento\Framework\Message\ManagerInterface $messageManager
+     * @param array $meta
+     * @param array $data
+     */
     public function __construct(
         string $name,
         string $primaryFieldName,

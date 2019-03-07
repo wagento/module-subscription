@@ -8,6 +8,10 @@ namespace Wagento\Subscription\Block\Adminhtml\Sales\Edit;
 
 use Magento\Backend\Block\Widget\Tabs as WidgetTabs;
 
+/**
+ * Class Tabs
+ * @package Wagento\Subscription\Block\Adminhtml\Sales\Edit
+ */
 class Tabs extends WidgetTabs
 {
     /**
@@ -24,7 +28,8 @@ class Tabs extends WidgetTabs
     }
 
     /**
-     * @return $this
+     * @return WidgetTabs
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function _beforeToHtml()
     {

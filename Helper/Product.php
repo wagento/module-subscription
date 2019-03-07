@@ -12,6 +12,10 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 
+/**
+ * Class Product
+ * @package Wagento\Subscription\Helper
+ */
 class Product extends AbstractHelper
 {
     /**
@@ -49,6 +53,8 @@ class Product extends AbstractHelper
      * @param ProductFactory $productFactory
      * @param SubscriptionFactory $subscriptionFactory
      * @param \Magento\Checkout\Model\Cart $cart
+     * @param PriceHelper $priceHelper
+     * @param \Magento\Framework\Json\EncoderInterface $encoder
      */
     public function __construct(
         Context $context,
@@ -160,7 +166,9 @@ class Product extends AbstractHelper
     }
 
     /**
-     * @return boolean
+     * @param $productId
+     * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function hasLinks($productId)
     {
@@ -173,9 +181,10 @@ class Product extends AbstractHelper
     }
 
     /**
+     * @param $productId
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      * Return title of links section
-     *
-     * @return string
      */
     public function getLinksTitle($productId)
     {
@@ -190,7 +199,9 @@ class Product extends AbstractHelper
     }
 
     /**
-     * @return boolean
+     * @param $productId
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
     public function getLinkSelectionRequired($productId)
@@ -202,8 +213,10 @@ class Product extends AbstractHelper
     }
 
     /**
-     * @param Link $link
-     * @return \Magento\Framework\Pricing\Amount\AmountInterface
+     * @param $link
+     * @param $productId
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     protected function getLinkAmount($link, $productId)
     {
@@ -211,9 +224,10 @@ class Product extends AbstractHelper
     }
 
     /**
+     * @param $productId
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      * Get LinkPrice Type
-     *
-     * @return \Magento\Framework\Pricing\Price\PriceInterface
      */
     protected function getPriceType($productId)
     {
@@ -222,7 +236,9 @@ class Product extends AbstractHelper
 
     /**
      * @param Link $link
-     * @return string
+     * @param $productId
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getLinkPrice(Link $link, $productId)
     {
@@ -234,7 +250,9 @@ class Product extends AbstractHelper
     }
 
     /**
+     * @param $productId
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getLinks($productId)
     {
@@ -252,7 +270,9 @@ class Product extends AbstractHelper
     }
 
     /**
+     * @param $productId
      * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getJsonConfig1($productId)
     {
@@ -272,8 +292,10 @@ class Product extends AbstractHelper
     }
 
     /**
-     * @param Link $link
-     * @return string
+     * @param $link
+     * @param $productId
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getLinkSampleUrl($link, $productId)
     {
@@ -282,10 +304,11 @@ class Product extends AbstractHelper
     }
 
     /**
-     * Returns value for link's input checkbox - either 'checked' or ''
-     *
-     * @param Link $link
+     * @param $link
+     * @param $productId
      * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * Returns value for link's input checkbox - either 'checked' or '
      */
     public function getLinkCheckedValue($link, $productId)
     {
@@ -293,11 +316,12 @@ class Product extends AbstractHelper
     }
 
     /**
-     * Returns whether link checked by default or not
-     *
-     * @param Link $link
+     * @param $link
+     * @param $productId
      * @return bool
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @SuppressWarnings(PHPMD.BooleanGetMethodName)
+     * Returns whether link checked by default or not
      */
     public function getIsLinkChecked($link, $productId)
     {

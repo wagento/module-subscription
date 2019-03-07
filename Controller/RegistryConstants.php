@@ -7,8 +7,9 @@
 namespace Wagento\Subscription\Controller;
 
 /**
+ * Class RegistryConstants
+ * @package Wagento\Subscription\Controller
  * Declarations of core registry keys used by the Subscriptions module
- *
  */
 class RegistryConstants
 {
