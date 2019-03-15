@@ -85,8 +85,7 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
         /** @var \Magento\Catalog\Model\Product $product */
         foreach ($collection->getItems() as $product) {
             $productData = $this->productRepository->getById($product->getId());
-            $subConfig = $productData->getCustomAttribute('subscription_configurate');
-            $subOptions =  $subConfig->getValue();
+            $subOptions =  $productData->getResource()->getAttribute('subscription_configurate')->getFrontend()->getValue($productData);
 
             if (in_array($product->getId(), $this->getIdProductsSubscription()) == true && $subOptions!='no') {
                 if (in_array($product->getId(), $this->getIdProductsSubscriptionSales()) == true) {
