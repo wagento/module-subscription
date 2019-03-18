@@ -22,5 +22,10 @@ If you are facing any issue with module installation and configuration please se
 ## Changelog
 Based in `setup_version`
 
+v2.2.1
+- Make module compatible with 2.3.0
+- Resolve reminder email cron issue
+- Resolve cart page Unsubscribe issue 
+
 v2.1.1
 - Initial module integration for Braintree Subscription 
