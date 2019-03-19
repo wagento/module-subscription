@@ -8,15 +8,14 @@
 ?>
 <?php $subDetails = $block->getSubscriptionDetail(); ?>
 <?php
-$subAdminDate = $block->formatDate(
-    $block->getOrderAdminDate($subDetails->getCreatedAt()),
+$subAdminDate = $block->formatDate($subDetails->getSubStartDate(),
     \IntlDateFormatter::MEDIUM,
     true
 );
-$subLastRenewedDate = $block->formatDate(
-    $block->getOrderAdminDate($subDetails->getLastRenewed()),
+
+$subLastRenewedDate = $block->formatDate($subDetails->getLastRenewed(),
     \IntlDateFormatter::MEDIUM,
-    true
+    false
 );
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');

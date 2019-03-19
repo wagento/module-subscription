@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Model;
 
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\App\ObjectManager;
-use function self;
-use Wagento\Subscription\Model\SubscriptionFactory;
-use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Helper\Data as SubscriptionHelper;
 use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
@@ -23,6 +20,8 @@ use Magento\Quote\Model\Quote\ItemFactory as QuoteItemFactory;
 use Magento\Customer\Model\Address\Config as AddressConfig;
 use Magento\Customer\Model\AddressFactory;
 use Magento\Sales\Model\Order\Email\Sender\OrderSender;
+
+use Magento\Catalog\Api\ProductRepositoryInterface;
 
 /**
  * Class SubscriptionService
@@ -137,6 +136,12 @@ class SubscriptionService
     protected $orderSender;
 
     /**
+     * @var
+     */
+    private $productRepository;
+
+
+    /**
      * SubscriptionService constructor.
      * @param \Magento\Store\Model\App\Emulation $emulator
      * @param \Magento\Quote\Model\QuoteFactory $quoteFactory
@@ -187,7 +192,8 @@ class SubscriptionService
         QuoteItemFactory $quoteItem,
         AddressConfig $addressConfig,
         AddressFactory $address,
-        OrderSender $orderSender
+        OrderSender $orderSender,
+        ProductRepositoryInterface $productRepository
     ) {
         $this->emulator = $emulator;
         $this->_quoteFactory = $quoteFactory;
@@ -211,6 +217,7 @@ class SubscriptionService
         $this->addressConfig = $addressConfig;
         $this->address = $address;
         $this->orderSender = $orderSender;
+        $this->productRepository = $productRepository;
         if ($productMetadata === null) {
             // Optional class dependency to preserve backwards compatibility on @api class.
             $this->productMetadata = \Magento\Framework\App\ObjectManager::getInstance()->get(
@@ -258,18 +265,11 @@ class SubscriptionService
         $price = $this->getSubscriptionProductPrice($_order, $subItemId);
         $subQty = $this->getSubscriptionProductQty($_order, $subItemId);
 
-        $subShipAddressId = $firstSubscription->getShippingAddressId();
-        $subBillAddressId = $firstSubscription->getBillingAddressId();
         $publicHash = $firstSubscription->getPublicHash();
 
-        $shipAddress = $this->getShippingAddress($_order, $subShipAddressId);
+        $subBillAddressId = $firstSubscription->getBillingAddressId();
         $billAddress = $this->getBillingAddress($_order, $subBillAddressId);
-        $shippingMethod = $this->getShippingMethod($_order);
-        if (!$shippingMethod || $shippingMethod == '' || $shippingMethod == "NULL") {
-            $response['error_msg'] = __('Shipping Method not found');
-            $response['error'] = true;
-            return $response;
-        }
+
         $paymentMethod = $this->getPaymentMethod($_order);
         if (!$paymentMethod || $paymentMethod == '' || $paymentMethod == "NULL") {
             $response['error_msg'] = __('Payment Method not found');
@@ -355,12 +355,20 @@ class SubscriptionService
             $quote->getPayment()->setQuote($quote);
             $quote->getBillingAddress()->addData($billAddress);
 
-            $shippingAddress = $quote->getShippingAddress()->addData($shipAddress);
-            $shippingAddress->setCollectShippingRates(true)->collectShippingRates()
-                ->setShippingMethod($shippingMethod)
-                ->setPaymentMethod($paymentMethod);
+            /*Add shiiping if its not virtual order */
+            $isShippingRequired = $this->getIsShippingRequired($subProductId);
+            if($isShippingRequired) {
+                $shippingMethod = $this->getShippingMethod($_order);
+                $subShipAddressId = $firstSubscription->getShippingAddressId();
+                $shipAddress = $this->getShippingAddress($_order, $subShipAddressId);
+                $shippingAddress = $quote->getShippingAddress()->addData($shipAddress);
+                $shippingAddress->setCollectShippingRates(true)->collectShippingRates()
+                    ->setShippingMethod($shippingMethod);
 
-            $quote->getShippingAddress()->setShippingMethod($shippingMethod);
+                $quote->getShippingAddress()->setShippingMethod($shippingMethod);
+            } else {
+                $quote->isVirtual(true);
+            }
             $quote->setPaymentMethod($paymentMethod);
             $quote->collectTotals();
 
@@ -447,21 +455,24 @@ class SubscriptionService
     {
         if (isset($shippingAddressId)) {
             $shipAddressData = $this->getSubAddress($shippingAddressId);
+            return $shipAddressData;
         } else {
             $shippingAddress = $_order->getShippingAddress();
-            $shipAddressData = [
-                "firstname" => $shippingAddress->getFirstname(),
-                "lastname" => $shippingAddress->getLastname(),
-                "street" => $shippingAddress->getStreet(),
-                "city" => $shippingAddress->getCity(),
-                "postcode" => $shippingAddress->getPostcode(),
-                "telephone" => $shippingAddress->getTelephone(),
-                "country_id" => $shippingAddress->getCountryId(),
-                "region_id" => $shippingAddress->getRegionId(),
-            ];
+            if($shippingAddress!=NULL) {
+                $shipAddressData = [
+                    "firstname" => $shippingAddress->getFirstname(),
+                    "lastname" => $shippingAddress->getLastname(),
+                    "street" => $shippingAddress->getStreet(),
+                    "city" => $shippingAddress->getCity(),
+                    "postcode" => $shippingAddress->getPostcode(),
+                    "telephone" => $shippingAddress->getTelephone(),
+                    "country_id" => $shippingAddress->getCountryId(),
+                    "region_id" => $shippingAddress->getRegionId(),
+                ];
+                return $shipAddressData;
+            }
         }
-
-        return $shipAddressData;
+        return NULL;
     }
 
     /**
@@ -667,5 +678,18 @@ class SubscriptionService
     public function getNextRenewDate($subscriptionFrequency)
     {
         return $this->calculateNextRun($subscriptionFrequency);
+    }
+
+    public function getIsShippingRequired($productId) {
+        $product = $this->productRepository->getById($productId);
+        $productTypes = ['virtual', 'downloadable'];
+
+        if ($product) {
+            $productType = $product->getTypeId();
+            if (!in_array($productType, $productTypes)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
