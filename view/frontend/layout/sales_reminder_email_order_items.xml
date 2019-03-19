@@ -11,5 +11,10 @@
         <referenceBlock name="order_totals">
             <block class="Wagento\Subscription\Block\Sales\Totals\InitialFee" name="initialfee" as="initialfee"/>
         </referenceBlock>
+        <referenceBlock name="items">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Wagento_Subscription::email/items.phtml</argument>
+            </action>
+        </referenceBlock>
     </body>
 </page>
