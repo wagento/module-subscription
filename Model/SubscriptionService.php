@@ -299,6 +299,11 @@ class SubscriptionService
                 }
             }
 
+            $request = new \Magento\Framework\DataObject;
+            $links = $this->getSubscriptionProductLinks($_order, $subItemId);
+            if ($links) {
+                $request->setData('links', $links);
+            }
             $quote->setStoreId($storeId);
 
             /*customer details*/
@@ -306,7 +311,7 @@ class SubscriptionService
             $quote->setCustomerEmail($_order->getCustomerEmail());
 
             /*Quote Item details*/
-            $quoteItem = $quote->addProduct($product);
+            $quoteItem = $quote->addProduct($product,$request);
             $quoteItem->setCustomPrice($price);
             $quoteItem->setOriginalCustomPrice($price);
             $quoteItem->setQty($subQty);
@@ -688,6 +693,25 @@ class SubscriptionService
             $productType = $product->getTypeId();
             if (!in_array($productType, $productTypes)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param $_order
+     * @param $itemId
+     * @return bool
+     */
+    public function getSubscriptionProductLinks($_order, $itemId)
+    {
+        $items = $_order->getAllVisibleItems();
+        foreach ($items as $item) {
+            if ($item->getItemId() == $itemId) {
+                $itemOptons = $item->getProductOptionByCode('info_buyRequest');
+                if (isset($itemOptons['links'])) {
+                    return $itemOptons['links'];
+                }
             }
         }
         return false;
