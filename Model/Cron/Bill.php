@@ -103,13 +103,15 @@ class Bill
         $subscriptions = $this->collectionFactory->create();
         $connection = $this->resource->getConnection();
         $vaultPaymentToken = $connection->getTableName('vault_payment_token_order_payment_link');
-
+        $currentDateEnd = $currentDate. ' 23:59:59';
+        $currentDate.= ' 00:00:00';
         $subscriptions->getSelect()->join(
             $vaultPaymentToken . ' as pt',
             "main_table.subscribe_order_id = pt.order_payment_id",
             ['payment_token_id']
         );
-        $subscriptions->addFieldToFilter('next_renewed', ['eq' => $currentDate])
+        $subscriptions->addFieldToFilter('next_renewed', ['lteq' => $currentDateEnd])
+            ->addFieldToFilter('next_renewed', ['gteq' => $currentDate])
             ->addFieldToFilter('status', ['eq' => 1])
             ->addFieldToFilter('how_many', ['neq' => 'billing_count']);
 

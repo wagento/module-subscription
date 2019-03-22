@@ -595,33 +595,33 @@ class SubscriptionService
     public function calculateNextRun($frequency)
     {
         $now = $this->dateProcessor->date(null, null, false);
-        $date = $now->format(\Magento\Framework\Stdlib\DateTime::DATE_PHP_FORMAT);
+        $date = $now->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
 
         /*Daily */
         if ($frequency == 1) {
             $newDate = strtotime('+1 Day', strtotime($date));
             $daily = $this->dateProcessor->date($newDate);
-            $nextRunDate = $daily->format(\Magento\Framework\Stdlib\DateTime::DATE_PHP_FORMAT);
+            $nextRunDate = $daily->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
         }
         //Weekly
         if ($frequency == 2) {
             $newDate = strtotime('+1 Week', strtotime($date));
             $weekly = $this->dateProcessor->date($newDate);
-            $nextRunDate = $weekly->format(\Magento\Framework\Stdlib\DateTime::DATE_PHP_FORMAT);
+            $nextRunDate = $weekly->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
         }
 
         //Monthly
         if ($frequency == 3) {
             $newDate = strtotime('+1 Month', strtotime($date));
             $monthly = $this->dateProcessor->date($newDate);
-            $nextRunDate = $monthly->format(\Magento\Framework\Stdlib\DateTime::DATE_PHP_FORMAT);
+            $nextRunDate = $monthly->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
         }
 
         //Yearly
         if ($frequency == 4) {
             $newDate = strtotime('+1 Year', strtotime($date));
             $monthly = $this->dateProcessor->date($newDate);
-            $nextRunDate = $monthly->format(\Magento\Framework\Stdlib\DateTime::DATE_PHP_FORMAT);
+            $nextRunDate = $monthly->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
         }
         if (isset($nextRunDate)) {
             return $nextRunDate;

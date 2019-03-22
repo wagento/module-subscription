@@ -141,9 +141,12 @@ class ReminderEmail
         $nextDate = strtotime('+1 Day', strtotime($date));
         $subNextDate = $this->dateProcessor->date($nextDate);
         $subNextDateFormat = $subNextDate->format(\Magento\Framework\Stdlib\DateTime::DATE_PHP_FORMAT);
+        $subNextDateFormatEnd = $subNextDateFormat . ' 23:59:59';
+        $subNextDateFormat.= ' 00:00:00';
 
         $subscriptions = $this->collectionFactory->create();
-        $subscriptions->addFieldToFilter('next_renewed', ['eq' => $subNextDate])
+        $subscriptions->addFieldToFilter('next_renewed', ['lteq' => $subNextDateFormatEnd])
+            ->addFieldToFilter('next_renewed', ['gteq' => $subNextDateFormat])
             ->addFieldToFilter('status', ['eq' => 1])
             ->addFieldToFilter('how_many', ['neq' => 'billing_count']);
 
