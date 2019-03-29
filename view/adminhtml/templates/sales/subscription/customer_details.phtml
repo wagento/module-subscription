@@ -7,16 +7,16 @@
 /** @var \Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View\CustomerDetails $block */
 ?>
 <?php $subDetails = $block->getSubscriptionDetail(); ?>
-<?php
-$subAdminDate = $block->formatDate($subDetails->getSubStartDate(),
-    \IntlDateFormatter::MEDIUM,
-    true
-);
 
-$subLastRenewedDate = $block->formatDate($subDetails->getLastRenewed(),
-    \IntlDateFormatter::MEDIUM,
-    false
-);
+<?php 
+$getCreatedAt = $subDetails->getCreatedAt(); 
+$date   = new Datetime($getCreatedAt); 
+$subAdminDate =  $date->format('m/d/y'); ?>
+
+$getLastRenewed = $subDetails->getLastRenewed(); 
+$dateLastRenew   = new Datetime($getLastRenewed); 
+$subLastRenewedDate =  $dateLastRenew->format('m/d/y'); ?>
+
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
 
@@ -222,12 +222,9 @@ $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
                     <?= __('Subscribed') ?>
                     <?= (int)$subDetails->getQtyOrdered() ?>
                 </td>
-                <?php
-                    $total = ($subDetails->getPrice()) + $subDetails->getShipping();
-                    $rowTotal = $subDetails->getPrice() * (int)$subDetails->getQtyOrdered();
-                ?>
+                <?php $total = ($subDetails->getPrice()) + $subDetails->getShipping() ?>
                 <td><?= $priceHelper->currency(number_format($total, 2), true, false) ?></td>
-                <td><?= $priceHelper->currency(number_format($rowTotal, 2), true, false) ?></td>
+                <td><?= $priceHelper->currency(number_format($total, 2), true, false) ?></td>
             </tr>
             </tbody>
         </table>

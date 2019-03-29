@@ -47,14 +47,14 @@ $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
                         echo $subscription->getId() ?>
                     </td>
                     <td data-th="<?php echo $block->escapeHtml(__('Purchase Date')) ?>" class="col date">
-                        <?php echo $block->formatDate($subscription->getCreatedAt(), \IntlDateFormatter::SHORT, false); ?>
+                        <?php $dt_str = $subscription->getCreatedAt(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
                     </td>
                     <td data-th="<?php echo $block->escapeHtml(__('Next Renewal Date')) ?>" class="col date">
-                        <?php echo $block->formatDate($subscription->getNextRenewed(), \IntlDateFormatter::SHORT, false); ?>
+                        <?php $dt_str = $subscription->getNextRenewed(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
                     </td>
 
                     <td data-th="<?php echo $block->escapeHtml(__('Last Renewed Date')) ?>" class="col date">
-                        <?php echo $block->formatDate($subscription->getLastRenewed(), \IntlDateFormatter::SHORT, false); ?>
+                        <?php $dt_str = $subscription->getLastRenewed(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
                     </td>
                     <td data-th="<?php echo $block->escapeHtml(__('Ship To')) ?>" class="col shipping">
                         <?= $subscription->getCustomerName(); ?>

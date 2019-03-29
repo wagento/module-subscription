@@ -112,22 +112,20 @@ $getAction = $this->getRequest()->getActionName();
                             <tr>
                                 <th><?= $block->escapeHtml(__('Subscription Started Date')) ?></th>
                                 <td>
-                                    <?= $block->formatDate($subDetails->getSubStartDate(),
-                                        \IntlDateFormatter::LONG, false); ?>
+                                    <?php $dt_str = $subDetails->getSubStartDate(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th><?= $block->escapeHtml(__('Last Renewed')) ?></th>
                                 <td>
-                                    <?= $block->formatDate($subDetails->getLastRenewed(),
-                                        \IntlDateFormatter::LONG, false); ?>
+                                    <?php $dt_str = $subDetails->getLastRenewed(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th><?= $block->escapeHtml(__('Next Renewal')) ?></th>
                                 <td>
-                                    <?= $block->formatDate($subDetails->getNextRenewed(),
-                                        \IntlDateFormatter::LONG, false); ?>
+                                    <?php $dt_str = $subDetails->getNextRenewed(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
+
                                 </td>
                             </tr>
                             </tbody>
