@@ -11,11 +11,11 @@
 <?php 
 $getCreatedAt = $subDetails->getCreatedAt(); 
 $date   = new Datetime($getCreatedAt); 
-$subAdminDate =  $date->format('m/d/y'); ?>
+$subAdminDate =  $date->format('m/d/y'); 
 
 $getLastRenewed = $subDetails->getLastRenewed(); 
 $dateLastRenew   = new Datetime($getLastRenewed); 
-$subLastRenewedDate =  $dateLastRenew->format('m/d/y'); ?>
+$subLastRenewedDate =  $dateLastRenew->format('m/d/y'); 
 
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
