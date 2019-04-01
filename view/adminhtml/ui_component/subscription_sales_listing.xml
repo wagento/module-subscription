@@ -145,8 +145,7 @@
                 </item>
             </argument>
         </column>
-        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
-                component="Magento_Ui/js/grid/columns/date">
+        <column name="created_at" component="Magento_Ui/js/grid/columns/date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -155,8 +154,7 @@
                 </item>
             </argument>
         </column>
-        <column name="last_renewed" class="Magento\Ui\Component\Listing\Columns\Date"
-                component="Magento_Ui/js/grid/columns/date">
+        <column name="last_renewed" component="Magento_Ui/js/grid/columns/date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -165,8 +163,7 @@
                 </item>
             </argument>
         </column>
-        <column name="next_renewed" class="Magento\Ui\Component\Listing\Columns\Date"
-                component="Magento_Ui/js/grid/columns/date">
+        <column name="next_renewed" component="Magento_Ui/js/grid/columns/date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
