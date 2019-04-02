@@ -129,10 +129,14 @@ class AddSubscriptionDetails implements ObserverInterface
                     $orderId[$key] = $item->getItemId();
                     $productId[$key] = $item->getProductId();
                     $productAdditionalOptions[$key] = $item->getProductOptions();
-                    $getLabel = $productAdditionalOptions[$key]['additional_options'][2]['label'];
-                    if ($getLabel == 'Subscription Cycle') {
-                        $howManyValue = $productAdditionalOptions[$key]['additional_options'][2]['value'];
-                        $howManyNumber = preg_replace("/[^0-9]/", '', $howManyValue);
+                    if(isset($productAdditionalOptions[$key]['additional_options'][2]['label'])) {
+                        $getLabel = $productAdditionalOptions[$key]['additional_options'][2]['label'] ;
+                        if ($getLabel == 'Subscription Cycle') {
+                            $howManyValue = $productAdditionalOptions[$key]['additional_options'][2]['value'];
+                            $howManyNumber = preg_replace("/[^0-9]/", '', $howManyValue);
+                        } else {
+                            $howManyNumber = null;
+                        }
                     } else {
                         $howManyNumber = null;
                     }
