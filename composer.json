@@ -5,7 +5,7 @@
   ],
   "type": "magento2-module",
   "description": "This Module is for purchase products as subscription compitable with Braintree Payment Method.",
-  "version": "101.0.3",
+  "version": "101.0.4",
   "require": {
     "magento/framework": "^100.1.0|101.0.*|102.0.0"
   },
