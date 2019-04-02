@@ -104,6 +104,10 @@
                 </item>
             </argument>
             <settings>
+                <validation>
+                    <rule name="validate-not-negative-number" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                </validation>
                 <dataType>text</dataType>
                 <visible>true</visible>
                 <label translate="true">Fee</label>
@@ -116,6 +120,10 @@
                 </item>
             </argument>
             <settings>
+                <validation>
+                    <rule name="validate-not-negative-number" xsi:type="boolean">true</rule>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                </validation>
                 <dataType>text</dataType>
                 <visible>true</visible>
                 <label translate="true">Discount</label>
