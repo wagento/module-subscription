@@ -16,8 +16,8 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
     $productType = $subHelper->getProductType($productId);
     ?>
     <!-- Show Subscription popup Only for non subscription Items-->
-    <?php //if($isSubscribed): ?>
-    <?php if ($subHelper->getSubscriptionConfigurations($productId) == 'optional'): ?>
+    <?php $subscriptionOptions = $subHelper->getSubscriptionConfigurations($productId); ?>
+    <?php if ($subscriptionOptions == 'optional' || $subscriptionOptions == 'subscription_only'): ?>
         <?php //if(!$isSubscribed): ?>
         <div class="field subscription">
             <input type="checkbox" id="subscriptionPopup<?= $itemId ?>"
