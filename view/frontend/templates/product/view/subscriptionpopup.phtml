@@ -105,7 +105,7 @@ $isInCart = $block->getProductInCart($productId);
                                                title="<?= /* @escapeNotVerified */
                                                 __('Subscription Qty') ?>"
                                                class="input-text sub_qty"
-                                               data-validate="{'required-number':true,digits:true}"
+                                               data-validate="{'required':true, 'pattern':/^\d+(\.\d{1,2})?$/, 'validate-greater-than-zero':true}"
                                                data-bind="value: subqty"/>
                                     </div>
 
