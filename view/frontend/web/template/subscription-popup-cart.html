@@ -15,12 +15,12 @@
             <div class="content">
                 <p class="content" data-bind="i18n: 'Are you sure, you want to unsubscribe this product?'"></p>
             </div>
-            <input id="un_product_id" name="product_id" type="hidden" data-bind="value:subscriptionProductId"/>
+            <input name="product_id" type="hidden" data-bind="value:subscriptionProductId,attr:{id:'un_product_id-'+itemId}"/>
             <div class="actions-toolbar">
                 <div class="primary">
                     <button type="submit" class="action action-unsubscribe secondary action delete"
-                            name="unsubscribe" id="unsubscribe"
-                            data-bind="attr: {'data-cart-item': subscriptionProductId, title: $t('Remove item')}">
+                            name="unsubscribe"
+                            data-bind="attr: {'data-cart-item': subscriptionProductId, title: $t('Remove item'), id:'unsubscribe-'+itemId}">
                         <span data-bind="i18n: 'Unsubscribe'"></span>
                     </button>
                 </div>
@@ -121,7 +121,7 @@
                                            value=""
                                            title="<?= /* @escapeNotVerified */ __('Subscription Qty') ?>"
                                            class="input-text sub_qty"
-                                           data-validate="{'required-number':true,digits:true}"
+                                           data-validate="{'required':true, 'pattern':/^\d+(\.\d{1,2})?$/, 'validate-greater-than-zero':true}"
                                            data-bind="value: subqty"/>
                                 </div>
                             </div>

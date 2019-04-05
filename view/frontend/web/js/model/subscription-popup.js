@@ -31,6 +31,10 @@ define([
             this.modalWindow = element;
             modal(options, $(this.modalWindow));
 
+            jQuery(this.modalWindow).on('modalclosed', function() {
+                jQuery('#subscriptionPopup').attr('checked', false);
+            });
+
             $('.subscriptionPopup').on('change', function () {
                 var links = jQuery('#product-options-wrapper').length;
                 if (links == 1) {

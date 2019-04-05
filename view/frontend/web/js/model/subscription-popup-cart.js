@@ -30,11 +30,13 @@ define([
 
             this.modalWindow = element;
             modal(options, $(this.modalWindow));
-            
-            $('.action-close').on('click', function () {
-                jQuery('.actions-toolbar input:checked').each(function() {
-                    jQuery(this).attr('checked', false); 
-                });
+            jQuery(this.modalWindow).on('modalclosed', function() {
+                if(jQuery('.subscriptionPopupSubscribe' + subItemId).length) {
+                    jQuery('.subscriptionPopupSubscribe' + subItemId).attr('checked', false);
+                }
+                if(jQuery('.subscriptionPopupUnsubscribe' + subItemId).length) {
+                    jQuery('.subscriptionPopupUnsubscribe' + subItemId).attr('checked', true);
+                }
             });
         },
 
