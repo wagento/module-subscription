@@ -3,11 +3,8 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Wagento\Subscription\Model\Attribute\Backend;
-
 use Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend;
-
 /**
  * Class Subscription
  * @package Wagento\Subscription\Model\Attribute\Backend
@@ -15,25 +12,26 @@ use Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend;
 class Subscription extends AbstractBackend
 {
     /**
-     * @var \Wagento\Subscription\Model\SubscriptionRepository
+     * @var \Wagento\Subscription\Model\ProductRepository
      */
-    protected $subscriptionRepository;
+    protected $subscriptionProductRepository;
+
     /**
-     * @var \Wagento\Subscription\Api\Data\SubscriptionInterfaceFactory
+     * @var \Magento\Framework\Module\Manager
      */
-    protected $subscriptionDataFactory;
+    protected $moduleManager;
 
     /**
      * Subscription constructor.
      * @param \Wagento\Subscription\Model\ProductRepository $subscriptionProductRepository
-     * @param \Wagento\Subscription\Api\Data\ProductInterfaceFactory $subscriptionProductDataFactory
+
      */
     public function __construct(
         \Wagento\Subscription\Model\ProductRepository $subscriptionProductRepository,
-        \Wagento\Subscription\Api\Data\ProductInterfaceFactory $subscriptionProductDataFactory
+        \Magento\Framework\Module\Manager $moduleManager
     ) {
         $this->subscriptionProductRepository = $subscriptionProductRepository;
-        $this->subscriptionProductDataFactory = $subscriptionProductDataFactory;
+        $this->moduleManager = $moduleManager;
     }
 
     /**
@@ -46,32 +44,39 @@ class Subscription extends AbstractBackend
         $subscriptionProductRow = $this->subscriptionProductRepository
             ->getSubscriptionByProductId($object->getEntityId());
         $rowData = $subscriptionProductRow->getData();
-        $subscriptionProductFactory = $this->subscriptionProductDataFactory->create();
-        $subscriptionConfig = $object->getSubscriptionConfigurate();
 
-        /*add subscription record in wagento_subscription_products*/
-        if ($subscriptionConfig != 'no' && $subscriptionConfig != null) {
-            if (!empty($rowData)) {
-                $updateArray = [
-                    'entity_id' => $rowData[0]['entity_id'],
-                    'subscription_id' => $object->getSubscriptionAttributeProduct(),
-                    'product_id' => $object->getEntityId(),
-                ];
-                $newRow = $subscriptionProductFactory->setData($updateArray);
-            } else {
-                $dataArray = [
-                    'subscription_id' => $object->getSubscriptionAttributeProduct(),
-                    'product_id' => $object->getEntityId(),
-                ];
-                $newRow = $subscriptionProductFactory->addData($dataArray);
+        if ($this->moduleManager->isEnabled('Wagento_Subscription')) {
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $subscriptionProductFactory = $objectManager->create('Wagento\Subscription\Api\Data\ProductInterfaceFactory')
+                ->create();
+            $subscriptionConfig = $object->getSubscriptionConfigurate();
+
+            /*add subscription record in wagento_subscription_products*/
+            if ($subscriptionConfig != 'no' && $subscriptionConfig != null) {
+                if (!empty($rowData)) {
+                    $updateArray = [
+                        'entity_id' => $rowData[0]['entity_id'],
+                        'subscription_id' => $object->getSubscriptionAttributeProduct(),
+                        'product_id' => $object->getEntityId(),
+                    ];
+                    $newRow = $subscriptionProductFactory->setData($updateArray);
+                } else {
+                    $dataArray = [
+                        'subscription_id' => $object->getSubscriptionAttributeProduct(),
+                        'product_id' => $object->getEntityId(),
+                    ];
+                    $newRow = $subscriptionProductFactory->addData($dataArray);
+                }
+                $this->subscriptionProductRepository->save($newRow);
             }
-            $this->subscriptionProductRepository->save($newRow);
-        }
 
-        /*delete subscription record when subscription is set to no*/
-        if ($subscriptionConfig == 'no' && !empty($rowData)) {
-            $this->subscriptionProductRepository->deleteById($rowData[0]['entity_id']);
+            /*delete subscription record when subscription is set to no*/
+            if ($subscriptionConfig == 'no' && !empty($rowData)) {
+                $this->subscriptionProductRepository->deleteById($rowData[0]['entity_id']);
+            }
+            return $this;
+        } else {
+            return $this;
         }
-        return $this;
     }
 }

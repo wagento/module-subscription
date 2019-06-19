@@ -9,10 +9,10 @@ We are adding a new version management to make module installation available thr
 
 Magento Version | Composer prefix 
 ----            | ---- 
-2.2.x           | 101.0.6
-2.3.0           | 101.0.6
+2.2.x           | 101.0.7
+2.3.X           | 101.0.7
 
-So if you are in magento 2.2.x to install by composer just execute: `composer require wagento/module-subscription::101.0.6`
+So if you are in magento 2.2.x or magento 2.3.x to install by composer just execute: `composer require wagento/module-subscription::101.0.7`
 
 BUT in file `etc/module.xml` version will be the same for all composer version, use `setup_version` as global version reference.
 
