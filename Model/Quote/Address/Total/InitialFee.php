@@ -6,8 +6,6 @@
 
 namespace Wagento\Subscription\Model\Quote\Address\Total;
 
-use Magento\Checkout\Model\Cart;
-
 /**
  * Class InitialFee
  * @package Wagento\Subscription\Model\Quote\Address\Total
@@ -18,10 +16,6 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      * @var \Magento\Quote\Model\QuoteValidator|null
      */
     protected $quoteValidator = null;
-    /**
-     * @var Cart
-     */
-    protected $cart;
     /**
      * @var \Wagento\Subscription\Helper\Product
      */
@@ -35,19 +29,16 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     /**
      * InitialFee constructor.
      * @param \Magento\Quote\Model\QuoteValidator $quoteValidator
-     * @param Cart $cart
      * @param \Wagento\Subscription\Helper\Product $subProductHelper
      * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
      */
     public function __construct(
         \Magento\Quote\Model\QuoteValidator $quoteValidator,
-        Cart $cart,
         \Wagento\Subscription\Helper\Product $subProductHelper,
         \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
     ) {
 
         $this->quoteValidator = $quoteValidator;
-        $this->cart = $cart;
         $this->subProductHelper = $subProductHelper;
         $this->_priceCurrency = $priceCurrency;
     }
@@ -64,7 +55,10 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         \Magento\Quote\Model\Quote\Address\Total $total
     ) {
         parent::collect($quote, $shippingAssignment, $total);
-        $items = $this->cart->getItems();
+        $items = $shippingAssignment->getItems();
+        if (!count($items)) {
+            return $this;
+        }
         $initialFee = $this->getInitialFeeValue($items);
         $total->addTotalAmount('initialfee', $initialFee);
         $total->addBaseTotalAmount('initialfee', $initialFee);
@@ -79,14 +73,15 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     public function fetch(\Magento\Quote\Model\Quote $quote, \Magento\Quote\Model\Quote\Address\Total $total)
     {
-        $items = $this->cart->getItems();
-        $initialfee = $this->getInitialFeeValue($items);
-
-        return [
-            'code' => 'initialfee',
+        $result = null;
+        $code = 'initialfee';
+        $initialFee = ($quote->getInitialFee()) ? $quote->getInitialFee() : 0;
+        $result = [
+            'code' => $code,
             'title' => 'Subscription Initial Fee',
-            'value' => $initialfee
+            'value' => $initialFee
         ];
+        return $result;
     }
 
     /**

@@ -9,10 +9,10 @@ We are adding a new version management to make module installation available thr
 
 Magento Version | Composer prefix 
 ----            | ---- 
-2.2.x           | 101.0.7
-2.3.X           | 101.0.7
+2.2.x           | 101.0.8
+2.3.X           | 101.0.8
 
-So if you are in magento 2.2.x or magento 2.3.x to install by composer just execute: `composer require wagento/module-subscription::101.0.7`
+So if you are in magento 2.2.x or magento 2.3.x to install by composer just execute: `composer require wagento/module-subscription::101.0.8`
 
 BUT in file `etc/module.xml` version will be the same for all composer version, use `setup_version` as global version reference.
 
@@ -23,9 +23,11 @@ If you are facing any issue with module installation and configuration please se
 Based in `setup_version`
 
 v2.2.1
-- Make module compatible with 2.3.0 and 2.3.1
+- Make module compatible with 2.3.4 and 2.3.5
 - Resolve reminder email cron issue
 - Resolve cart page Unsubscribe issue 
+- Resolve checkout issue with subscription
+- Resolve Minicart update after add subscription Product
 
 v2.1.1
 - Initial module integration for Braintree Subscription 

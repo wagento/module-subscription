@@ -9,14 +9,16 @@ define(
         'jquery',
         'mage/storage',
         'mage/translate',
-        'Wagento_Subscription/js/model/subscription-popup'
+        'Wagento_Subscription/js/model/subscription-popup',
+        'Magento_Customer/js/customer-data'
     ],
     function (
         ko,
         $,
         storage,
         $t,
-        subscription
+        subscription,
+        customerData
     ) {
         'use strict';
         return function (subscriptionData) {
@@ -32,6 +34,9 @@ define(
                     alert(response.message);
                     subscription.closeModal();
                     $('body').trigger('processStop');
+                    var sections = ['cart'];
+                    customerData.invalidate(sections);
+                    customerData.reload(sections, true);
                     window.location.reload(true);
                 }
             ).fail(
