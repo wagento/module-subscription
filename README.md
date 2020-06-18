@@ -17,7 +17,7 @@ So if you are in magento 2.2.x or magento 2.3.x to install by composer just exec
 BUT in file `etc/module.xml` version will be the same for all composer version, use `setup_version` as global version reference.
 
 ## Support
-If you are facing any issue with module installation and configuration please send an email to support@mage365.zendesk.com
+If you are facing any issue with module installation and configuration please send an email to support@wagento.com
 
 ## Changelog
 Based in `setup_version`
