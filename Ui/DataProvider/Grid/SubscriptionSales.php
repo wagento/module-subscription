@@ -93,7 +93,7 @@ class SubscriptionSales extends \Magento\Framework\View\Element\UiComponent\Data
 
         $this->addFilterToMap('id', 'main_table.id')
             ->addFilterToMap('customer_name', 'customer.name')
-            ->addFilterToMap('name', 'wagento_subscription.name')
+            ->addFilterToMap('name', 'ws.name')
             ->addFilterToMap('created_at', 'main_table.created_at')
             ->addFilterToMap('store_id', 'main_table.store_id');
 
