@@ -11,7 +11,7 @@
         <sequence>
             <module name="Magento_Catalog"/>
             <module name="Magento_Customer"/>
-            <module name="Magento_Braintree"/>
+             <module name="PayPal_Braintree"/>
             <module name="Magento_Sales"/>
         </sequence>
     </module>

@@ -12,11 +12,11 @@ namespace Wagento\Subscription\Plugin\Gateway\Request;
 class ChannelDataBuilder
 {
     /**
-     * @param \Magento\Braintree\Gateway\Request\ChannelDataBuilder $subject
+     * @param \PayPal\Braintree\Gateway\Request\ChannelDataBuilder $subject
      * @param $result
      * @return mixed
      */
-    public function afterBuild(\Magento\Braintree\Gateway\Request\ChannelDataBuilder $subject, $result)
+    public function afterBuild(\PayPal\Braintree\Gateway\Request\ChannelDataBuilder $subject, $result)
     {
         $result['channel'] = 'Wagento_subscription';
         return $result;
