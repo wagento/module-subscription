@@ -22,6 +22,12 @@ If you are facing any issue with module installation and configuration please se
 ## Changelog
 Based in `setup_version`
 
+v2.3.1
+- Make module compatible with 2.4.4
+- Resolve Magento_Braintree dependency issues.
+- Module compatible with php 8.1 version.
+
+
 v2.2.1
 - Make module compatible with 2.3.4 and 2.3.5
 - Resolve reminder email cron issue
