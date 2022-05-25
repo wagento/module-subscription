@@ -14,7 +14,7 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Vault\Api\PaymentTokenRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Braintree\Gateway\Command\GetPaymentNonceCommand;
+use PayPal\Braintree\Gateway\Command\GetPaymentNonceCommand;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Quote\Model\Quote\ItemFactory as QuoteItemFactory;
 use Magento\Customer\Model\Address\Config as AddressConfig;
