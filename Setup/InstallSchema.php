@@ -13,7 +13,6 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 
 /**
  * Class InstallSchema
- * @package Wagento\Subscription\Setup
  */
 class InstallSchema implements InstallSchemaInterface
 {

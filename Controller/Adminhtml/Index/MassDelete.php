@@ -15,7 +15,6 @@ use Magento\Framework\Controller\ResultFactory;
 
 /**
  * Class MassDelete
- * @package Wagento\Subscription\Controller\Adminhtml\Index
  */
 class MassDelete extends IndexAction
 {
@@ -118,7 +117,7 @@ class MassDelete extends IndexAction
                 $subscriptionsDeleted++;
             }
             if ($subscriptionsDeleted) {
-                $this->messageManager->addSuccessMessage(__('A total of %1 
+                $this->messageManager->addSuccessMessage(__('A total of %1
                 record(s) were deleted.', $subscriptionsDeleted));
             }
             /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */

@@ -17,7 +17,6 @@ use Magento\Catalog\Api\ProductRepositoryInterface;
 
 /**
  * Class SubscriptionDetails
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View
  */
 class SubscriptionDetails extends Generic implements TabInterface
 {

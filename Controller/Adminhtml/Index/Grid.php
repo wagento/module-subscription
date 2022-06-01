@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Controller\Adminhtml\Index;
 /**
  * Class Grid
- * @package Wagento\Subscription\Controller\Adminhtml\Index
  */
 class Grid extends \Wagento\Subscription\Controller\Adminhtml\Index\Product
 {

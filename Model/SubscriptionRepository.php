@@ -13,7 +13,6 @@ use Wagento\Subscription\Api\SubscriptionRepositoryInterface;
 
 /**
  * Class SubscriptionRepository
- * @package Wagento\Subscription\Model
  */
 class SubscriptionRepository implements SubscriptionRepositoryInterface
 {

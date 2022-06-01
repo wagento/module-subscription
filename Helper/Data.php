@@ -28,7 +28,6 @@ use Magento\Catalog\Model\Product\Type\Price;
 
 /**
  * Class Data
- * @package Wagento\Subscription\Helper
  */
 class Data extends AbstractHelper
 {
@@ -159,7 +158,7 @@ class Data extends AbstractHelper
         \Magento\Downloadable\Model\Link $links,
         \Magento\Customer\Model\Session $customerSession
     ) {
-    
+
         parent::__construct($context);
         $this->scopeConfig = $context->getScopeConfig();
         $this->_serializer = $serializer ?: ObjectManager::getInstance()->get(Json::class);

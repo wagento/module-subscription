@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo;
 /**
  * Class Totals
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo
  */
 class Totals extends \Magento\Framework\View\Element\Template
 {

@@ -11,7 +11,6 @@ use Magento\Framework\Serialize\Serializer\Json;
 
 /**
  * Class ToOrderItem
- * @package Wagento\Subscription\Plugin
  */
 class ToOrderItem
 {
@@ -46,7 +45,7 @@ class ToOrderItem
         $item,
         $data = []
     ) {
-    
+
         $orderItem = $proceed($item, $data);
         $additionalOptions = $item->getOptionByCode('additional_options');
         if (!is_null($additionalOptions)) {

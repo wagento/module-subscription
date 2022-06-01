@@ -10,7 +10,6 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
  * Class Subscription
- * @package Wagento\Subscription\Model\ResourceModel
  */
 class Subscription extends AbstractDb
 {

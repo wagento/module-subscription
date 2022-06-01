@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Controller\Adminhtml\Sales;
 /**
  * Class View
- * @package Wagento\Subscription\Controller\Adminhtml\Sales
  */
 class View extends \Magento\Backend\App\Action
 {
@@ -24,7 +23,7 @@ class View extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
     ) {
-    
+
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
     }

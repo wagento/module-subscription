@@ -13,7 +13,6 @@ use Wagento\Subscription\Model\SubscriptionFactory;
 
 /**
  * Class Subscription
- * @package Wagento\Subscription\Helper
  */
 class Subscription extends AbstractHelper
 {
@@ -38,7 +37,7 @@ class Subscription extends AbstractHelper
         ProductFactory $productFactory,
         SubscriptionFactory $subscriptionFactory
     ) {
-    
+
         parent::__construct($context);
 
         $this->productFactory = $productFactory;

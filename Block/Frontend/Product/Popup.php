@@ -13,7 +13,6 @@ use Wagento\Subscription\Helper\Data;
 
 /**
  * Class Popup
- * @package Wagento\Subscription\Block\Frontend\Product
  */
 class Popup extends \Magento\Catalog\Block\Product\View
 {

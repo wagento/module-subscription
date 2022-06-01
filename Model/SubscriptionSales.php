@@ -10,7 +10,6 @@ use Wagento\Subscription\Api\Data\SalesSubscriptionInterface;
 
 /**
  * Class SubscriptionSales
- * @package Wagento\Subscription\Model
  */
 class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implements SalesSubscriptionInterface
 {

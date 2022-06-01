@@ -10,7 +10,6 @@ use Magento\Sales\Model\Order;
 
 /**
  * Class InitialFee
- * @package Wagento\Subscription\Block\Sales\Totals
  */
 class InitialFee extends \Magento\Framework\View\Element\Template
 {
@@ -32,7 +31,7 @@ class InitialFee extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
-    
+
         parent::__construct($context, $data);
     }
 

@@ -10,7 +10,6 @@ use Magento\Checkout\Block\Cart\Item\Renderer\Actions\Generic;
 
 /**
  * Class Edit
- * @package Wagento\Subscription\Block\Frontend\Cart\Item\Renderer
  */
 class Edit extends Generic
 {

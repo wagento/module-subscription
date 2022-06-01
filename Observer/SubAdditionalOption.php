@@ -17,7 +17,6 @@ use Wagento\Subscription\Helper\Data as SubscriptionHelper;
 
 /**
  * Class SubAdditionalOption
- * @package Wagento\Subscription\Observer
  */
 class SubAdditionalOption implements ObserverInterface
 {
@@ -75,7 +74,7 @@ class SubAdditionalOption implements ObserverInterface
         \Magento\Framework\Json\Helper\Data $helper,
         SubscriptionHelper $subHelper
     ) {
-    
+
         $this->_request = $request;
         $this->_serializer = $serializer ?: ObjectManager::getInstance()->get(Json::class);
         $this->productFactory = $productFactory->create();

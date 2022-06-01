@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Block\Adminhtml\Sales;
 /**
  * Class Totals
- * @package Wagento\Subscription\Block\Adminhtml\Sales
  */
 class Totals extends \Magento\Framework\View\Element\Template
 {
@@ -28,7 +27,7 @@ class Totals extends \Magento\Framework\View\Element\Template
         \Magento\Directory\Model\Currency $currency,
         array $data = []
     ) {
-    
+
         parent::__construct($context, $data);
         $this->_currency = $currency;
     }

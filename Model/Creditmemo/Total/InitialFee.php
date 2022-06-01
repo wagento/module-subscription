@@ -10,7 +10,6 @@ use Magento\Sales\Model\Order\Creditmemo\Total\AbstractTotal;
 
 /**
  * Class InitialFee
- * @package Wagento\Subscription\Model\Creditmemo\Total
  */
 class InitialFee extends AbstractTotal
 {

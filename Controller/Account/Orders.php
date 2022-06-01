@@ -13,7 +13,6 @@ use Magento\Framework\App\Action\Context;
 
 /**
  * Class Orders
- * @package Wagento\Subscription\Controller\Account
  */
 class Orders extends \Magento\Customer\Controller\AbstractAccount
 {

@@ -14,7 +14,6 @@ use Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface;
 
 /**
  * Class MassDelete
- * @package Wagento\Subscription\Controller\Adminhtml\Sales
  */
 class MassDelete extends \Magento\Backend\App\Action
 {
@@ -48,7 +47,7 @@ class MassDelete extends \Magento\Backend\App\Action
         CollectionFactory $collectionFactory,
         SalesSubscriptionRepositoryInterface $salesSubscriptionRepository
     ) {
-    
+
         $this->_filter = $filter;
         $this->_collectionFactory = $collectionFactory;
         $this->salesSubscriptionRepository = $salesSubscriptionRepository;

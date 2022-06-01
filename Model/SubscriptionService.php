@@ -25,7 +25,6 @@ use Magento\Catalog\Api\ProductRepositoryInterface;
 
 /**
  * Class SubscriptionService
- * @package Wagento\Subscription\Model
  */
 class SubscriptionService
 {

@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Helper;
 /**
  * Class Email
- * @package Wagento\Subscription\Helper
  */
 class Email extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -74,7 +73,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Customer\Model\CustomerFactory $customers,
         \Wagento\Subscription\Helper\Data $helper
     ) {
-    
+
         $this->_scopeConfig = $context;
         parent::__construct($context);
         $this->_storeManager = $storeManager;

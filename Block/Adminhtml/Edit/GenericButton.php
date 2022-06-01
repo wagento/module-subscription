@@ -10,7 +10,6 @@ use Wagento\Subscription\Controller\RegistryConstants;
 
 /**
  * Class GenericButton
- * @package Wagento\Subscription\Block\Adminhtml\Edit
  */
 class GenericButton
 {
@@ -38,7 +37,7 @@ class GenericButton
         \Magento\Backend\Block\Widget\Context $context,
         \Magento\Framework\Registry $registry
     ) {
-    
+
         $this->urlBuilder = $context->getUrlBuilder();
         $this->registry = $registry;
     }

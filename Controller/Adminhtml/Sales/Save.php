@@ -11,7 +11,6 @@ use Wagento\Subscription\Model\SubscriptionSalesFactory;
 
 /**
  * Class Save
- * @package Wagento\Subscription\Controller\Adminhtml\Sales
  */
 class Save extends \Magento\Backend\App\Action
 {
@@ -43,7 +42,7 @@ class Save extends \Magento\Backend\App\Action
         SubscriptionSalesRepository $subscriptionSalesRepository,
         SubscriptionSalesFactory $subSalesFactory
     ) {
-    
+
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
         $this->subscriptionSalesRepository = $subscriptionSalesRepository;

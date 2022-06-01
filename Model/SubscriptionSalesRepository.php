@@ -13,7 +13,6 @@ use Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface;
 
 /**
  * Class SubscriptionSalesRepository
- * @package Wagento\Subscription\Model
  */
 class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterface
 {
@@ -35,7 +34,7 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
         \Wagento\Subscription\Model\SubscriptionSalesFactory $subscriptionSalesFactory,
         \Wagento\Subscription\Model\ResourceModel\SubscriptionSales $subscriptionSalesResource
     ) {
-    
+
         $this->subscriptionSalesFactory = $subscriptionSalesFactory;
         $this->subscriptionSalesResource = $subscriptionSalesResource;
     }

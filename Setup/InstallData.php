@@ -13,7 +13,6 @@ use Magento\Eav\Setup\EavSetupFactory;
 
 /**
  * Class InstallData
- * @package Wagento\Subscription\Setup
  */
 class InstallData implements InstallDataInterface
 {

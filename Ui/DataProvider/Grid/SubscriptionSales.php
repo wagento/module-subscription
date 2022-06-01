@@ -12,10 +12,6 @@ use Magento\Framework\Event\ManagerInterface as EventManager;
 use Psr\Log\LoggerInterface as Logger;
 use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory;
 
-/**
- * Class SubscriptionSales
- * @package Wagento\Subscription\Ui\DataProvider\Grid
- */
 class SubscriptionSales extends \Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult
 {
     /**
@@ -47,17 +43,18 @@ class SubscriptionSales extends \Magento\Framework\View\Element\UiComponent\Data
         FetchStrategy $fetchStrategy,
         EventManager $eventManager,
         $mainTable = 'wagento_subscription_order',
-        $resourceModel = '\Wagento\Subscription\Model\ResourceModel\SubscriptionSales'
+        $resourceModel = '\Wagento\Subscription\Model\ResourceModel\SubscriptionSales::class'
     ) {
-    
+
         $this->request = $request;
         $this->productCollectionFactory = $productCollectionFactory;
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $mainTable, $resourceModel);
     }
 
     /**
-     * @return $this
+     * Initialize select function
      *
+     * @return $this
      */
     protected function _initSelect()
     {

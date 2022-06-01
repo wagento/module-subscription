@@ -10,7 +10,6 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
  * Class DeleteButton
- * @package Wagento\Subscription\Block\Adminhtml\Edit
  */
 class DeleteButton extends GenericButton implements ButtonProviderInterface
 {

@@ -15,7 +15,6 @@ use Wagento\Subscription\Helper\Email;
 
 /**
  * Class Cancel
- * @package Wagento\Subscription\Controller\Order
  */
 class Cancel extends Action
 {
@@ -52,7 +51,7 @@ class Cancel extends Action
         Email $emailHelper,
         \Psr\Log\LoggerInterface $logger
     ) {
-    
+
         parent::__construct($context);
         $this->subSalesRepository = $subSalesRepository;
         $this->emailHelper = $emailHelper;

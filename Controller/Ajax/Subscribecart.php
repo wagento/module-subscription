@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Controller\Ajax;
 /**
  * Class Subscribecart
- * @package Wagento\Subscription\Controller\Ajax
  */
 class Subscribecart extends \Magento\Framework\App\Action\Action
 {
@@ -60,7 +59,7 @@ class Subscribecart extends \Magento\Framework\App\Action\Action
         \Magento\Catalog\Model\ProductRepository $product,
         \Magento\Checkout\Model\SidebarFactory $sidebar
     ) {
-    
+
         parent::__construct($context);
         $this->helper = $helper;
         $this->resultJsonFactory = $resultJsonFactory;

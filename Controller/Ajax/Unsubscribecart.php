@@ -12,7 +12,6 @@ use Magento\Framework\UrlInterface;
 
 /**
  * Class Unsubscribecart
- * @package Wagento\Subscription\Controller\Ajax
  */
 class Unsubscribecart extends \Magento\Framework\App\Action\Action
 {

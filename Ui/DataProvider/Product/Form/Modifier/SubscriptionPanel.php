@@ -12,7 +12,6 @@ use Wagento\Subscription\Model\Subscription\Attribute\Source\SubscriptionList;
 
 /**
  * Class SubscriptionPanel
- * @package Wagento\Subscription\Ui\DataProvider\Product\Form\Modifier
  */
 class SubscriptionPanel extends AbstractModifier implements ModifierInterface
 {
@@ -31,10 +30,12 @@ class SubscriptionPanel extends AbstractModifier implements ModifierInterface
     }
 
     /**
+     * Modify the data information
+     *
      * @param array $data
-     * @return array
-     * @since 100.1.0
+     * @return array|void
      */
+    
     public function modifyData(array $data)
     {
         // TODO: Implement modifyData() method.

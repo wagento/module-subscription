@@ -11,7 +11,6 @@ use Wagento\Subscription\Controller\RegistryConstants;
 
 /**
  * Class Index
- * @package Wagento\Subscription\Controller\Adminhtml
  */
 abstract class Index extends Action
 {
@@ -109,7 +108,7 @@ abstract class Index extends Action
         \Psr\Log\LoggerInterface $logger,
         \Wagento\Subscription\Model\Subscription\Mapper $subscriptionMapper
     ) {
-    
+
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->resultForwardFactory = $resultForwardFactory;

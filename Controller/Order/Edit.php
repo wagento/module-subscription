@@ -15,7 +15,6 @@ use Magento\Framework\View\Result\PageFactory;
 
 /**
  * Class Edit
- * @package Wagento\Subscription\Controller\Order
  */
 class Edit extends \Magento\Sales\Controller\AbstractController\View implements OrderInterface
 {
@@ -40,7 +39,7 @@ class Edit extends \Magento\Sales\Controller\AbstractController\View implements 
         Session $session,
         CustomerRepositoryInterface $customerRepository
     ) {
-    
+
         parent::__construct($context, $orderLoader, $resultPageFactory);
         $this->customerRepository = $customerRepository;
         $this->session = $session;

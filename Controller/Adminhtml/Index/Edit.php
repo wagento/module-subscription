@@ -11,7 +11,6 @@ use Wagento\Subscription\Controller\Adminhtml\Index;
 
 /**
  * Class Edit
- * @package Wagento\Subscription\Controller\Adminhtml\Index
  */
 class Edit extends Index
 {

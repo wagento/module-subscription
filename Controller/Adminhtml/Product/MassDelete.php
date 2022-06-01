@@ -18,7 +18,6 @@ use Wagento\Subscription\Model\SubscriptionSalesFactory;
 
 /**
  * Class MassDelete
- * @package Wagento\Subscription\Controller\Adminhtml\Product
  */
 class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelete
 {
@@ -61,7 +60,7 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
         ProductFactory $productFactory,
         SubscriptionSalesFactory $subscriptionSalesFactory
     ) {
-    
+
         parent::__construct($context, $productBuilder, $filter, $collectionFactory, $productRepository);
         $this->productRepository = $productRepository;
         $this->subscriptionFactory = $subscriptionFactory;
@@ -81,7 +80,7 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
         $productDeleted = 0;
         $productSubscribes = 0;
         $productSalesSubscribes = 0;
-        
+
         /** @var \Magento\Catalog\Model\Product $product */
         foreach ($collection->getItems() as $product) {
             $productData = $this->productRepository->getById($product->getId());

@@ -10,7 +10,6 @@ use Wagento\Subscription\Model\ResourceModel\Product\CollectionFactory;
 
 /**
  * Class ProductGrid
- * @package Wagento\Subscription\Block\Adminhtml\Subscription
  */
 class ProductGrid extends \Magento\Backend\Block\Template
 {
@@ -56,7 +55,7 @@ class ProductGrid extends \Magento\Backend\Block\Template
         CollectionFactory $productCollectionFactory,
         array $data = []
     ) {
-    
+
         $this->registry = $registry;
         $this->jsonEncoder = $jsonEncoder;
         $this->_productCollectionFactory = $productCollectionFactory;

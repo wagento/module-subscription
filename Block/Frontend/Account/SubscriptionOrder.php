@@ -11,7 +11,6 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 
 /**
  * Class SubscriptionOrder
- * @package Wagento\Subscription\Block\Frontend\Account
  */
 class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
 {

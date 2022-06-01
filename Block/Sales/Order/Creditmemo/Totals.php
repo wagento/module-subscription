@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo;
 /**
  * Class Totals
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo
  */
 class Totals extends \Magento\Framework\View\Element\Template
 {
@@ -32,7 +31,7 @@ class Totals extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
-    
+
         parent::__construct($context, $data);
     }
 

@@ -13,7 +13,6 @@ use Magento\Framework\UrlInterface;
 
 /**
  * Class Actions
- * @package Wagento\Subscription\Ui\Component\Listing\Column
  */
 class Actions extends Column
 {
@@ -36,7 +35,7 @@ class Actions extends Column
         array $components = [],
         array $data = []
     ) {
-    
+
         $this->urlBuilder = $urlBuilder;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }

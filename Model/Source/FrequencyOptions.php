@@ -10,7 +10,6 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 /**
  * Class FrequencyOptions
- * @package Wagento\Subscription\Model\Source
  */
 class FrequencyOptions implements OptionSourceInterface
 {

@@ -14,7 +14,6 @@ use Wagento\Subscription\Model\SubscriptionService;
 
 /**
  * Class AddSubscriptionDetails
- * @package Wagento\Subscription\Observer
  */
 class AddSubscriptionDetails implements ObserverInterface
 {
@@ -85,7 +84,7 @@ class AddSubscriptionDetails implements ObserverInterface
         ProductFactory $productFactory,
         SubscriptionService $subscriptionService
     ) {
-    
+
         $this->subscriptionSales = $subscriptionSales;
         $this->logger = $logger;
         $this->order = $order;

@@ -12,7 +12,6 @@ use Wagento\Subscription\Helper\Email;
 
 /**
  * Class Bill
- * @package Wagento\Subscription\Model\Cron
  */
 class Bill
 {

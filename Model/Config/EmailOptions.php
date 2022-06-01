@@ -7,7 +7,6 @@
 namespace Wagento\Subscription\Model\Config;
 /**
  * Class EmailOptions
- * @package Wagento\Subscription\Model\Config
  */
 class EmailOptions implements \Magento\Framework\Option\ArrayInterface
 {

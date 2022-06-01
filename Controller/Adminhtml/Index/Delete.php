@@ -12,7 +12,6 @@ use Wagento\Subscription\Controller\Adminhtml\Index;
 
 /**
  * Class Delete
- * @package Wagento\Subscription\Controller\Adminhtml\Index
  */
 class Delete extends Index
 {

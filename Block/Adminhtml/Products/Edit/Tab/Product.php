@@ -12,7 +12,6 @@ use Magento\Backend\Block\Widget\Grid\Extended;
 
 /**
  * Class Product
- * @package Wagento\Subscription\Block\Adminhtml\Products\Edit\Tab
  */
 class Product extends \Magento\Backend\Block\Widget\Grid\Extended
 {

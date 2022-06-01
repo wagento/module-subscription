@@ -14,7 +14,6 @@ use Magento\Framework\Exception\TemporaryState\CouldNotSaveException;
 
 /**
  * Class Update
- * @package Wagento\Subscription\Controller\Order
  */
 class Update extends Action
 {
@@ -32,7 +31,7 @@ class Update extends Action
         Context $context,
         SubscriptionSalesRepository $subSalesRepository
     ) {
-    
+
         parent::__construct($context);
         $this->subSalesRepository = $subSalesRepository;
     }

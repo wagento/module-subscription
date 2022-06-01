@@ -12,7 +12,6 @@ use Wagento\Subscription\Helper\Email;
 
 /**
  * Class Pause
- * @package Wagento\Subscription\Controller\Adminhtml\Sales
  */
 class Pause extends \Magento\Backend\App\Action
 {
@@ -56,7 +55,7 @@ class Pause extends \Magento\Backend\App\Action
         Email $emailHelper,
         \Psr\Log\LoggerInterface $logger
     ) {
-    
+
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
         $this->subscriptionSalesRepository = $subscriptionSalesRepository;

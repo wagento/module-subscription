@@ -17,7 +17,6 @@ use Wagento\Subscription\Model\SubscriptionSalesRepository;
 
 /**
  * Class View
- * @package Wagento\Subscription\Controller\Order
  */
 class View extends \Magento\Sales\Controller\AbstractController\View implements OrderInterface
 {

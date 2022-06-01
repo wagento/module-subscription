@@ -10,7 +10,6 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
  * Class Collection
- * @package Wagento\Subscription\Model\ResourceModel\Product
  */
 class Collection extends AbstractCollection
 {

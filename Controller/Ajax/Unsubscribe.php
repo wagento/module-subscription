@@ -12,7 +12,6 @@ use Magento\Framework\UrlInterface;
 
 /**
  * Class Unsubscribe
- * @package Wagento\Subscription\Controller\Ajax
  */
 class Unsubscribe extends \Magento\Framework\App\Action\Action
 {
@@ -87,7 +86,7 @@ class Unsubscribe extends \Magento\Framework\App\Action\Action
         \Magento\Checkout\Model\Sidebar $sidebar,
         \Psr\Log\LoggerInterface $logger
     ) {
-    
+
         parent::__construct($context);
         $this->helper = $helper;
         $this->resultJsonFactory = $resultJsonFactory;

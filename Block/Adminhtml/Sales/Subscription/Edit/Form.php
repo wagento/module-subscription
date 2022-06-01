@@ -10,7 +10,6 @@ use Magento\Backend\Block\Widget\Form\Generic;
 
 /**
  * Class Form
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Subscription\Edit
  */
 class Form extends Generic
 {

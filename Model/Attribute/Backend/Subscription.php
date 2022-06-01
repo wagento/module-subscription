@@ -7,7 +7,6 @@ namespace Wagento\Subscription\Model\Attribute\Backend;
 use Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend;
 /**
  * Class Subscription
- * @package Wagento\Subscription\Model\Attribute\Backend
  */
 class Subscription extends AbstractBackend
 {

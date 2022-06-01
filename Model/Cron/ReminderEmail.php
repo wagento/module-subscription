@@ -13,7 +13,6 @@ use Magento\Payment\Helper\Data as PaymentHelper;
 
 /**
  * Class ReminderEmail
- * @package Wagento\Subscription\Model\Cron
  */
 class ReminderEmail
 {

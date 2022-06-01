@@ -14,7 +14,6 @@ use Wagento\Subscription\Model\SubscriptionSales;
 
 /**
  * Class Edit
- * @package Wagento\Subscription\Block\Adminhtml\Sales
  */
 class Edit extends Container
 {
@@ -50,7 +49,7 @@ class Edit extends Container
         SubscriptionSales $subscriptionSales,
         array $data = []
     ) {
-    
+
         $this->_coreRegistry = $registry;
         $this->subSalesRepository = $subSalesRepository;
         $this->subSalesmodel = $subscriptionSales;

@@ -15,7 +15,6 @@ use Wagento\Subscription\Helper\Email;
 
 /**
  * Class Activate
- * @package Wagento\Subscription\Controller\Order
  */
 class Activate extends Action
 {
@@ -52,7 +51,7 @@ class Activate extends Action
         Email $emailHelper,
         \Psr\Log\LoggerInterface $logger
     ) {
-    
+
         parent::__construct($context);
         $this->subSalesRepository = $subSalesRepository;
         $this->emailHelper = $emailHelper;

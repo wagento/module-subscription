@@ -11,7 +11,6 @@ use Wagento\Subscription\Api\Data\ProductInterface;
 
 /**
  * Class Product
- * @package Wagento\Subscription\Model
  */
 class Product extends AbstractExtensibleModel implements ProductInterface
 {

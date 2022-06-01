@@ -12,7 +12,6 @@ use Magento\Framework\Convert\ConvertArray;
 
 /**
  * Class Mapper
- * @package Wagento\Subscription\Model\Subscription
  */
 class Mapper
 {

@@ -13,7 +13,6 @@ use Magento\Framework\UrlInterface;
 
 /**
  * Class Action
- * @package Wagento\Subscription\Ui\Component\Listing\Sales\Grid\Column
  */
 class Action extends Column
 {
@@ -44,7 +43,7 @@ class Action extends Column
         array $data = [],
         $editUrl = self::ROW_EDIT_URL
     ) {
-    
+
         $this->_urlBuilder = $urlBuilder;
         $this->_editUrl = $editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);

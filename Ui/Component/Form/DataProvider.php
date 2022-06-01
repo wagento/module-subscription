@@ -10,7 +10,6 @@ use Magento\Ui\DataProvider\AbstractDataProvider;
 
 /**
  * Class DataProvider
- * @package Wagento\Subscription\Ui\Component\Form
  */
 class DataProvider extends AbstractDataProvider
 {
@@ -72,7 +71,7 @@ class DataProvider extends AbstractDataProvider
         array $meta = [],
         array $data = []
     ) {
-    
+
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->registry = $registry;
         $this->collection = $collectionFactory->create();

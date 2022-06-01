@@ -10,7 +10,6 @@ use Magento\Backend\Block\Widget\Tabs as WidgetTabs;
 
 /**
  * Class Tabs
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Edit
  */
 class Tabs extends WidgetTabs
 {

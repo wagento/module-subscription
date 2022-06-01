@@ -14,7 +14,6 @@ use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 
 /**
  * Class Product
- * @package Wagento\Subscription\Helper
  */
 class Product extends AbstractHelper
 {
@@ -65,7 +64,7 @@ class Product extends AbstractHelper
         PriceHelper $priceHelper,
         \Magento\Framework\Json\EncoderInterface $encoder
     ) {
-    
+
         parent::__construct($context);
         $this->product = $product;
         $this->productFactory = $productFactory->create();

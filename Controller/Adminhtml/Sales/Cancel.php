@@ -12,7 +12,6 @@ use Wagento\Subscription\Helper\Email;
 
 /**
  * Class Cancel
- * @package Wagento\Subscription\Controller\Adminhtml\Sales
  */
 class Cancel extends \Magento\Backend\App\Action
 {
@@ -56,7 +55,7 @@ class Cancel extends \Magento\Backend\App\Action
         Email $emailHelper,
         \Psr\Log\LoggerInterface $logger
     ) {
-    
+
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->subscriptionSalesRepository = $subscriptionSalesRepository;

@@ -12,7 +12,6 @@ use Magento\Quote\Model\QuoteRepository;
 
 /**
  * Class AddInitialFeeToOrder
- * @package Wagento\Subscription\Observer
  */
 class AddInitialFeeToOrder implements ObserverInterface
 {
@@ -28,7 +27,7 @@ class AddInitialFeeToOrder implements ObserverInterface
     public function __construct(
         QuoteRepository $quoteRepository
     ) {
-    
+
         $this->quoteRepository = $quoteRepository;
     }
 

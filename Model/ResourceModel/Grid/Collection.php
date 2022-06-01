@@ -14,7 +14,6 @@ use Psr\Log\LoggerInterface as Logger;
 
 /**
  * Class Collection
- * @package Wagento\Subscription\Model\ResourceModel\Grid
  */
 class Collection extends SearchResult
 {
@@ -41,7 +40,7 @@ class Collection extends SearchResult
         $mainTable = 'wagento_subscription',
         $resourceModel = \Wagento\Subscription\Model\ResourceModel\Subscription::class
     ) {
-    
+
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $mainTable, $resourceModel);
     }
 }
