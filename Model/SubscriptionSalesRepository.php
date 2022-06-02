@@ -11,9 +11,6 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface;
 
-/**
- * Class SubscriptionSalesRepository
- */
 class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterface
 {
     /**

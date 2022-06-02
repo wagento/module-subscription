@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Controller\Adminhtml\Index;
 
 use Wagento\Subscription\Controller\Adminhtml\Index;
 
-/**
- * Class NewAction
- */
 class NewAction extends Index
 {
     /**

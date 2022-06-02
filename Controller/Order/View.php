@@ -15,9 +15,6 @@ use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\UrlInterface;
 use Wagento\Subscription\Model\SubscriptionSalesRepository;
 
-/**
- * Class View
- */
 class View extends \Magento\Sales\Controller\AbstractController\View implements OrderInterface
 {
     /**
@@ -40,6 +37,7 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
 
     /**
      * View constructor.
+     *
      * @param Action\Context $context
      * @param OrderLoaderInterface $orderLoader
      * @param PageFactory $resultPageFactory
@@ -62,6 +60,8 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
     }
 
     /**
+     * Order view action.
+     *
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
@@ -85,7 +85,10 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
     }
 
     /**
+     * Validate customer function.
+     *
      * Function validate customer for current subscription profile
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function validateCustomer()

@@ -15,9 +15,6 @@ use Wagento\Subscription\Model\SubscriptionSales;
 use Wagento\Subscription\Helper\Data;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
-/**
- * Class SubscriptionDetails
- */
 class SubscriptionDetails extends Generic implements TabInterface
 {
     /**

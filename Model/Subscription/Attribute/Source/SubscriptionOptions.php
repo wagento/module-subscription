@@ -5,9 +5,7 @@
  */
 
 namespace Wagento\Subscription\Model\Subscription\Attribute\Source;
-/**
- * Class SubscriptionOptions
- */
+
 class SubscriptionOptions extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
     /**

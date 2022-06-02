@@ -9,9 +9,6 @@ namespace Wagento\Subscription\Controller\Adminhtml\Index;
 use Wagento\Subscription\Api\Data\SubscriptionInterface;
 use Wagento\Subscription\Controller\Adminhtml\Index as IndexAction;
 
-/**
- * Class InlineEdit
- */
 class InlineEdit extends IndexAction
 {
     /**
@@ -20,22 +17,22 @@ class InlineEdit extends IndexAction
     protected $subscription;
 
     /**
-     * @return $this|\Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * Inlineedit execute function.
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return $this|\Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();
 
         $postItems = $this->getRequest()->getParam('items', []);
         if (!($this->getRequest()->getParam('isAjax') && count($postItems))) {
-            $data = $resultJson->setData([
+            return $resultJson->setData([
                 'messages' => [__('Please correct the data sent.')],
                 'error' => true,
             ]);
-            return $data;
         }
 
         foreach (array_keys($postItems) as $subscriptionId) {
@@ -44,15 +41,14 @@ class InlineEdit extends IndexAction
             $this->saveSubscription($this->getSubscription());
         }
 
-        $data = $resultJson->setData([
+        return $resultJson->setData([
             'messages' => $this->getErrorMessages(),
-            'error' => $this->isErrorExists()
+            'error' => $this->isErrorExists(),
         ]);
-        return $data;
     }
 
     /**
-     * Update subscription data
+     * Update subscription data.
      *
      * @param array $data
      * @return void
@@ -72,7 +68,7 @@ class InlineEdit extends IndexAction
     }
 
     /**
-     * Save subscription with error catching
+     * Save subscription with error catching.
      *
      * @param SubscriptionInterface $subscription
      * @return void
@@ -94,7 +90,7 @@ class InlineEdit extends IndexAction
     }
 
     /**
-     * Set subscription
+     * Set subscription.
      *
      * @param SubscriptionInterface $subscription
      * @return $this
@@ -102,11 +98,12 @@ class InlineEdit extends IndexAction
     protected function setSubscription(SubscriptionInterface $subscription)
     {
         $this->subscription = $subscription;
+
         return $this;
     }
 
     /**
-     * Receive subscription
+     * Receive subscription.
      *
      * @return SubscriptionInterface
      */

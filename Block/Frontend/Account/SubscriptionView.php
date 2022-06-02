@@ -13,11 +13,6 @@ use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Customer\Model\CustomerFactory;
 use Wagento\Subscription\Helper\Data as subscriptionHelperData;
 
-/**
- * Subscription List of Order
- *
- * @SuppressWarnings(PHPMD.DepthOfInheritance)
- */
 class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
 {
     /**

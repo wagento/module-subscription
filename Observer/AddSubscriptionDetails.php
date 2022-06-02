@@ -12,9 +12,6 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Model\SubscriptionService;
 
-/**
- * Class AddSubscriptionDetails
- */
 class AddSubscriptionDetails implements ObserverInterface
 {
     /**
@@ -97,6 +94,8 @@ class AddSubscriptionDetails implements ObserverInterface
     }
 
     /**
+     * AddSubscriptionDetails execute function
+     *
      * @param \Magento\Framework\Event\Observer $observer
      * @throws \Exception
      */

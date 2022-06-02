@@ -5,9 +5,7 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Sales;
-/**
- * Class Index
- */
+
 class Index extends \Magento\Backend\App\Action
 {
     /**

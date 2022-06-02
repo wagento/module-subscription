@@ -5,9 +5,7 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Index;
-/**
- * Class Grid
- */
+
 class Grid extends \Wagento\Subscription\Controller\Adminhtml\Index\Product
 {
     /**

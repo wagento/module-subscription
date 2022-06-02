@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Block\Adminhtml\Edit;
 
 use Wagento\Subscription\Controller\RegistryConstants;
 
-/**
- * Class GenericButton
- */
 class GenericButton
 {
     /**

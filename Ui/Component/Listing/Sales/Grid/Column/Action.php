@@ -11,13 +11,10 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 
-/**
- * Class Action
- */
 class Action extends Column
 {
     /** Url path */
-    const ROW_EDIT_URL = 'subscription/sales/view';
+    protected const ROW_EDIT_URL = 'subscription/sales/view';
 
     /** @var UrlInterface */
     protected $_urlBuilder;

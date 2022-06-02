@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Model\ResourceModel\Product;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
-/**
- * Class Collection
- */
 class Collection extends AbstractCollection
 {
     /**

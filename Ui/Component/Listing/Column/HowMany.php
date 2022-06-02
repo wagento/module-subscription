@@ -11,9 +11,6 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Wagento\Subscription\Helper\Data;
 
-/**
- * Class Howmany
- */
 class Howmany extends Column
 {
     /**
@@ -36,7 +33,7 @@ class Howmany extends Column
         array $components = [],
         array $data = []
     ) {
-    
+
         $this->helper = $helper;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }

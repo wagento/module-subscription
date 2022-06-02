@@ -23,9 +23,6 @@ use Magento\Sales\Model\Order\Email\Sender\OrderSender;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
-/**
- * Class SubscriptionService
- */
 class SubscriptionService
 {
     const FLOAT_VALUE = 0.0000;

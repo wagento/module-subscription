@@ -10,7 +10,7 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface SalesSubscriptionInterface extends ExtensibleDataInterface
 {
-    /**#@+
+    /**
      * Constants defined for keys of the data array. Identical to the name of the getter in snake case
      */
     const ID = 'id';

@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Model\Invoice\Total;
 
 use Magento\Sales\Model\Order\Invoice\Total\AbstractTotal;
 
-/**
- * Class InitialFee
- */
 class InitialFee extends AbstractTotal
 {
     /**

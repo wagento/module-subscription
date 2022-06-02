@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Block\Adminhtml\Sales\Edit;
 
 use Magento\Backend\Block\Widget\Tabs as WidgetTabs;
 
-/**
- * Class Tabs
- */
 class Tabs extends WidgetTabs
 {
     /**

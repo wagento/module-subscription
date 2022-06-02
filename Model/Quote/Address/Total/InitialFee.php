@@ -6,9 +6,6 @@
 
 namespace Wagento\Subscription\Model\Quote\Address\Total;
 
-/**
- * Class InitialFee
- */
 class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 {
     /**

@@ -10,9 +10,6 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\UrlInterface;
 
-/**
- * Class Unsubscribe
- */
 class Unsubscribe extends \Magento\Framework\App\Action\Action
 {
 
@@ -101,6 +98,8 @@ class Unsubscribe extends \Magento\Framework\App\Action\Action
     }
 
     /**
+     * Unsubscribe execute function
+     *
      * @return ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()

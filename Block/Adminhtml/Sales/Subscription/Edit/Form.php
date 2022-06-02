@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Block\Adminhtml\Sales\Subscription\Edit;
 
 use Magento\Backend\Block\Widget\Form\Generic;
 
-/**
- * Class Form
- */
 class Form extends Generic
 {
     /**

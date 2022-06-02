@@ -9,9 +9,6 @@ namespace Wagento\Subscription\Model;
 use Magento\Framework\Model\AbstractExtensibleModel;
 use Wagento\Subscription\Api\Data\ProductInterface;
 
-/**
- * Class Product
- */
 class Product extends AbstractExtensibleModel implements ProductInterface
 {
 

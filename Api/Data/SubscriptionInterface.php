@@ -10,7 +10,7 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface SubscriptionInterface extends ExtensibleDataInterface
 {
-    /**#@+
+    /**
      * Constants defined for keys of the data array. Identical to the name of the getter in snake case
      */
     const SUBSCRIPTION_ID = 'subscription_id';
@@ -21,7 +21,6 @@ interface SubscriptionInterface extends ExtensibleDataInterface
     const DATE_END = 'date_end';
     const HOW_MANY = 'how_many';
     const DISCOUNT = 'discount';
-    /**#@-*/
 
     /**
      * Get subscription id

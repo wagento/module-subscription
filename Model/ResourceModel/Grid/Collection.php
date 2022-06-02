@@ -12,9 +12,6 @@ use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult;
 use Psr\Log\LoggerInterface as Logger;
 
-/**
- * Class Collection
- */
 class Collection extends SearchResult
 {
     /**

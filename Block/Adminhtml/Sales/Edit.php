@@ -12,9 +12,6 @@ use Magento\Framework\Registry;
 use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Wagento\Subscription\Model\SubscriptionSales;
 
-/**
- * Class Edit
- */
 class Edit extends Container
 {
     /**

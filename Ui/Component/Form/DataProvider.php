@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Ui\Component\Form;
 
 use Magento\Ui\DataProvider\AbstractDataProvider;
 
-/**
- * Class DataProvider
- */
 class DataProvider extends AbstractDataProvider
 {
     /**
@@ -99,7 +96,7 @@ class DataProvider extends AbstractDataProvider
 
         $data = $this->session->getSubscriptionFormData();
         if (!empty($data)) {
-            $subscriptionId = isset($data['subscription']['subscription_id']) ? $data['subscription']['subscription_id'] : null;
+            $subscriptionId = $data['subscription']['subscription_id'] ?? null;
             $this->loadedData[$subscriptionId] = $data;
             $this->session->unsSubscriptionFormData();
         }

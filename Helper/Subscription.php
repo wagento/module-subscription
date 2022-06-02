@@ -8,19 +8,17 @@ namespace Wagento\Subscription\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
+use Magento\Tests\NamingConvention\true\mixed;
 use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 
-/**
- * Class Subscription
- */
 class Subscription extends AbstractHelper
 {
-
     /**
      * @var ProductFactory
      */
     private $productFactory;
+
     /**
      * @var SubscriptionFactory
      */
@@ -28,6 +26,7 @@ class Subscription extends AbstractHelper
 
     /**
      * Subscription constructor.
+     *
      * @param Context $context
      * @param ProductFactory $productFactory
      * @param SubscriptionFactory $subscriptionFactory
@@ -37,7 +36,6 @@ class Subscription extends AbstractHelper
         ProductFactory $productFactory,
         SubscriptionFactory $subscriptionFactory
     ) {
-
         parent::__construct($context);
 
         $this->productFactory = $productFactory;
@@ -45,38 +43,53 @@ class Subscription extends AbstractHelper
     }
 
     /**
-     * @param $productId
+     * Subscription data function.
+     *
+     * @param mixed $productId
+     *
      * @return mixed
      */
     public function getSubscriptionData($productId)
     {
         $this->productFactory = $this->initProduct($productId);
         $this->subscriptionFactory = $this->initSubcription($this->productFactory);
+
         return $this->subscriptionFactory->getData();
     }
 
     /**
-     * @param $productId
+     * Init product function.
+     *
+     * @param mixed $productId
+     *
      * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
      */
     private function initProduct($productId)
     {
         return $this->productFactory->create()->getCollection()
-            ->addFieldToFilter('product_id', ['eq' => $productId]);
+            ->addFieldToFilter('product_id', ['eq' => $productId])
+        ;
     }
 
     /**
-     * @param $productFactory
+     * Init subcription function.
+     *
+     * @param mixed $productFactory
+     *
      * @return \Wagento\Subscription\Model\Subscription
      */
     private function initSubcription($productFactory)
     {
         return $this->subscriptionFactory->create()
-            ->load($this->returnSubscriptionId($productFactory));
+            ->load((int) $this->returnSubscriptionId($productFactory))
+        ;
     }
 
     /**
-     * @param $productFactory
+     * Return subscription id function.
+     *
+     * @param mixed $productFactory
+     *
      * @return mixed
      */
     private function returnSubscriptionId($productFactory)

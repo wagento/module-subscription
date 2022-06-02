@@ -6,15 +6,10 @@
 
 namespace Wagento\Subscription\Controller;
 
-/**
- * Class RegistryConstants
- * @package Wagento\Subscription\Controller
- * Declarations of core registry keys used by the Subscriptions module
- */
 class RegistryConstants
 {
     /**
-     * Registry key where current subscription ID is stored
+     * Registry key where current subscription ID is stored.
      */
-    const CURRENT_SUBSCRIPTION_ID = 'current_subscription_id';
+    public const CURRENT_SUBSCRIPTION_ID = 'current_subscription_id';
 }

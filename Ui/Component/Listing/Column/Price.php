@@ -11,9 +11,6 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 
-/**
- * Class Price
- */
 class Price extends Column
 {
     /**
@@ -37,7 +34,7 @@ class Price extends Column
         array $components = [],
         array $data = []
     ) {
-    
+
         $this->priceFormatter = $priceFormatter;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }

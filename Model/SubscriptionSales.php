@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Model;
 
 use Wagento\Subscription\Api\Data\SalesSubscriptionInterface;
 
-/**
- * Class SubscriptionSales
- */
 class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implements SalesSubscriptionInterface
 {
     /**

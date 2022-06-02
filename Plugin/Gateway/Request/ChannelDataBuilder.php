@@ -6,9 +6,6 @@
 
 namespace Wagento\Subscription\Plugin\Gateway\Request;
 
-/**
- * Class BnCodeDataBuilder
- */
 class ChannelDataBuilder
 {
     /**

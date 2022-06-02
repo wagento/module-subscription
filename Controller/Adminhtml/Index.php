@@ -9,9 +9,6 @@ namespace Wagento\Subscription\Controller\Adminhtml;
 use Magento\Backend\App\Action;
 use Wagento\Subscription\Controller\RegistryConstants;
 
-/**
- * Class Index
- */
 abstract class Index extends Action
 {
     /**

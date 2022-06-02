@@ -6,12 +6,9 @@
 
 namespace Wagento\Subscription\Controller\Adminhtml\Sales;
 
-use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Wagento\Subscription\Model\SubscriptionSalesFactory;
+use Wagento\Subscription\Model\SubscriptionSalesRepository;
 
-/**
- * Class Save
- */
 class Save extends \Magento\Backend\App\Action
 {
     /**
@@ -28,9 +25,10 @@ class Save extends \Magento\Backend\App\Action
      * @var SubscriptionSalesFactory
      */
     protected $subSalesFactory;
-
+    
     /**
      * Save constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param SubscriptionSalesRepository $subscriptionSalesRepository
@@ -42,7 +40,6 @@ class Save extends \Magento\Backend\App\Action
         SubscriptionSalesRepository $subscriptionSalesRepository,
         SubscriptionSalesFactory $subSalesFactory
     ) {
-
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
         $this->subscriptionSalesRepository = $subscriptionSalesRepository;
@@ -50,6 +47,8 @@ class Save extends \Magento\Backend\App\Action
     }
 
     /**
+     * Save execute function.
+     *
      * @return \Magento\Framework\App\ResponseInterface|
      * \Magento\Framework\Controller\ResultInterface|void
      */
@@ -59,7 +58,7 @@ class Save extends \Magento\Backend\App\Action
         if ($isPost) {
             $saleSubModel = $this->subSalesFactory->create();
             $formData = $isPost['salesSub'];
-            if ($formData['how_many'] == '') {
+            if ('' == $formData['how_many']) {
                 $formData['how_many'] = null;
             }
             $id = $isPost['salesSub']['id'];
@@ -67,13 +66,16 @@ class Save extends \Magento\Backend\App\Action
                 $saleSubModel->load($id);
             }
             $saleSubModel->setData($formData);
+
             try {
                 $saleSubModel->save();
                 $this->messageManager->addSuccessMessage(__('Subscription Profile #%1 Saved Successfully.', $id));
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('subscription/sales/view', ['id' => $saleSubModel->getId(), '_current' => true]);
+
                     return;
                 }
+
                 return $this->_redirect('*/*/');
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
@@ -85,6 +87,8 @@ class Save extends \Magento\Backend\App\Action
     }
 
     /**
+     * Is allowed module function.
+     *
      * @return bool
      */
     protected function _isAllowed()

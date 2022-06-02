@@ -8,12 +8,6 @@ namespace Wagento\Subscription\Block\Frontend\Product;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
-/**
- * Product View block
- * @api
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @since 100.0.2
- */
 class View extends \Magento\Catalog\Block\Product\View
 {
     /**
@@ -57,7 +51,7 @@ class View extends \Magento\Catalog\Block\Product\View
         \Magento\Quote\Model\QuoteRepository $quoteRepository,
         array $data = []
     ) {
-    
+
         $this->_session = $session;
         $this->quoteRepository = $quoteRepository;
 

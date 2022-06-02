@@ -13,9 +13,6 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\View\Result\PageFactory;
 
-/**
- * Class Edit
- */
 class Edit extends \Magento\Sales\Controller\AbstractController\View implements OrderInterface
 {
 
@@ -26,6 +23,7 @@ class Edit extends \Magento\Sales\Controller\AbstractController\View implements 
 
     /**
      * Edit constructor.
+     *
      * @param Action\Context $context
      * @param OrderLoaderInterface $orderLoader
      * @param PageFactory $resultPageFactory
@@ -46,6 +44,8 @@ class Edit extends \Magento\Sales\Controller\AbstractController\View implements 
     }
 
     /**
+     * Edit execute function.
+     *
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException

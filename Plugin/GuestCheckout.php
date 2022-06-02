@@ -5,9 +5,7 @@
  */
 
 namespace Wagento\Subscription\Plugin;
-/**
- * Class GuestCheckout
- */
+
 class GuestCheckout
 {
     /**

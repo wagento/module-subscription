@@ -10,9 +10,6 @@ use Magento\Backend\App\Action;
 use Magento\Framework\Controller\ResultFactory;
 use Wagento\Subscription\Controller\Adminhtml\Index;
 
-/**
- * Class Delete
- */
 class Delete extends Index
 {
     /**
@@ -22,6 +19,7 @@ class Delete extends Index
 
     /**
      * Delete constructor.
+     *
      * @param Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
@@ -37,7 +35,6 @@ class Delete extends Index
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Wagento\Subscription\Model\Subscription\Mapper $subscriptionMapper
      * @param \Magento\Catalog\Model\Product\Action $product
-     *
      */
     public function __construct(
         Action\Context $context,
@@ -76,7 +73,7 @@ class Delete extends Index
     }
 
     /**
-     * Delete subscription action
+     * Delete subscription action.
      *
      * @return \Magento\Backend\Model\View\Result\Redirect
      */
@@ -86,18 +83,22 @@ class Delete extends Index
         if (!empty($subscriptionId)) {
             /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
             $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
             try {
                 $objSubscriptionProducts = $this->productRepository->getBySubscriptionId($subscriptionId);
                 $subscriptionIds = array_column($objSubscriptionProducts->getData(), 'subscription_id');
                 if (empty($subscriptionIds)) {
-                    $this->messageManager->addErrorMessage(__('The  subscription can\'t be deleted because of associated products'));
+                    $this->messageManager
+                        ->addErrorMessage(__('The  subscription can\'t be deleted because of associated products'))
+                    ;
+
                     return $resultRedirect->setPath(
                         'subscription/index/edit',
                         ['id' => $subscriptionId]
                     );
                 }
                 $storeId = 0;
-                //set subscription attribute value no to product
+                // set subscription attribute value no to product
                 if (!empty($objSubscriptionProducts->getData())) {
                     foreach ($objSubscriptionProducts as $subProducts) {
                         $this->product->updateAttributes(
@@ -120,6 +121,7 @@ class Delete extends Index
                 $this->messageManager->addErrorMessage($exception->getMessage());
             }
         }
+
         return $resultRedirect->setPath('subscription/index/index');
     }
 }

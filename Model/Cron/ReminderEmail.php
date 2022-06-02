@@ -11,9 +11,6 @@ use Wagento\Subscription\Model\ResourceModel\SubscriptionSalesFactory;
 use Wagento\Subscription\Helper\Email;
 use Magento\Payment\Helper\Data as PaymentHelper;
 
-/**
- * Class ReminderEmail
- */
 class ReminderEmail
 {
     const XML_PATH_EMAIL_TEMPLATE_ENABLE = 'braintree_subscription/email_config/enable_email';

@@ -9,9 +9,6 @@ namespace Wagento\Subscription\Block\Frontend\Account;
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 
-/**
- * Class SubscriptionOrder
- */
 class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
 {
     /**

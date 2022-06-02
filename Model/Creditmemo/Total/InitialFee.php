@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Model\Creditmemo\Total;
 
 use Magento\Sales\Model\Order\Creditmemo\Total\AbstractTotal;
 
-/**
- * Class InitialFee
- */
 class InitialFee extends AbstractTotal
 {
     /**

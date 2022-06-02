@@ -6,9 +6,6 @@
 
 namespace Wagento\Subscription\Model\ResourceModel;
 
-/**
- * Grid Grid mysql resource.
- */
 class SubscriptionSales extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**

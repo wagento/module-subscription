@@ -9,9 +9,6 @@ namespace Wagento\Subscription\Plugin;
 use Magento\Quote\Model\Quote\Item\ToOrderItem as QuoteToOrderItem;
 use Magento\Framework\Serialize\Serializer\Json;
 
-/**
- * Class ToOrderItem
- */
 class ToOrderItem
 {
     /**

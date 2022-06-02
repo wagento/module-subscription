@@ -10,9 +10,6 @@ use Wagento\Subscription\Api\Data\SubscriptionInterface;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Convert\ConvertArray;
 
-/**
- * Class Mapper
- */
 class Mapper
 {
     /**

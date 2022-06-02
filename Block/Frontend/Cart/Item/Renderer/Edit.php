@@ -8,9 +8,6 @@ namespace Wagento\Subscription\Block\Frontend\Cart\Item\Renderer;
 
 use Magento\Checkout\Block\Cart\Item\Renderer\Actions\Generic;
 
-/**
- * Class Edit
- */
 class Edit extends Generic
 {
     /**

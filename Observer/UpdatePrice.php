@@ -38,13 +38,15 @@ class UpdatePrice implements ObserverInterface
         \Magento\Framework\Json\Helper\Data $helper,
         subHelper $subHelper
     ) {
-    
+
         $this->_request = $request;
         $this->helper = $helper;
         $this->subHelper = $subHelper;
     }
 
     /**
+     * Execute the price update
+     *
      * @param \Magento\Framework\Event\Observer $observer
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException

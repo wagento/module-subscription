@@ -11,9 +11,6 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Helper\Data;
 
-/**
- * Class Popup
- */
 class Popup extends \Magento\Catalog\Block\Product\View
 {
     /**
