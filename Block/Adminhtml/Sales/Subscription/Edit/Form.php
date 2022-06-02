@@ -11,6 +11,8 @@ use Magento\Backend\Block\Widget\Form\Generic;
 class Form extends Generic
 {
     /**
+     * Edit form tab.
+     *
      * @return Generic
      * @throws \Magento\Framework\Exception\LocalizedException
      */

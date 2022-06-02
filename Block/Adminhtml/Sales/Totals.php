@@ -8,7 +8,6 @@ namespace Wagento\Subscription\Block\Adminhtml\Sales;
 
 class Totals extends \Magento\Framework\View\Element\Template
 {
-
     /**
      * @var \Magento\Directory\Model\Currency
      */
@@ -16,6 +15,7 @@ class Totals extends \Magento\Framework\View\Element\Template
 
     /**
      * Totals constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Directory\Model\Currency $currency
      * @param array $data
@@ -25,13 +25,12 @@ class Totals extends \Magento\Framework\View\Element\Template
         \Magento\Directory\Model\Currency $currency,
         array $data = []
     ) {
-
         parent::__construct($context, $data);
         $this->_currency = $currency;
     }
 
     /**
-     * Retrieve current order model instance
+     * Retrieve current order model instance.
      *
      * @return \Magento\Sales\Model\Order
      */
@@ -41,6 +40,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get source function.
+     *
      * @return mixed
      */
     public function getSource()
@@ -49,6 +50,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get currency symbol function.
+     *
      * @return string
      */
     public function getCurrencySymbol()
@@ -57,6 +60,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Init totals function.
+     *
      * @return $this
      */
     public function initTotals()
@@ -75,6 +80,7 @@ class Totals extends \Magento\Framework\View\Element\Template
             ]
         );
         $this->getParentBlock()->addTotalBefore($total, 'grand_total');
+
         return $this;
     }
 }

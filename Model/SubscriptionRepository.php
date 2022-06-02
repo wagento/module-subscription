@@ -36,7 +36,11 @@ class SubscriptionRepository implements SubscriptionRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Save subscription function.
+     *
+     * @param \Wagento\Subscription\Api\Data\SubscriptionInterface $subscription
+     * @return \Wagento\Subscription\Api\Data\SubscriptionInterface
+     * @throws CouldNotSaveException
      */
     public function save(\Wagento\Subscription\Api\Data\SubscriptionInterface $subscription)
     {
@@ -52,6 +56,8 @@ class SubscriptionRepository implements SubscriptionRepositoryInterface
     }
 
     /**
+     * Get id function.
+     *
      * @param int $subscriptionId
      * @return \Wagento\Subscription\Api\Data\SubscriptionInterface|Subscription
      * @throws NoSuchEntityException
@@ -67,6 +73,8 @@ class SubscriptionRepository implements SubscriptionRepositoryInterface
     }
 
     /**
+     * Delete subscription id function.
+     *
      * @param int $subscriptionId
      * @return bool
      * @throws CouldNotDeleteException
@@ -78,6 +86,8 @@ class SubscriptionRepository implements SubscriptionRepositoryInterface
     }
 
     /**
+     * Delete subscription function.
+     *
      * @param \Wagento\Subscription\Api\Data\SubscriptionInterface $subscription
      * @return bool
      * @throws CouldNotDeleteException

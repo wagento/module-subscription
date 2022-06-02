@@ -10,6 +10,9 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection
 {
+    /**
+     * @var string
+     */
     protected $_idFieldName = 'subscription_id';
 
     /**
@@ -17,6 +20,9 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init('Wagento\Subscription\Model\Subscription', 'Wagento\Subscription\Model\ResourceModel\Subscription');
+        $this->_init(
+            'Wagento\Subscription\Model\Subscription',
+            'Wagento\Subscription\Model\ResourceModel\Subscription'
+        );
     }
 }

@@ -11,12 +11,11 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 
-/**
- * Class InstallSchema
- */
 class InstallSchema implements InstallSchemaInterface
 {
     /**
+     * Install table data function.
+     *
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
      * @throws \Zend_Db_Exception
@@ -112,7 +111,12 @@ class InstallSchema implements InstallSchemaInterface
                 $installer->getIdxName('wagento_subscription_products', ['subscription_id', 'product_id']),
                 ['subscription_id', 'product_id']
             )->addForeignKey(
-                $installer->getFkName('wagento_subscription_products', 'subscription_id', 'wagento_subscription', 'subscription_id'),
+                $installer->getFkName(
+                    'wagento_subscription_products',
+                    'subscription_id',
+                    'wagento_subscription',
+                    'subscription_id'
+                ),
                 'subscription_id',
                 $installer->getTable('wagento_subscription'),
                 'subscription_id',

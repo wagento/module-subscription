@@ -11,9 +11,7 @@ use Magento\Backend\Block\Widget\Tabs as WidgetTabs;
 class Tabs extends WidgetTabs
 {
     /**
-     * Class constructor
-     *
-     * @return void
+     * Class constructor.
      */
     protected function _construct()
     {
@@ -24,8 +22,11 @@ class Tabs extends WidgetTabs
     }
 
     /**
-     * @return WidgetTabs
+     * Subscription info tab.
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
+     *
+     * @return WidgetTabs
      */
     protected function _beforeToHtml()
     {
@@ -35,9 +36,10 @@ class Tabs extends WidgetTabs
                 'label' => __('Information'),
                 'title' => __('Information'),
                 'content' => $this->getLayout()->createBlock(
-                    'Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View\CustomerDetails'
+                    'Wagento\Subscription\
+                    Block\Adminhtml\Sales\Subscription\View\CustomerDetails'
                 )->toHtml(),
-                'active' => true
+                'active' => true,
             ]
         );
 
@@ -47,11 +49,13 @@ class Tabs extends WidgetTabs
                 'label' => __('Subscription Details'),
                 'title' => __('Subscription Details'),
                 'content' => $this->getLayout()->createBlock(
-                    'Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View\SubscriptionDetails'
+                    'Wagento\Subscription\Block\
+                    Adminhtml\Sales\Subscription\View\SubscriptionDetails'
                 )->toHtml(),
-                'active' => false
+                'active' => false,
             ]
         );
+
         return parent::_beforeToHtml();
     }
 }

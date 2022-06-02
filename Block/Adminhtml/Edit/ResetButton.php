@@ -11,6 +11,8 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 class ResetButton extends GenericButton implements ButtonProviderInterface
 {
     /**
+     * Get button function.
+     *
      * @return array
      */
     public function getButtonData()

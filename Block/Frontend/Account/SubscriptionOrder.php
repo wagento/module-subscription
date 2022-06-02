@@ -28,6 +28,7 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
 
     /**
      * SubscriptionOrder constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Framework\App\ResourceConnection $resource
      * @param \Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory $subscriptionOrderFactory
@@ -63,8 +64,68 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @return $this
+     * Get subscriptions function.
+     *
+     * @return mixed
+     */
+    public function getSubscriptions()
+    {
+        $customerId = $this->customerSessionFactory->create()->getCustomerId();
+        $connection = $this->resource->getConnection();
+        $salesOrderItemTable = $connection->getTableName('sales_order_item');
+        $wagentoSubProductTable = $connection->getTableName('wagento_subscription_products');
+        $customerTable = $connection->getTableName('customer_entity');
+        $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
+        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
+        if (null != $customerId) {
+            $collectionSubscriptions = $this->subscriptionOrderFactory->create();
+
+            $collectionSubscriptions->getSelect()->where(
+                'main_table.customer_id='.$customerId
+            );
+
+            $collectionSubscriptions->getSelect()->join(
+                $salesOrderItemTable.' as soi',
+                'main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1',
+                ['*', 'created_at as order_created_at', 'updated_at as order_updated_at']
+            );
+
+            $collectionSubscriptions->getSelect()->join(
+                $customerTable.' as customer',
+                'main_table.customer_id = customer.entity_id',
+                ['firstname', 'lastname', 'email']
+            )->columns(new \Zend_Db_Expr("CONCAT(`customer`.`firstname`, ' ',`customer`.`lastname`) AS customer_name"));
+
+            $collectionSubscriptions->getSelect()->join(
+                $wagentoSubProductTable.' as wsp',
+                'soi.product_id = wsp.product_id',
+                ['subscription_id']
+            );
+            $collectionSubscriptions->setOrder('main_table.id', 'DESC');
+            $collectionSubscriptions->setPageSize($pageSize);
+            $collectionSubscriptions->setCurPage($page);
+            $collectionSubscriptions->setOrder('id', 'DESC');
+
+            return $collectionSubscriptions;
+        }
+    }
+
+    /**
+     * Return the pager of the grid.
+     *
+     * @return string
+     */
+    public function getPagerHtml()
+    {
+        return $this->getChildHtml('pager');
+    }
+
+    /**
+     * Prepare layout function.
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
+     *
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -81,57 +142,7 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
             $this->setChild('pager', $pager);
             $this->getSubscriptions()->load();
         }
+
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSubscriptions()
-    {
-        $customerId = $this->customerSessionFactory->create()->getCustomerId();
-        $connection = $this->resource->getConnection();
-        $salesOrderItemTable = $connection->getTableName('sales_order_item');
-        $wagentoSubProductTable = $connection->getTableName('wagento_subscription_products');
-        $customerTable = $connection->getTableName('customer_entity');
-        $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
-        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
-        if ($customerId != null) {
-            $collectionSubscriptions = $this->subscriptionOrderFactory->create();
-
-            $collectionSubscriptions->getSelect()->where(
-                'main_table.customer_id=' . $customerId
-            );
-
-            $collectionSubscriptions->getSelect()->join(
-                $salesOrderItemTable . ' as soi',
-                "main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1",
-                ['*', 'created_at as order_created_at', 'updated_at as order_updated_at']
-            );
-
-            $collectionSubscriptions->getSelect()->join(
-                $customerTable . ' as customer',
-                'main_table.customer_id = customer.entity_id',
-                ['firstname', 'lastname', 'email']
-            )->columns(new \Zend_Db_Expr("CONCAT(`customer`.`firstname`, ' ',`customer`.`lastname`) AS customer_name"));
-
-            $collectionSubscriptions->getSelect()->join(
-                $wagentoSubProductTable . ' as wsp',
-                "soi.product_id = wsp.product_id",
-                ['subscription_id']
-            );
-            $collectionSubscriptions->setOrder('main_table.id', 'DESC');
-            $collectionSubscriptions->setPageSize($pageSize);
-            $collectionSubscriptions->setCurPage($page);
-            $collectionSubscriptions->setOrder('id', 'DESC');
-            return $collectionSubscriptions;
-        }
-        return;
-    }
-
-    /** Return the pager of the grid */
-    public function getPagerHtml()
-    {
-        return $this->getChildHtml('pager');
     }
 }

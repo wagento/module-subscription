@@ -10,6 +10,7 @@ class Totals extends \Magento\Framework\View\Element\Template
 {
     /**
      * OrderFee constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
@@ -31,6 +32,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get creditmeno function.
+     *
      * @return mixed
      */
     public function getCreditmemo()

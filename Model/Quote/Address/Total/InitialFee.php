@@ -40,6 +40,8 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     }
 
     /**
+     * Quote collect function.
+     *
      * @param \Magento\Quote\Model\Quote $quote
      * @param \Magento\Quote\Api\Data\ShippingAssignmentInterface $shippingAssignment
      * @param \Magento\Quote\Model\Quote\Address\Total $total
@@ -63,6 +65,8 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     }
 
     /**
+     * Quote fecth function.
+     *
      * @param \Magento\Quote\Model\Quote $quote
      * @param \Magento\Quote\Model\Quote\Address\Total $total
      * @return array
@@ -81,7 +85,9 @@ class InitialFee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
     }
 
     /**
-     * @param $items
+     * Get quote initial fee value function.
+     *
+     * @param mixed $items
      * @return float|null
      */
     protected function getInitialFeeValue($items)

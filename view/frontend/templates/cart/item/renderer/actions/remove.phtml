@@ -6,18 +6,19 @@
 
 // @codingStandardsIgnoreFile
 
-/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove */
+// @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove
 ?>
 <?php
 $isSubscribed = $block->getItem()->getIsSubscribed();
-if(!$isSubscribed):
-?>
+if (!$isSubscribed) {
+    ?>
 <a href="#"
-   title="<?= $block->escapeHtml(__('Remove item')) ?>"
+   title="<?php echo $block->escapeHtml(__('Remove item')); ?>"
    class="action action-delete"
-   data-post='<?= /* @escapeNotVerified */ $block->getDeletePostJson() ?>'>
+   data-post='<?php echo /* @escapeNotVerified */ $block->getDeletePostJson(); ?>'>
     <span>
-        <?= /* @escapeNotVerified */ __('Remove item') ?>
+        <?php echo /* @escapeNotVerified */ __('Remove item'); ?>
     </span>
 </a>
-<?php endif ?>
+<?php
+} ?>

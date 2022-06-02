@@ -34,6 +34,8 @@ class InstallData implements InstallDataInterface
     }
 
     /**
+     * Install table function.
+     *
      * @param ModuleDataSetupInterface $setup
      * @param ModuleContextInterface $context
      */

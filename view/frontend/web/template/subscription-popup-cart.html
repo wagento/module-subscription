@@ -1,9 +1,8 @@
-<!--
-    /**
-    * Copyright Wagento Creative LLC ©, All rights reserved.
-    * See COPYING.txt for license details.
-    */
---><script src="../js/view/subscription-popup-cart.js"></script>
+/**
+* Copyright Wagento Creative LLC ©, All rights reserved.
+* See COPYING.txt for license details.
+*/
+<script src="../js/view/subscription-popup-cart.js"></script>
 <div class="block-subscription"
      data-bind="afterRender: setModalElement"
      style="display: none">
@@ -43,12 +42,10 @@
                         <span data-bind="i18n: 'Name:'"></span>
                         <span data-bind="text: subscriptionName"></span>
                     </div>
-
                     <div class="field subscription-frequency">
                         <span data-bind="i18n: 'Frequency:'"></span>
                         <span data-bind="text: subscriptionFrequency"></span>
                     </div>
-
                     <!-- ko if: isEnableHowMany == "0" -->
                     <!-- ko if: howMany != "0" -->
                     <div class="field subscription-howmany">
@@ -58,12 +55,10 @@
                     </div>
                     <!--/ko-->
                     <!--/ko-->
-
                     <div class="field subscription-discount">
                         <span data-bind="i18n: 'Discount:'"></span>
                         <span data-bind="text: subscriptionDiscount"></span>
                     </div>
-
                     <!-- ko if: costWithoutCurrency != "0.0000" -->
                     <div class="field subscription-fee">
                         <span data-bind="i18n: 'Fee:'"></span>
@@ -112,7 +107,6 @@
                                        data-bind="value: subHowMany"/>
                             </div>
                             <!-- /ko -->
-
                             <div class="field subscription-qty required">
                                 <span data-bind="i18n: 'Qty'"></span><em> *</em>
                                 <div class="control">
@@ -132,34 +126,28 @@
                                 <span data-bind="text: linksTitle"></span>
                             </legend>
                             <br>
-
                             <div class="field required downloads-no-separately">
                                 <div class="field choice" data-role="link">
                                     <!-- ko if: linksPurchasedSeparately == "1" -->
-
                                     <!-- ko foreach: {data: Object.keys(links).map(function(e) {
-                                    return links[e]}), as: 'link' } -->
+                                       return links[e]}), as: 'link' } -->
                                     <input type="checkbox" name="links[]" data-bind="checkedValue: link.link_id"
                                            data-validate="{'validate-one-checkbox-required-by-name':'downloadable-links-list'}"/>
-
                                     <label class="label" for="links_'+link.link_id"></label>
                                     <span data-bind="text:link.title"></span>
                                     <span data-bind="text:link.price"></span> <br/>
                                     <!-- /ko -->
                                     <!-- /ko -->
-
                                     <!-- ko if: linksPurchasedSeparately == "0" -->
-                                        <!-- ko foreach: {data: Object.keys(links).map(function(e) {return links[e]}), as: 'link' } -->
+                                    <!-- ko foreach: {data: Object.keys(links).map(function(e) {return links[e]}), as: 'link' } -->
                                     <label class="label" for="links_'+link.link_id"></label>
                                     <span data-bind="text:link.title"></span><br/>
-                                        <!-- /ko -->
                                     <!-- /ko -->
-                                    
+                                    <!-- /ko -->
                                 </div>
                             </div>
                             <!-- /ko -->
                             <!-- /ko -->
-
                             <input name="productId" type="hidden" data-bind="value:subscriptionProductId"/>
                             <input type="hidden" name="isEnableHowMany"
                                    data-bind="attr: { id:'isEnableHowMany'+itemId, value:isEnableHowMany}">

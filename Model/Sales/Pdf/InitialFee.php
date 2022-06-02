@@ -9,7 +9,9 @@ namespace Wagento\Subscription\Model\Sales\Pdf;
 class InitialFee extends \Magento\Sales\Model\Order\Pdf\Total\DefaultTotal
 {
     /**
-     * @return array
+     * Get order totals display function.
+     *
+     * @return array[]
      */
     public function getTotalsForDisplay()
     {

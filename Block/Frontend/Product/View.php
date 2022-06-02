@@ -22,6 +22,7 @@ class View extends \Magento\Catalog\Block\Product\View
 
     /**
      * View constructor.
+     *
      * @param \Magento\Catalog\Block\Product\Context $context
      * @param \Magento\Framework\Url\EncoderInterface $urlEncoder
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -51,7 +52,6 @@ class View extends \Magento\Catalog\Block\Product\View
         \Magento\Quote\Model\QuoteRepository $quoteRepository,
         array $data = []
     ) {
-
         $this->_session = $session;
         $this->quoteRepository = $quoteRepository;
 
@@ -73,13 +73,17 @@ class View extends \Magento\Catalog\Block\Product\View
     // @codingStandardsIgnoreEnd
 
     /**
-     * @param $productId
-     * @return bool
+     * Get items in cart.
+     *
+     * @param mixed $productId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return bool
      */
     public function getInCart($productId)
     {
-        //fix in product page no get session quote
+        // fix in product page no get session quote
         if ($quoteId = $this->_session->getQuoteId()) {
             $quote = $this->quoteRepository->get($quoteId);
 

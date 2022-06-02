@@ -6,72 +6,72 @@
 
 // @codingStandardsIgnoreFile
 
-/** @var $block \Magento\Catalog\Block\Product\View */
+/** @var \Magento\Catalog\Block\Product\View $block */
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 ?>
 <?php $_product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Cart'); ?>
-<?php if ($_product->isSaleable()): ?>
+<?php if ($_product->isSaleable()) { ?>
     <div class="box-tocart">
         <div class="fieldset">
-            <?php if ($block->shouldRenderQuantity()): ?>
-                <?php if ($_product->getData('subscription_configurate') !== 'subscription_only') : ?>
+            <?php if ($block->shouldRenderQuantity()) { ?>
+                <?php if ('subscription_only' !== $_product->getData('subscription_configurate')) { ?>
                     <div class="field qty">
-                        <label class="label" for="qty"><span><?= /* @escapeNotVerified */
-                                __('Qty') ?></span></label>
+                        <label class="label" for="qty"><span><?php echo // @escapeNotVerified
+                                __('Qty'); ?></span></label>
                         <div class="control">
                             <input type="number"
                                    name="qty"
                                    id="qty"
-                                   value="<?= /* @escapeNotVerified */
-                                   $block->getProductDefaultQty() * 1 ?>"
-                                   title="<?= /* @escapeNotVerified */
-                                   __('Qty') ?>"
+                                   value="<?php echo // @escapeNotVerified
+                                   $block->getProductDefaultQty() * 1; ?>"
+                                   title="<?php echo // @escapeNotVerified
+                                   __('Qty'); ?>"
                                    class="input-text qty"
-                                   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                                   data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())); ?>"
                             />
                         </div>
                     </div>
-                <?php endif; ?>
-            <?php endif; ?>
+                <?php } ?>
+            <?php } ?>
             <div class="actions">
                 <!-- If product is Subscription only -->
-                <?php if (($_product->getData('subscription_configurate') == 'subscription_only' ||
-                        $_product->getData('subscription_configurate') == 'optional') &&
-                    !(is_null($_product->getData('subscription_attribute_product')))) : ?>
+                <?php if (('subscription_only' == $_product->getData('subscription_configurate')
+                        || 'optional' == $_product->getData('subscription_configurate'))
+                    && !(is_null($_product->getData('subscription_attribute_product')))) { ?>
                     <div class="field subscription">
-                        <input <?php if ($subHelper->getProductSubscribed($_product->getId())): ?>
-                            checked="checked"<?php endif; ?>
+                        <input <?php if ($subHelper->getProductSubscribed($_product->getId())) { ?>
+                            checked="checked"<?php } ?>
                                 type="checkbox" id="subscriptionPopup" data-bind="scope:'subscriptionPopup'"
                                 data-role="subscriptionPopup" class="subscriptionPopup"
-                                title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>" class="checkbox"/>
+                                title="<?php echo $block->escapeHtmlAttr(__('Subscribe')); ?>" class="checkbox"/>
                         <label class="label" for="subscriptionPopup">
                     <span>
                         <?php $label = $subHelper->getProductOptionLabel(); ?>
-                        <?php if(is_null($label)):?>
+                        <?php if (is_null($label)) { ?>
                             <?php echo _('Subscription'); ?>
-                        <?php else:?>
-                            <?= $subHelper->getProductOptionLabel(); ?>
-                        <?php endif;?>
+                        <?php } else { ?>
+                            <?php echo $subHelper->getProductOptionLabel(); ?>
+                        <?php }?>
 
                     </span>
                         </label>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if ($_product->getData('subscription_configurate') == 'no' ||
-                    $_product->getData('subscription_configurate') == 'optional' ||
-                    is_null($_product->getData('subscription_configurate'))) : ?>
+                <?php if ('no' == $_product->getData('subscription_configurate')
+                    || 'optional' == $_product->getData('subscription_configurate')
+                    || is_null($_product->getData('subscription_configurate'))) { ?>
                     <button type="submit"
-                            title="<?= /* @escapeNotVerified */
-                            $buttonTitle ?>"
+                            title="<?php echo // @escapeNotVerified
+                            $buttonTitle; ?>"
                             class="action primary tocart"
                             id="product-addtocart-button">
-                        <span><?= /* @escapeNotVerified */
-                            $buttonTitle ?></span>
+                        <span><?php echo // @escapeNotVerified
+                            $buttonTitle; ?></span>
                     </button>
-                <?php endif; ?>
-                <?= $block->getChildHtml('', true) ?>
+                <?php } ?>
+                <?php echo $block->getChildHtml('', true); ?>
 
             </div>
         </div>
@@ -79,8 +79,8 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
     <div id="popup-mpdal" style="display: none;">
         <h1>hello world</h1>
     </div>
-<?php endif; ?>
-<?php if ($block->isRedirectToCartEnabled()) : ?>
+<?php } ?>
+<?php if ($block->isRedirectToCartEnabled()) { ?>
     <script type="text/x-magento-init">
     {
         "#product_addtocart_form": {
@@ -91,7 +91,7 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
     }
 
     </script>
-<?php else : ?>
+<?php } else { ?>
     <script type="text/x-magento-init">
     {
         "#product_addtocart_form": {
@@ -100,4 +100,4 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
     }
 
     </script>
-<?php endif; ?>
+<?php } ?>

@@ -15,12 +15,13 @@ use Psr\Log\LoggerInterface as Logger;
 class Collection extends SearchResult
 {
     /**
-     * @inheritdoc
+     * @var \string[][]
      */
     protected $_map = ['fields' => ['subscription_id' => 'main_table.subscription_id']];
 
     /**
      * Collection constructor.
+     *
      * @param EntityFactory $entityFactory
      * @param Logger $logger
      * @param FetchStrategy $fetchStrategy

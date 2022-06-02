@@ -6,20 +6,18 @@
 
 namespace Wagento\Subscription\Block\Adminhtml\Sales;
 
-use Magento\Backend\Block\Widget\Form\Container;
 use Magento\Backend\Block\Widget\Context;
+use Magento\Backend\Block\Widget\Form\Container;
 use Magento\Framework\Registry;
-use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Wagento\Subscription\Model\SubscriptionSales;
+use Wagento\Subscription\Model\SubscriptionSalesRepository;
 
 class Edit extends Container
 {
     /**
-     * Core registry
-     *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry = null;
+    protected $_coreRegistry;
 
     /**
      * @var SubscriptionSalesRepository
@@ -33,6 +31,7 @@ class Edit extends Container
 
     /**
      * Edit constructor.
+     *
      * @param Context $context
      * @param Registry $registry
      * @param SubscriptionSalesRepository $subSalesRepository
@@ -46,7 +45,6 @@ class Edit extends Container
         SubscriptionSales $subscriptionSales,
         array $data = []
     ) {
-
         $this->_coreRegistry = $registry;
         $this->subSalesRepository = $subSalesRepository;
         $this->subSalesmodel = $subscriptionSales;
@@ -54,6 +52,8 @@ class Edit extends Container
     }
 
     /**
+     * Construct function.
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
@@ -75,8 +75,8 @@ class Edit extends Container
             'reset',
             [
                 'label' => __('Reset'),
-                'onclick' => 'setLocation(\'' . $this->getResetUrl() . '\')',
-                'class' => 'reset'
+                'onclick' => 'setLocation(\''.$this->getResetUrl().'\')',
+                'class' => 'reset',
             ],
             0
         );
@@ -90,47 +90,47 @@ class Edit extends Container
                     'mage-init' => [
                         'button' => [
                             'event' => 'saveAndContinueEdit',
-                            'target' => '#edit_form'
-                        ]
-                    ]
-                ]
+                            'target' => '#edit_form',
+                        ],
+                    ],
+                ],
             ],
             -100
         );
 
-        if ($currentStatus != 0) {
-            if ($currentStatus != 3) {
+        if (0 != $currentStatus) {
+            if (3 != $currentStatus) {
                 $this->buttonList->add(
                     'cancel',
                     [
                         'label' => __('Cancel Subscription'),
-                        'onclick' => 'setLocation(\'' . $this->getCancelUrl() . '\')',
-                        'class' => 'add'
+                        'onclick' => 'setLocation(\''.$this->getCancelUrl().'\')',
+                        'class' => 'add',
                     ],
                     0
                 );
             }
         }
 
-        if ($currentStatus == 1 || $currentStatus == 0) {
+        if (1 == $currentStatus || 0 == $currentStatus) {
             $this->buttonList->add(
                 'pause',
                 [
                     'label' => __('Pause Subscription'),
-                    'onclick' => 'setLocation(\'' . $this->getPauseUrl() . '\')',
-                    'class' => 'add'
+                    'onclick' => 'setLocation(\''.$this->getPauseUrl().'\')',
+                    'class' => 'add',
                 ],
                 0
             );
         }
 
-        if ($currentStatus == 2 || $currentStatus == 0) {
+        if (2 == $currentStatus || 0 == $currentStatus) {
             $this->buttonList->add(
                 'activate',
                 [
                     'label' => __('Activate Subscription'),
-                    'onclick' => 'setLocation(\'' . $this->getActivateUrl() . '\')',
-                    'class' => 'add'
+                    'onclick' => 'setLocation(\''.$this->getActivateUrl().'\')',
+                    'class' => 'add',
                 ],
                 0
             );
@@ -138,7 +138,7 @@ class Edit extends Container
     }
 
     /**
-     * Prepare layout
+     * Prepare layout.
      *
      * @return \Magento\Framework\View\Element\AbstractBlock
      */
@@ -158,43 +158,55 @@ class Edit extends Container
     }
 
     /**
+     * Get pause url function.
+     *
      * @return string
      */
     protected function getPauseUrl()
     {
         $id = $this->getRequest()->getParam('id');
+
         return $this->getUrl('subscription/sales/pause', ['id' => $id]);
     }
 
     /**
+     * Get cancel url function.
+     *
      * @return string
      */
     protected function getCancelUrl()
     {
         $id = $this->getRequest()->getParam('id');
+
         return $this->getUrl('subscription/sales/cancel', ['id' => $id]);
     }
 
     /**
+     * Get active url function.
+     *
      * @return string
      */
     protected function getActivateUrl()
     {
         $id = $this->getRequest()->getParam('id');
+
         return $this->getUrl('subscription/sales/activate', ['id' => $id]);
     }
 
     /**
+     * Get reset url function.
+     *
      * @return string
      */
     protected function getResetUrl()
     {
         $id = $this->getRequest()->getParam('id');
+
         return $this->getUrl(
             'subscription/sales/view',
             [
                 'id' => $id,
-                'active_tab' => 'subscription_edit'
+                'active_tab' => 'subscription_edit',
             ]
         );
     }

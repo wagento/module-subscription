@@ -6,13 +6,14 @@
 
 namespace Wagento\Subscription\Plugin;
 
+use Magento\Framework\App\ObjectManager;
 use Magento\Quote\Model\Quote\Item\ToOrderItem as QuoteToOrderItem;
 use Magento\Framework\Serialize\Serializer\Json;
 
 class ToOrderItem
 {
     /**
-     * @var
+     * @var Json
      */
     private $_serializer;
 
@@ -26,7 +27,7 @@ class ToOrderItem
     }
 
     /**
-     * aroundConvert
+     * Around convert function.
      *
      * @param QuoteToOrderItem $subject
      * @param \Closure $proceed
@@ -35,7 +36,6 @@ class ToOrderItem
      *
      * @return \Magento\Sales\Model\Order\Item
      */
-
     public function aroundConvert(
         QuoteToOrderItem $subject,
         \Closure $proceed,

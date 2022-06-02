@@ -9,6 +9,8 @@ namespace Wagento\Subscription\Model\Subscription\Attribute\Source;
 class SubscriptionOptions extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
     /**
+     * Option label array function.
+     *
      * @return array
      */
     public function getAllOptions()

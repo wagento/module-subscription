@@ -8,9 +8,9 @@ namespace Wagento\Subscription\Block\Frontend\Account;
 
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Vault\Api\PaymentTokenManagementInterface;
-use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Customer\Model\CustomerFactory;
+use Magento\Framework\Encryption\EncryptorInterface;
+use Magento\Vault\Api\PaymentTokenManagementInterface;
 use Wagento\Subscription\Helper\Data as subscriptionHelperData;
 
 class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
@@ -81,12 +81,13 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
     protected $subscriptionHelperData;
 
     /**
-     * @var customerSessionFactory
+     * @var \Magento\Customer\Model\SessionFactory
      */
     protected $customerSessionFactory;
 
     /**
      * SubscriptionView constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory
@@ -104,6 +105,7 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
      * @param CustomerFactory $customer
      * @param \Magento\Directory\Model\CountryFactory $countryFactory
      * @param subscriptionHelperData $subscriptionHelperData
+     * @param \Magento\Customer\Model\SessionFactory $customerSessionFactory
      * @param array $data
      */
     public function __construct(
@@ -141,26 +143,37 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
         $this->countryFactory = $countryFactory;
         $this->customerSessionFactory = $customerSessionFactory;
         $this->subscriptionHelperData = $subscriptionHelperData;
-        parent::__construct($context, $customerSession, $subscriberFactory, $customerRepository, $customerAccountManagement, $data);
+        parent::__construct(
+            $context,
+            $customerSession,
+            $subscriberFactory,
+            $customerRepository,
+            $customerAccountManagement,
+            $data
+        );
     }
 
     /**
+     * Prepare layout function.
+     *
      * @return $this
      */
     public function _prepareLayout()
     {
         $id = $this->getRequest()->getParam('order_id');
         $getAction = $this->getRequest()->getActionName();
-        if ($getAction == 'edit') {
-            $this->pageConfig->getTitle()->set(__('Edit Subscription Profile #') . $id);
+        if ('edit' == $getAction) {
+            $this->pageConfig->getTitle()->set(__('Edit Subscription Profile #').$id);
         } else {
-            $this->pageConfig->getTitle()->set(__('Subscription Profile #') . $id);
+            $this->pageConfig->getTitle()->set(__('Subscription Profile #').$id);
         }
 
         return parent::_prepareLayout();
     }
 
     /**
+     * Get subscriptions function.
+     *
      * @return mixed
      */
     public function getSubscriptions()
@@ -172,88 +185,107 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
         $salesOrderTable = $connection->getTableName('sales_order');
         $wagentoSubProductTable = $connection->getTableName('wagento_subscription_products');
         $customerTable = $connection->getTableName('customer_entity');
-        if ($customerId != null) {
+        if (null != $customerId) {
             $collectionSubscriptions = $this->_subscriptionOrderFactory->create();
 
             $collectionSubscriptions->addFieldToFilter('id', ['eq' => $id]);
             $collectionSubscriptions->addFieldToFilter('main_table.customer_id', ['eq' => $customerId]);
 
             $collectionSubscriptions->getSelect()->join(
-                $salesOrderTable . ' as so',
-                "main_table.subscribe_order_id = so.entity_id",
+                $salesOrderTable.' as so',
+                'main_table.subscribe_order_id = so.entity_id',
                 ['billing_address_id as order_billing_address', 'shipping_address_id as order_shipping_address']
             );
 
             $collectionSubscriptions->getSelect()->join(
-                $salesOrderItemTable . ' as soi',
-                "main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1",
+                $salesOrderItemTable.' as soi',
+                'main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1',
                 ['*', 'created_at as order_created_at', 'updated_at as order_updated_at']
             );
 
             $collectionSubscriptions->getSelect()->join(
-                $customerTable . ' as customer',
+                $customerTable.' as customer',
                 'main_table.customer_id = customer.entity_id',
                 ['firstname', 'lastname', 'email']
             )
-                ->columns(new \Zend_Db_Expr("CONCAT(`customer`.`firstname`, ' ',`customer`.`lastname`) AS customer_name"));
+                ->columns(new \Zend_Db_Expr(
+                    "CONCAT(`customer`.`firstname`, ' ',`customer`.`lastname`) AS customer_name"
+                ))
+            ;
 
             $collectionSubscriptions->getSelect()->join(
-                $wagentoSubProductTable . ' as wsp',
-                "soi.product_id = wsp.product_id",
+                $wagentoSubProductTable.' as wsp',
+                'soi.product_id = wsp.product_id',
                 ['subscription_id']
             );
         }
+
         return $collectionSubscriptions->getFirstItem();
     }
 
     /**
-     * @param $orderId
+     * Get shipping address function.
+     *
+     * @param null|string $orderId
+     *
      * @return null|string
      */
     public function getShippingAddress($orderId)
     {
         $_order = $this->salesOrder->get($orderId);
         $shippingId = $this->getSubscriptions()->getShippingAddressId();
-        if (isset($shippingId) && $shippingId != 0) {
+        if (isset($shippingId) && 0 != $shippingId) {
             return $this->subscriptionHelperData->getSubCustomerAddress($shippingId, 'html');
-        } else {
-            $shippingAddress = $_order->getShippingAddress();
-            $address = '';
-            if (isset($shippingAddress)) {
-                $address = $this->addressRenderer->format($shippingAddress, 'html');
-            }
-            return $address;
         }
+        $shippingAddress = $_order->getShippingAddress();
+        $address = '';
+        if (isset($shippingAddress)) {
+            $address = $this->addressRenderer->format($shippingAddress, 'html');
+        }
+
+        return $address;
     }
 
     /**
-     * @param $orderId
+     * Get billing address function.
+     *
+     * @param mixed $orderId
+     *
      * @return null|string
      */
     public function getBillingAddress($orderId)
     {
         $_order = $this->salesOrder->get($orderId);
         $billingId = $this->getSubscriptions()->getBillingAddressId();
-        if (isset($billingId) && $billingId != 0) {
+        if (isset($billingId) && 0 != $billingId) {
             return $this->subscriptionHelperData->getSubCustomerAddress($billingId, 'html');
-        } else {
-            $billingAddress = $_order->getBillingAddress();
-            return $this->addressRenderer->format($billingAddress, 'html');
         }
+        $billingAddress = $_order->getBillingAddress();
+
+        return $this->addressRenderer->format($billingAddress, 'html');
     }
 
     /**
-     * @param $orderId
+     * Get shipping method function.
+     *
+     * @param mixed $orderId
+     *
      * @return null|string
      */
     public function getShippingMethod($orderId)
     {
         $_order = $this->salesOrder->get($orderId);
+
         return $_order->getShippingDescription();
     }
 
     /**
-     * @param $orderId
+     * Get payment method function.
+     *
+     * @param mixed $orderId
+     * @param mixed $publicHash
+     * @param mixed $customerId
+     *
      * @return string[]
      */
     public function getPaymentMethod($orderId, $publicHash, $customerId)
@@ -264,15 +296,18 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
         $_order = $this->salesOrder->get($orderId);
         $details = [];
         $additionalInfo = $_order->getPayment()->getAdditionalInformation();
-        if (isset($additionalInfo['cc_number']) && isset($additionalInfo['cc_type'])) {
+        if (isset($additionalInfo['cc_number'], $additionalInfo['cc_type'])) {
             $details['cc_number'] = $additionalInfo['cc_number'];
             $details['cc_type'] = $additionalInfo['cc_type'];
         }
         $details['method_title'] = $additionalInfo['method_title'];
+
         return $details;
     }
 
     /**
+     * Get customer address inline function.
+     *
      * @return array
      */
     public function getCustomerAddressInline()
@@ -281,14 +316,20 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
         $customerData = $this->customer->create()->load($customerId);
         $customerAddress = [];
         foreach ($customerData->getAddresses() as $key => $address) {
-            $customerAddress[$key]['label'] = $this->subscriptionHelperData->getSubCustomerAddress($address->getEntityId(), 'inline');
+            $customerAddress[$key]['label'] = $this->subscriptionHelperData
+                ->getSubCustomerAddress($address->getEntityId(), 'inline')
+            ;
             $customerAddress[$key]['value'] = $address->getEntityId();
         }
+
         return $customerAddress;
     }
 
     /**
-     * @param $order_id
+     * Get update url.
+     *
+     * @param mixed $order_id
+     *
      * @return string
      */
     public function getUpdateUrl($order_id)
@@ -297,7 +338,10 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @param $order_id
+     * Get cancel url.
+     *
+     * @param mixed $order_id
+     *
      * @return string
      */
     public function getCancelUrl($order_id)
@@ -306,7 +350,10 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @param $order_id
+     * Get pause url.
+     *
+     * @param mixed $order_id
+     *
      * @return string
      */
     public function getPauseUrl($order_id)
@@ -315,7 +362,10 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @param $order_id
+     * Get edit url.
+     *
+     * @param mixed $order_id
+     *
      * @return string
      */
     public function getEditUrl($order_id)
@@ -324,7 +374,10 @@ class SubscriptionView extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @param $order_id
+     * Get reactivate url.
+     *
+     * @param mixed $order_id
+     *
      * @return string
      */
     public function getReactivateUrl($order_id)

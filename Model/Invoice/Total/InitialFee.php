@@ -11,6 +11,8 @@ use Magento\Sales\Model\Order\Invoice\Total\AbstractTotal;
 class InitialFee extends AbstractTotal
 {
     /**
+     * Invoice collect function.
+     *
      * @param \Magento\Sales\Model\Order\Invoice $invoice
      * @return $this
      */

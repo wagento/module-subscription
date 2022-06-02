@@ -6,19 +6,20 @@
 
 // @codingStandardsIgnoreFile
 
-/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit */
+// @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit
 ?>
 <?php
 $isSubscribed = $block->getItem()->getIsSubscribed();
-if(!$isSubscribed):
-?>
-<?php if ($block->isProductVisibleInSiteVisibility()): ?>
+if (!$isSubscribed) {
+    ?>
+<?php if ($block->isProductVisibleInSiteVisibility()) { ?>
     <a class="action action-edit"
-       href="<?= /* @escapeNotVerified */ $block->getConfigureUrl() ?>"
-       title="<?= $block->escapeHtml(__('Edit item parameters')) ?>">
+       href="<?php echo /* @escapeNotVerified */ $block->getConfigureUrl(); ?>"
+       title="<?php echo $block->escapeHtml(__('Edit item parameters')); ?>">
         <span>
-            <?= /* @escapeNotVerified */ __('Edit') ?>
+            <?php echo /* @escapeNotVerified */ __('Edit'); ?>
         </span>
     </a>
-<?php endif ?>
-<?php endif ?>
+<?php } ?>
+<?php
+} ?>

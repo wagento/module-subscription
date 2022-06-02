@@ -6,9 +6,9 @@
 
 namespace Wagento\Subscription\Model;
 
+use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\CouldNotDeleteException;
 use Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface;
 
 class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterface
@@ -17,6 +17,7 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
      * @var SubscriptionFactory
      */
     protected $subscriptionSalesFactory;
+
     /**
      * @var ResourceModel\Subscription
      */
@@ -24,19 +25,21 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
 
     /**
      * SubscriptionSalesRepository constructor.
+     *
      * @param SubscriptionSalesFactory $subscriptionSalesFactory
      * @param ResourceModel\SubscriptionSales $subscriptionSalesResource
      */
     public function __construct(
-        \Wagento\Subscription\Model\SubscriptionSalesFactory $subscriptionSalesFactory,
-        \Wagento\Subscription\Model\ResourceModel\SubscriptionSales $subscriptionSalesResource
+        SubscriptionSalesFactory $subscriptionSalesFactory,
+        ResourceModel\SubscriptionSales $subscriptionSalesResource
     ) {
-
         $this->subscriptionSalesFactory = $subscriptionSalesFactory;
         $this->subscriptionSalesResource = $subscriptionSalesResource;
     }
 
     /**
+     * Save subscription function.
+     *
      * @param \Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscription
      * @return \Wagento\Subscription\Api\Data\SalesSubscriptionInterface
      * @throws CouldNotSaveException
@@ -56,9 +59,13 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
+     * Get subscription id function.
+     *
      * @param int $subscriptionId
-     * @return \Wagento\Subscription\Api\Data\SalesSubscriptionInterface|Subscription|SubscriptionSales
+     *
      * @throws NoSuchEntityException
+     *
+     * @return Subscription|SubscriptionSales|\Wagento\Subscription\Api\Data\SalesSubscriptionInterface
      */
     public function getById($subscriptionId)
     {
@@ -67,14 +74,19 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
         if (!$subscription->getId()) {
             throw new NoSuchEntityException(__('Subscription with id "%1" does not exist.', $subscriptionId));
         }
+
         return $subscription;
     }
 
     /**
+     * Delete subscription id function.
+     *
      * @param int $subscriptionSalesId
-     * @return bool
+     *
      * @throws CouldNotDeleteException
      * @throws NoSuchEntityException
+     *
+     * @return bool
      */
     public function deleteById($subscriptionSalesId)
     {
@@ -82,7 +94,7 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
-     * Delete Page
+     * Delete Page.
      *
      * @param \Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscriptionSales
      * @return bool
@@ -98,6 +110,7 @@ class SubscriptionSalesRepository implements SalesSubscriptionRepositoryInterfac
                 $exception->getMessage()
             ));
         }
+
         return true;
     }
 }

@@ -11,6 +11,8 @@ use Magento\Sales\Model\Order\Creditmemo\Total\AbstractTotal;
 class InitialFee extends AbstractTotal
 {
     /**
+     * Collect creditmemo function.
+     *
      * @param \Magento\Sales\Model\Order\Creditmemo $creditmemo
      * @return $this
      */

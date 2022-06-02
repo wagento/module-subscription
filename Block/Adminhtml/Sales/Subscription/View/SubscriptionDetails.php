@@ -57,6 +57,8 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
+     * Prepare form function.
+     *
      * @return Generic
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
@@ -171,7 +173,9 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Show tab function.
+     *
+     * @return false
      */
     public function canShowTab()
     {
@@ -179,7 +183,9 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Is hidden function.
+     *
+     * @return false
      */
     public function isHidden()
     {
@@ -187,6 +193,8 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
+     * Get required shipping function.
+     *
      * @return bool
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */

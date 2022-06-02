@@ -13,60 +13,60 @@ $item = $block->getItem();
 $product = $item->getProduct();
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 ?>
-<?php foreach ($block->getChildNames() as $childName): ?>
-    <?= /* @noEscape */
-    $block->getLayout()->renderElement($childName, false) ?>
-<?php endforeach; ?>
+<?php foreach ($block->getChildNames() as $childName) { ?>
+    <?php echo // @noEscape
+    $block->getLayout()->renderElement($childName, false); ?>
+<?php } ?>
 <div class="box-tocart">
     <fieldset class="fieldset">
-        <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
-            <?php if ($product->getData('subscription_configurate') !== 'subscription_only') : ?>
+        <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()) { ?>
+            <?php if ('subscription_only' !== $product->getData('subscription_configurate')) { ?>
                 <div class="field qty">
                     <label class="label"
-                           for="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+                           for="qty[<?php echo $block->escapeHtmlAttr($item->getId()); ?>]"><span><?php echo $block->escapeHtml(__('Qty')); ?></span></label>
                     <div class="control">
-                        <input type="number" data-role="qty" id="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
+                        <input type="number" data-role="qty" id="qty[<?php echo $block->escapeHtmlAttr($item->getId()); ?>]"
                                class="input-text qty"
                                data-validate="{'required-number':true,'validate-greater-than-zero':true}"
-                               name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" value="<?= /* @noEscape */
-                        (int)($block->getAddToCartQty($item) * 1) ?>">
+                               name="qty[<?php echo $block->escapeHtmlAttr($item->getId()); ?>]" value="<?php echo // @noEscape
+                        (int) ($block->getAddToCartQty($item) * 1); ?>">
                     </div>
                 </div>
-            <?php endif; ?>
-        <?php endif; ?>
-        <?php if ($product->isSaleable()): ?>
+            <?php } ?>
+        <?php } ?>
+        <?php if ($product->isSaleable()) { ?>
 
-            <?php if ($product->getData('subscription_configurate') == 'no' ||
-                is_null($product->getData('subscription_configurate'))) : ?>
+            <?php if ('no' == $product->getData('subscription_configurate')
+                || is_null($product->getData('subscription_configurate'))) { ?>
                 <div class="product-item-actions">
                     <div class="actions-primary">
-                        <button type="button" data-role="tocart" data-post='<?= /* @noEscape */
-                        $block->getItemAddToCartParams($item) ?>'
-                                title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
-                                data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                        <button type="button" data-role="tocart" data-post='<?php echo // @noEscape
+                        $block->getItemAddToCartParams($item); ?>'
+                                title="<?php echo $block->escapeHtmlAttr(__('Add to Cart')); ?>"
+                                data-item-id="<?php echo $block->escapeHtmlAttr($item->getId()); ?>"
                                 class="action tocart primary">
-                            <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                            <span><?php echo $block->escapeHtml(__('Add to Cart')); ?></span>
                         </button>
                     </div>
                 </div>
 
-            <?php else: ?>
-                <a class="action tocart primary" href="<?= $subHelper->getProductDetailUrl($product->getId()) ?>">
-                    <span><?= /* @escapeNotVerified */
-                        __('View Details') ?></span>
+            <?php } else { ?>
+                <a class="action tocart primary" href="<?php echo $subHelper->getProductDetailUrl($product->getId()); ?>">
+                    <span><?php echo // @escapeNotVerified
+                        __('View Details'); ?></span>
                 </a>
-            <?php endif; ?>
+            <?php } ?>
 
-        <?php else: ?>
-            <?php if ($product->getIsSalable()): ?>
-                <p class="available stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
-                    <span><?= $block->escapeHtml(__('In stock')) ?></span>
+        <?php } else { ?>
+            <?php if ($product->getIsSalable()) { ?>
+                <p class="available stock" title="<?php echo $block->escapeHtmlAttr(__('Availability')); ?>">
+                    <span><?php echo $block->escapeHtml(__('In stock')); ?></span>
                 </p>
-            <?php else: ?>
-                <p class="unavailable stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
-                    <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+            <?php } else { ?>
+                <p class="unavailable stock" title="<?php echo $block->escapeHtmlAttr(__('Availability')); ?>">
+                    <span><?php echo $block->escapeHtml(__('Out of stock')); ?></span>
                 </p>
-            <?php endif; ?>
-        <?php endif; ?>
+            <?php } ?>
+        <?php } ?>
     </fieldset>
 </div>

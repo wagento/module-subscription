@@ -20,6 +20,7 @@ class Totals extends \Magento\Framework\View\Element\Template
 
     /**
      * Totals constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
@@ -27,11 +28,13 @@ class Totals extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
-    
+
         parent::__construct($context, $data);
     }
 
     /**
+     * Get source function.
+     *
      * @return mixed
      */
     public function getSource()
@@ -40,6 +43,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get invoice function.
+     *
      * @return mixed
      */
     public function getInvoice()
@@ -48,6 +53,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Init totals function.
+     *
      * @return $this
      */
     public function initTotals()

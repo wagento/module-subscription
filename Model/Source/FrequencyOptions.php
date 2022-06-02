@@ -11,6 +11,8 @@ use Magento\Framework\Data\OptionSourceInterface;
 class FrequencyOptions implements OptionSourceInterface
 {
     /**
+     * Option label array function.
+     *
      * @return array
      */
     public function toOptionArray()

@@ -11,7 +11,7 @@ use Wagento\Subscription\Model\ResourceModel\Product\CollectionFactory;
 class ProductGrid extends \Magento\Backend\Block\Template
 {
     /**
-     * Block template
+     * Block template.
      *
      * @var string
      */
@@ -39,6 +39,7 @@ class ProductGrid extends \Magento\Backend\Block\Template
 
     /**
      * ProductGrid constructor.
+     *
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -52,7 +53,6 @@ class ProductGrid extends \Magento\Backend\Block\Template
         CollectionFactory $productCollectionFactory,
         array $data = []
     ) {
-
         $this->registry = $registry;
         $this->jsonEncoder = $jsonEncoder;
         $this->_productCollectionFactory = $productCollectionFactory;
@@ -60,25 +60,27 @@ class ProductGrid extends \Magento\Backend\Block\Template
     }
 
     /**
-     * Retrieve instance of grid block
+     * Retrieve instance of grid block.
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
      *
      * @return \Magento\Framework\View\Element\BlockInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getBlockGrid()
     {
-
         if (null === $this->blockGrid) {
             $this->blockGrid = $this->getLayout()->createBlock(
-                'Wagento\Subscription\Block\Adminhtml\Products\Edit\Tab\Product',
+                'Wagento\Subscription\Block\
+                Adminhtml\Products\Edit\Tab\Product',
                 'category.product.grid'
             );
         }
+
         return $this->blockGrid;
     }
 
     /**
-     * Return HTML of grid block
+     * Return HTML of grid block.
      *
      * @return string
      */
@@ -88,6 +90,10 @@ class ProductGrid extends \Magento\Backend\Block\Template
     }
 
     /**
+     * Get product json function.
+     *
+     * @param null|mixed $id
+     *
      * @return string
      */
     public function getProductsJson($id = null)
@@ -96,7 +102,8 @@ class ProductGrid extends \Magento\Backend\Block\Template
 
         $vProducts = $this->_productCollectionFactory->create()
             ->addFieldToFilter('subscription_id', $subscriptionId)
-            ->addFieldToSelect('product_id');
+            ->addFieldToSelect('product_id')
+        ;
         $products = [];
         foreach ($vProducts as $product) {
             $products[$product->getProductId()] = '';
@@ -105,10 +112,13 @@ class ProductGrid extends \Magento\Backend\Block\Template
         if (!empty($products)) {
             return $this->jsonEncoder->encode($products);
         }
+
         return '{}';
     }
 
     /**
+     * Get item function.
+     *
      * @return mixed
      */
     public function getItem()

@@ -11,9 +11,10 @@ use Wagento\Subscription\Api\Data\ProductInterface;
 
 class Product extends AbstractExtensibleModel implements ProductInterface
 {
-
     /**
-     * return @void
+     * Construct function.
+     *
+     * @return void
      */
     public function _construct()
     {
@@ -21,9 +22,9 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * Get subscription id
+     * Get subscription id.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getSubscriptionId()
     {
@@ -31,9 +32,10 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * Set subscription id
+     * Set subscription id.
      *
      * @param int $subscriptionId
+     *
      * @return $this
      */
     public function setSubscriptionId($subscriptionId)
@@ -42,9 +44,9 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * Get product id
+     * Get product id.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getProductId()
     {
@@ -52,9 +54,10 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     }
 
     /**
-     * Set product id
+     * Set product id.
      *
-     * @param $productId
+     * @param mixed $productId
+     *
      * @return mixed
      */
     public function setProductId($productId)

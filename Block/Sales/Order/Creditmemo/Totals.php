@@ -9,11 +9,11 @@ namespace Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo;
 class Totals extends \Magento\Framework\View\Element\Template
 {
     /**
-     * Order invoice
+     * Order invoice.
      *
-     * @var \Magento\Sales\Model\Order\Creditmemo|null
+     * @var null|\Magento\Sales\Model\Order\Creditmemo
      */
-    protected $_creditmemo = null;
+    protected $_creditmemo;
 
     /**
      * @var \Magento\Framework\DataObject
@@ -22,6 +22,7 @@ class Totals extends \Magento\Framework\View\Element\Template
 
     /**
      * OrderFee constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
@@ -29,12 +30,11 @@ class Totals extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
-
         parent::__construct($context, $data);
     }
 
     /**
-     * Get data (totals) source model
+     * Get data (totals) source model.
      *
      * @return \Magento\Framework\DataObject
      */
@@ -44,6 +44,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get credit memo.
+     *
      * @return mixed
      */
     public function getCreditmemo()
@@ -52,7 +54,7 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Initialize payment fee totals
+     * Initialize payment fee totals.
      *
      * @return $this
      */
