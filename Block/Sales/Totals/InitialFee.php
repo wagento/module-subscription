@@ -21,7 +21,7 @@ class InitialFee extends \Magento\Framework\View\Element\Template
     protected $_source;
 
     /**
-     * Construct function.
+     * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data

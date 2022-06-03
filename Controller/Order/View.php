@@ -6,13 +6,13 @@
 
 namespace Wagento\Subscription\Controller\Order;
 
-use Magento\Framework\App\Action;
-use Magento\Sales\Controller\AbstractController\OrderLoaderInterface;
-use Magento\Sales\Controller\OrderInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session;
-use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\App\Action;
 use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Result\PageFactory;
+use Magento\Sales\Controller\AbstractController\OrderLoaderInterface;
+use Magento\Sales\Controller\OrderInterface;
 use Wagento\Subscription\Model\SubscriptionSalesRepository;
 
 class View extends \Magento\Sales\Controller\AbstractController\View implements OrderInterface
@@ -21,6 +21,7 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
      * @var Session
      */
     private $session;
+
     /**
      * @var CustomerRepositoryInterface
      */
@@ -30,6 +31,7 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
      * @var UrlInterface
      */
     private $urlInterface;
+
     /**
      * @var SubscriptionSalesRepository
      */
@@ -43,6 +45,7 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
      * @param PageFactory $resultPageFactory
      * @param CustomerRepositoryInterface $customerRepository
      * @param Session $session
+     * @param SubscriptionSalesRepository $subscriptionSalesRepository
      */
     public function __construct(
         Action\Context $context,
@@ -62,9 +65,10 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
     /**
      * Order view action.
      *
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
      */
     public function execute()
     {
@@ -81,6 +85,7 @@ class View extends \Magento\Sales\Controller\AbstractController\View implements 
             $this->session->authenticate();
         }
         $resultPage->getLayout()->getBlock('messages')->setEscapeMessageFlag(true);
+
         return $resultPage;
     }
 

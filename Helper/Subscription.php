@@ -8,7 +8,6 @@ namespace Wagento\Subscription\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Magento\Tests\NamingConvention\true\mixed;
 use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 

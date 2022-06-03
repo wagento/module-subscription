@@ -19,7 +19,7 @@ class Subscription extends AbstractExtensibleModel implements SubscriptionInterf
      */
     public function _construct()
     {
-        $this->_init('Wagento\Subscription\Model\ResourceModel\Subscription');
+        $this->_init('Wagento\Subscription\Model\ResourceModel\Subscription::class');
     }
 
     /**

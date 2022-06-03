@@ -21,7 +21,6 @@ use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Payment\Model\CcConfig;
 use Magento\Sales\Model\Order\AddressRepository;
-use Magento\Tests\NamingConvention\true\mixed;
 use Magento\Vault\Api\PaymentTokenManagementInterface;
 use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionRepository;

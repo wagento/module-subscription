@@ -19,7 +19,7 @@ class Totals extends \Magento\Framework\View\Element\Template
     protected $_source;
 
     /**
-     * Totals constructor.
+     * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data

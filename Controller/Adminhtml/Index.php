@@ -16,7 +16,7 @@ abstract class Index extends Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Wagento_Subscription::manage';
+    public const ADMIN_RESOURCE = 'Wagento_Subscription::manage';
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */

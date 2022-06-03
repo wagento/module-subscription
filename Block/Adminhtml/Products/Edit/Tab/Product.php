@@ -139,8 +139,6 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
             'price'
         )->addFieldToFilter('entity_id', ['nin' => $allProductIds])->addAttributeToFilter('visibility', 4)
             ->addAttributeToFilter('type_id', ['in' => $types]);
-
-
         $storeId = (int)$this->getRequest()->getParam('store', 0);
         if ($storeId > 0) {
             $collection->addStoreFilter($storeId);

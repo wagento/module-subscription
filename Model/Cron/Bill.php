@@ -130,44 +130,7 @@ class Bill
                             // Set Status COmpleted when Billing = How Many
                             $getBillingCount = $salesSubModel->getBillingCount();
                             $getHowMany = $salesSubModel->getHowMany();
-
-                            if ($getBillingCount == $getHowMany) {
-                                $status = 3;
-                                $customerId = $salesSubModel->getCustomerId();
-                                $salesSubModel->setStatus($status);
-                                $salesSubModel->save();
-
-                                $getIsEnable = $this->emailHelper
-                                    ->getIsEmailConfigEnable(self::XML_PATH_EMAIL_TEMPLATE_ENABLE)
-                                ;
-                                $getIsSelectChangeStatusEmail = $this->emailHelper
-                                    ->getIsStatusChangeEmailCustomer(self::XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS)
-                                ;
-                                if (1 == $getIsEnable && 1 == $getIsSelectChangeStatusEmail) {
-                                    // send email to customer that subscription cycle completed
-                                    $emailTempVariables = $this->emailHelper
-                                        ->getStatusEmailVariables($subscription->getId(), $status, $customerId)
-                                    ;
-                                    $senderInfo = $this->emailHelper
-                                        ->getEmailSenderInfo(self::XML_PATH_EMAIL_TEMPLATE_FIELD_SENDER)
-                                    ;
-                                    $receiverInfo = $this->emailHelper->getRecieverInfo($customerId);
-                                    $result = $this->emailHelper
-                                        ->sentStatusChangeEmail($emailTempVariables, $senderInfo, $receiverInfo)
-                                    ;
-                                    if (isset($result['success'])) {
-                                        $message = __('Subscription
-                                        Status Change Email Sent Successfully %1'.$receiverInfo['email']);
-                                        $this->logger->info((string) $message);
-                                    } elseif (isset($result['error'])) {
-                                        $message = __($result['error_msg']);
-                                        $this->logger->info((string) $message);
-                                    }
-                                } else {
-                                    $message = __('Email configuration is disabled');
-                                    $this->logger->info((string) $message);
-                                }
-                            }
+                            $this->getActiveSubscriptionsResult($getBillingCount, $getHowMany);
                             $message = __('Subscription order
                              placed Successfully order#%1 .', $result['success_data']['increment_id']);
                             $this->logger->info((string) $message);
@@ -185,5 +148,54 @@ class Bill
         }
 
         return $this;
+    }
+
+    /**
+     * Get active subscription result.
+     *
+     * @param mixed $getBillingCount
+     * @param mixed $getHowMany
+     *
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    protected function getActiveSubscriptionsResult($getBillingCount, $getHowMany)
+    {
+        if ($getBillingCount == $getHowMany) {
+            $status = 3;
+            $customerId = $salesSubModel->getCustomerId();
+            $salesSubModel->setStatus($status);
+            $salesSubModel->save();
+
+            $getIsEnable = $this->emailHelper
+                ->getIsEmailConfigEnable(self::XML_PATH_EMAIL_TEMPLATE_ENABLE)
+            ;
+            $getIsSelectChangeStatusEmail = $this->emailHelper
+                ->getIsStatusChangeEmailCustomer(self::XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS)
+            ;
+            if (1 == $getIsEnable && 1 == $getIsSelectChangeStatusEmail) {
+                // send email to customer that subscription cycle completed
+                $emailTempVariables = $this->emailHelper
+                    ->getStatusEmailVariables($subscription->getId(), $status, $customerId)
+                ;
+                $senderInfo = $this->emailHelper
+                    ->getEmailSenderInfo(self::XML_PATH_EMAIL_TEMPLATE_FIELD_SENDER)
+                ;
+                $receiverInfo = $this->emailHelper->getRecieverInfo($customerId);
+                $result = $this->emailHelper
+                    ->sentStatusChangeEmail($emailTempVariables, $senderInfo, $receiverInfo)
+                ;
+                if (isset($result['success'])) {
+                    $message = __('Subscription
+                                        Status Change Email Sent Successfully %1'.$receiverInfo['email']);
+                    $this->logger->info((string) $message);
+                } elseif (isset($result['error'])) {
+                    $message = __($result['error_msg']);
+                    $this->logger->info((string) $message);
+                }
+            } else {
+                $message = __('Email configuration is disabled');
+                $this->logger->info((string) $message);
+            }
+        }
     }
 }

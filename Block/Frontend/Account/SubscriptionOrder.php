@@ -134,7 +134,7 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
 
         if ($this->getSubscriptions()) {
             $pager = $this->getLayout()->createBlock(
-                'Magento\Theme\Block\Html\Pager',
+                'Magento\Theme\Block\Html\Pager::class',
                 'seller.product.list.pager'
             )->setAvailableLimit([5 => 5, 10 => 10, 15 => 15])->setShowPerPage(true)->setCollection(
                 $this->getSubscriptions()

@@ -5,10 +5,17 @@
  */
 -->
 <!--@subject Subscription Next Order Reminder Email @-->
-<!--@vars
-{"store url=\"\"":"Store Url",
-"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image"}
-@-->
+<!--@vars {
+"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var customer_name|nl2br":"Customer Name",
+"var date_of_next_run|nl2br":"Email Date",
+"var formattedBillingAddress|raw":"Billing Address",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var payment_html|raw":"Payment Html",
+"var shipping_description":"Shipping Description",
+"var order":"Email Order"
+} @-->
 <!--@styles
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
 @-->

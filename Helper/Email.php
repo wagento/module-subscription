@@ -6,8 +6,6 @@
 
 namespace Wagento\Subscription\Helper;
 
-use Magento\Tests\NamingConvention\true\mixed;
-
 class Email extends \Magento\Framework\App\Helper\AbstractHelper
 {
     public const TRANS_IDENT_EMAIL_NAME = 'trans_email/ident_%s/name';

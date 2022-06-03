@@ -20,7 +20,7 @@ class Collection extends SearchResult
     protected $_map = ['fields' => ['subscription_id' => 'main_table.subscription_id']];
 
     /**
-     * Collection constructor.
+     * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
      *
      * @param EntityFactory $entityFactory
      * @param Logger $logger

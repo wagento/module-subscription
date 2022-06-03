@@ -63,7 +63,7 @@ class InlineEdit extends IndexAction
         $this->dataObjectHelper->populateWithArray(
             $subscription,
             $subscriptionData,
-            '\Wagento\Subscription\Api\Data\SubscriptionInterface'
+            '\Wagento\Subscription\Api\Data\SubscriptionInterface::class'
         );
     }
 

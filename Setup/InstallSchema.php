@@ -6,10 +6,10 @@
 
 namespace Wagento\Subscription\Setup;
 
+use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-use Magento\Framework\DB\Adapter\AdapterInterface;
 
 class InstallSchema implements InstallSchemaInterface
 {
@@ -18,6 +18,7 @@ class InstallSchema implements InstallSchemaInterface
      *
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
+     * @return void
      * @throws \Zend_Db_Exception
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
@@ -25,9 +26,7 @@ class InstallSchema implements InstallSchemaInterface
         $installer = $setup;
         $installer->startSetup();
 
-        /**
-         * Create table 'wagento_subscription'
-         */
+        // Create table 'wagento_subscription'
         if (!$installer->tableExists('wagento_subscription')) {
             $subtableName = $setup->getTable('wagento_subscription');
             $subtable = $installer->getConnection()->newTable(
@@ -82,9 +81,7 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getConnection()->createTable($subtable);
         }
 
-        /**
-         * Create table 'wagento_subscription_products'
-         */
+        // Create table 'wagento_subscription_products'
         if (!$installer->tableExists('wagento_subscription_products')) {
             $subProductstableName = $setup->getTable('wagento_subscription_products');
             $subProductstable = $installer->getConnection()->newTable(
@@ -127,10 +124,7 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getConnection()->createTable($subProductstable);
         }
 
-
-        /**
-         * Create table 'wagento_subscription_order'
-         */
+        // Create table 'wagento_subscription_order'
         if (!$installer->tableExists('wagento_subscription_order')) {
             $subOrdertableName = $setup->getTable('wagento_subscription_order');
             $subOrdertable = $installer->getConnection()->newTable(
@@ -262,17 +256,17 @@ class InstallSchema implements InstallSchemaInterface
                 [],
                 'Subscription Product Id'
             )->setComment('Braintree Subscription Order Table')
-                ->setOption('type', 'InnoDB');
+                ->setOption('type', 'InnoDB')
+            ;
             $installer->getConnection()->createTable($subOrdertable);
         }
-
 
         $quoteTable = 'quote';
         $orderTable = 'sales_order';
         $invoiceTable = 'sales_invoice';
         $creditMemoTable = 'sales_creditmemo';
 
-        /*Quote Table*/
+        // Quote Table
         $installer->getConnection()
             ->addColumn(
                 $installer->getTable($quoteTable),
@@ -282,11 +276,12 @@ class InstallSchema implements InstallSchemaInterface
                     'length' => '12,4',
                     'default' => null,
                     'nullable' => true,
-                    'comment' => 'Wagento Subscription Initial Fee'
+                    'comment' => 'Wagento Subscription Initial Fee',
                 ]
-            );
+            )
+        ;
 
-        //Order table
+        // Order table
         $installer->getConnection()
             ->addColumn(
                 $installer->getTable($orderTable),
@@ -296,12 +291,12 @@ class InstallSchema implements InstallSchemaInterface
                     'length' => '12,4',
                     'default' => null,
                     'nullable' => true,
-                    'comment' => 'Wagento Subscription Initial Fee'
-
+                    'comment' => 'Wagento Subscription Initial Fee',
                 ]
-            );
+            )
+        ;
 
-        //Invoice table
+        // Invoice table
         $installer->getConnection()
             ->addColumn(
                 $installer->getTable($invoiceTable),
@@ -311,12 +306,12 @@ class InstallSchema implements InstallSchemaInterface
                     'length' => '12,4',
                     'default' => null,
                     'nullable' => true,
-                    'comment' => 'Wagento Subscription Initial Fee'
-
+                    'comment' => 'Wagento Subscription Initial Fee',
                 ]
-            );
+            )
+        ;
 
-        //Credit memo table
+        // Credit memo table
         $installer->getConnection()
             ->addColumn(
                 $installer->getTable($creditMemoTable),
@@ -326,10 +321,10 @@ class InstallSchema implements InstallSchemaInterface
                     'length' => '12,4',
                     'default' => null,
                     'nullable' => true,
-                    'comment' => 'Wagento Subscription Initial Fee'
-
+                    'comment' => 'Wagento Subscription Initial Fee',
                 ]
-            );
+            )
+        ;
 
         $quoteItemTable = $installer->getTable('quote_item');
         $columns = [
@@ -338,14 +333,12 @@ class InstallSchema implements InstallSchemaInterface
                 'nullable' => false,
                 'comment' => 'Check product is subscribed or not by customer',
             ],
-
         ];
         $connection = $installer->getConnection();
         foreach ($columns as $name => $definition) {
             $connection->addColumn($quoteItemTable, $name, $definition);
         }
 
-        /**/
         $salesOrderItemTable = $installer->getTable('sales_order_item');
         $columns = [
             'is_subscribed' => [
@@ -353,7 +346,6 @@ class InstallSchema implements InstallSchemaInterface
                 'nullable' => false,
                 'comment' => 'Check product is subscribed or not by customer',
             ],
-
         ];
 
         $connection = $installer->getConnection();

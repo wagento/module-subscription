@@ -1,7 +1,9 @@
+<!--
 /**
-* Copyright Wagento Creative LLC ©, All rights reserved.
-* See COPYING.txt for license details.
-*/
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
 <script src="../js/view/subscription-popup-cart.js"></script>
 <div class="block-subscription"
      data-bind="afterRender: setModalElement"
@@ -14,7 +16,10 @@
             <div class="content">
                 <p class="content" data-bind="i18n: 'Are you sure, you want to unsubscribe this product?'"></p>
             </div>
-            <input name="product_id" type="hidden" data-bind="value:subscriptionProductId,attr:{id:'un_product_id-'+itemId}"/>
+            <input name="product_id"
+                   type="hidden"
+                   data-bind="value:subscriptionProductId,attr:{id:'un_product_id-'+itemId}">
+            </input>
             <div class="actions-toolbar">
                 <div class="primary">
                     <button type="submit" class="action action-unsubscribe secondary action delete"
@@ -91,7 +96,8 @@
                 <form class="form subscription-form"
                       method="post"
                       data-bind="event: {submit: subscribe },attr: { id:'subscription-form-'+itemId}">
-                    <input type="hidden" name='subItemId'
+                    <input type="hidden"
+                           name='subItemId'
                            data-bind="attr: { id:'subscription_item'+itemId, value:itemId}">
                     <div class="fieldset login">
                         <div class="field subscription-howmany required">
@@ -131,24 +137,30 @@
                                     <!-- ko if: linksPurchasedSeparately == "1" -->
                                     <!-- ko foreach: {data: Object.keys(links).map(function(e) {
                                        return links[e]}), as: 'link' } -->
-                                    <input type="checkbox" name="links[]" data-bind="checkedValue: link.link_id"
-                                           data-validate="{'validate-one-checkbox-required-by-name':'downloadable-links-list'}"/>
+                                    <input type="checkbox"
+                                           name="links[]"
+                                           data-bind="checkedValue: link.link_id"
+                                           data-validate="{'validate-one-checkbox-required-by-name':'downloadable-links-list'}">
+                                    </input>
                                     <label class="label" for="links_'+link.link_id"></label>
                                     <span data-bind="text:link.title"></span>
-                                    <span data-bind="text:link.price"></span> <br/>
+                                    <span data-bind="text:link.price"></span> <br>
                                     <!-- /ko -->
                                     <!-- /ko -->
                                     <!-- ko if: linksPurchasedSeparately == "0" -->
                                     <!-- ko foreach: {data: Object.keys(links).map(function(e) {return links[e]}), as: 'link' } -->
                                     <label class="label" for="links_'+link.link_id"></label>
-                                    <span data-bind="text:link.title"></span><br/>
+                                    <span data-bind="text:link.title"></span><br>
                                     <!-- /ko -->
                                     <!-- /ko -->
                                 </div>
                             </div>
                             <!-- /ko -->
                             <!-- /ko -->
-                            <input name="productId" type="hidden" data-bind="value:subscriptionProductId"/>
+                            <input name="productId"
+                                   type="hidden"
+                                   data-bind="value:subscriptionProductId">
+                            </input>
                             <input type="hidden" name="isEnableHowMany"
                                    data-bind="attr: { id:'isEnableHowMany'+itemId, value:isEnableHowMany}">
                             <input type="hidden" name="howMany" data-bind="attr: { id:'howMany'+itemId, value:howMany}">

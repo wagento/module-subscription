@@ -1,9 +1,9 @@
 <!--
-   /**
-   * Copyright Wagento Creative LLC ©, All rights reserved.
-   * See COPYING.txt for license details.
-   */
-   -->
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
 <div class="block-subscription"
      data-bind="afterRender: setModalElement"
      style="display: none">
@@ -16,7 +16,10 @@
             <div class="content">
                 <p class="content" data-bind="i18n: 'Are you sure, you want to unsubscribe this product?'"></p>
             </div>
-            <input id="un_product_id" name="product_id" type="hidden" data-bind="value:subscriptionProductId"/>
+            <input id="un_product_id"
+                   name="product_id"
+                   type="hidden"
+                   data-bind="value:subscriptionProductId"> </input>
             <div class="actions-toolbar">
                 <div class="primary">
                     <button type="submit" class="action action-unsubscribe secondary action delete"
@@ -83,7 +86,7 @@
                         aria-level="2"
                         data-bind="i18n: 'Subscription Detail'"></strong>
             </div>
-            <br/>
+            <br>
             <div class="block-content">
                 <form class="form form-subscription"
                       method="post"
@@ -118,10 +121,16 @@
                                 </div>
                             </div>
                             <div>hola hola hola</div>
-                            <input id="product_id" name="product_id" type="hidden"
-                                   data-bind="value:subscriptionProductId"/>
-                            <input id="mysubscription" name="mysubscription" type="hidden"
-                                   data-bind="value: subSubscription"/>
+                            <input id="product_id"
+                                   name="product_id"
+                                   type="hidden"
+                                   data-bind="value:subscriptionProductId">
+                            </input>
+                            <input id="mysubscription"
+                                   name="mysubscription"
+                                   type="hidden"
+                                   data-bind="value: subSubscription">
+                            </input>
                         </div>
                         <div class="actions-toolbar">
                             <div class="primary">

@@ -6,7 +6,6 @@
 
 namespace Wagento\Subscription\Model;
 
-use Magento\Tests\NamingConvention\true\string;
 use Wagento\Subscription\Api\Data\SalesSubscriptionInterface;
 
 class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implements SalesSubscriptionInterface
@@ -18,7 +17,7 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
      */
     protected function _construct()
     {
-        $this->_init('Wagento\Subscription\Model\ResourceModel\SubscriptionSales');
+        $this->_init('Wagento\Subscription\Model\ResourceModel\SubscriptionSales::class');
     }
 
     /**
