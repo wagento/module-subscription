@@ -21,8 +21,8 @@ class Collection extends AbstractCollection
     protected function _construct()
     {
         $this->_init(
-            'Wagento\Subscription\Model\Subscription::class',
-            'Wagento\Subscription\Model\ResourceModel\Subscription::class'
+            \Wagento\Subscription\Model\Subscription::class,
+            \Wagento\Subscription\Model\ResourceModel\Subscription::class
         );
     }
 }

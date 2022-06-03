@@ -34,7 +34,7 @@ class Mapper
     public function toFlatArray(SubscriptionInterface $subscription)
     {
         $flatArray = $this->extensibleDataObjectConverter
-            ->toNestedArray($subscription, [], '\Wagento\Subscription\Api\Data\SubscriptionInterface::class')
+            ->toNestedArray($subscription, [], \Wagento\Subscription\Api\Data\SubscriptionInterface::class)
         ;
 
         return ConvertArray::toFlatArray($flatArray);

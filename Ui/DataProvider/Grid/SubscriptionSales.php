@@ -43,7 +43,7 @@ class SubscriptionSales extends \Magento\Framework\View\Element\UiComponent\Data
         FetchStrategy $fetchStrategy,
         EventManager $eventManager,
         $mainTable = 'wagento_subscription_order',
-        $resourceModel = '\Wagento\Subscription\Model\ResourceModel\SubscriptionSales::class'
+        $resourceModel = \Wagento\Subscription\Model\ResourceModel\SubscriptionSales::class
     ) {
 
         $this->request = $request;

@@ -53,7 +53,7 @@ class Subscription extends AbstractBackend
         if ($this->moduleManager->isEnabled('Wagento_Subscription')) {
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
             $subscriptionProductFactory = $objectManager
-                ->create('Wagento\Subscription\Api\Data\ProductInterfaceFactory::class')
+                ->create(\Wagento\Subscription\Api\Data\ProductInterfaceFactory::class)
                 ->create()
             ;
             $subscriptionConfig = $object->getSubscriptionConfigurate();

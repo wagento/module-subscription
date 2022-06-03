@@ -16,8 +16,8 @@ $getLastRenewed = $subDetails->getLastRenewed();
 $dateLastRenew = new DateTime($getLastRenewed);
 $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
 
-$subHelper = $this->helper('Wagento\Subscription\Helper\Data::class');
-$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data::class');
+$subHelper = $this->helper(\Wagento\Subscription\Helper\Data::class);
+$priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
 
 ?>
 <section class="admin__page-section order-view-account-information sales-subscription">

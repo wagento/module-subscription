@@ -17,7 +17,7 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
      */
     protected function _construct()
     {
-        $this->_init('Wagento\Subscription\Model\ResourceModel\SubscriptionSales::class');
+        $this->_init(Wagento\Subscription\Model\ResourceModel\SubscriptionSales::class);
     }
 
     /**

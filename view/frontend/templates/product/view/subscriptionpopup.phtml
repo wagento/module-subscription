@@ -4,8 +4,8 @@
  * See COPYING.txt for license details.
  */
 
-// @var $block \Wagento\Subscription\Block\Frontend\Product\Popup
-$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data::class');
+/**@var $block \Wagento\Subscription\Block\Frontend\Product\Popup */
+$priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
 $fee = $priceHelper->currency(number_format($block->getSubscriptionFee(), 2), true, false);
 $discount = $priceHelper->currency(number_format($block->getSubscriptionDiscount(), 2), true, false);
 $productId = $block->getProductId();

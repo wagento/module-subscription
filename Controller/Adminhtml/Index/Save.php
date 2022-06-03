@@ -106,7 +106,7 @@ class Save extends Index
                 $this->dataObjectHelper->populateWithArray(
                     $subscription,
                     $data,
-                    '\Wagento\Subscription\Api\Data\SubscriptionInterface::class'
+                    \Wagento\Subscription\Api\Data\SubscriptionInterface::class
                 );
 
                 $subscription = $this->subscriptionRepository->save($subscription);
@@ -221,7 +221,7 @@ class Save extends Index
                     $this->dataObjectHelper->populateWithArray(
                         $subscriptionProduct,
                         $dataSubscriptionProduct,
-                        '\Wagento\Subscription\Api\Data\ProductInterface::class'
+                        \Wagento\Subscription\Api\Data\ProductInterface::class
                     );
                     $this->productRepository->save($subscriptionProduct);
                 }
