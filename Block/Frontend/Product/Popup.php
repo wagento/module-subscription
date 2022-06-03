@@ -125,7 +125,6 @@ class Popup extends \Magento\Catalog\Block\Product\View
      */
     public function getSubscriptionFee()
     {
-        echo "here"; print_r($this->subscriptionFactory->getFee()); exit();
         return $this->subscriptionFactory->getFee();
     }
 

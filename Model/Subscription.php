@@ -91,7 +91,7 @@ class Subscription extends AbstractExtensibleModel implements SubscriptionInterf
      * @return float|null
      */
     public function getFee()
-    { echo $this->_getData(self::FEE); exit();
+    {
         return $this->_getData(self::FEE);
     }
 
