@@ -70,8 +70,7 @@ class ProductGrid extends \Magento\Backend\Block\Template
     {
         if (null === $this->blockGrid) {
             $this->blockGrid = $this->getLayout()->createBlock(
-                'Wagento\Subscription\Block\
-                Adminhtml\Products\Edit\Tab\Product',
+                \Wagento\Subscription\Block\Adminhtml\Products\Edit\Tab\Product::class,
                 'category.product.grid'
             );
         }

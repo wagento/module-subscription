@@ -5,9 +5,19 @@
  */
 
 /**@var $block \Wagento\Subscription\Block\Frontend\Product\Popup */
-$priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
-$fee = $priceHelper->currency(number_format($block->getSubscriptionFee(), 2), true, false);
-$discount = $priceHelper->currency(number_format($block->getSubscriptionDiscount(), 2), true, false);
+$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+$fee = '';
+$discount = '';
+?>
+<?php if (!empty($fee)) : ?>
+    <?php $fee = $priceHelper->currency(number_format( $block->getSubscriptionFee(), 2), true, false); ?>
+<?php endif; ?>
+
+<?php if (!empty($discount)) : ?>
+    <?php $discount = $priceHelper->currency(number_format($block->getSubscriptionDiscount(), 2), true, false); ?>
+<?php endif; ?>
+
+<?php
 $productId = $block->getProductId();
 $isInCart = $block->getProductInCart($productId);
 
@@ -87,8 +97,8 @@ $isInCart = $block->getProductInCart($productId);
                                            name="subHowMany"
                                            id="how_many"
                                            value=""
-                                           title="<?= /* @noEscape */
-                                            __('Enter Nymber of Cycles you would like to subscribe'); ?>"
+                                           title="<?= /* @escapeNotVerified */
+                                           __('Enter Nymber of Cycles you would like to subscribe') ?>"
                                            class="input-text howmany"
                                            data-validate="{'required-number':true,digits:true}"
                                            data-bind="value: subHowMany"/>
@@ -102,11 +112,10 @@ $isInCart = $block->getProductInCart($productId);
                                                name="subqty"
                                                id="sub_qty"
                                                value=""
-                                               title="<?= /* @noEscape */
-                                                __('Subscription Qty'); ?>"
+                                               title="<?= /* @escapeNotVerified */
+                                               __('Subscription Qty') ?>"
                                                class="input-text sub_qty"
-                                               data-validate="{'required':true, 'pattern':/^\d+(\.\d{1,2})?$/,
-                                               'validate-greater-than-zero':true}"
+                                               data-validate="{'required':true, 'pattern':/^\d+(\.\d{1,2})?$/, 'validate-greater-than-zero':true}"
                                                data-bind="value: subqty"/>
                                     </div>
 
@@ -120,9 +129,9 @@ $isInCart = $block->getProductInCart($productId);
                                 <input id="howMany" name="howMany" type="hidden" data-bind="value: howMany"/>
                             </div>
                             <?php $type = $block->getProductType(); ?>
-                            <?php if ('downloadable' == $type) { ?>
+                            <?php if ($type == 'downloadable') : ?>
                                 <div id="product-options-wrapper-popup" class="product-options-wrapper-popup"></div>
-                            <?php } ?>
+                            <?php endif; ?>
                             <div class="actions-toolbar">
                                 <div class="primary">
                                     <button type="submit" class="action action-subscribe secondary"
@@ -169,18 +178,18 @@ $isInCart = $block->getProductInCart($productId);
                         "subscriptionPopup": {
                             "component": "Wagento_Subscription/js/view/subscription-popup",
                             "isVisible": true,
-                            "isInCart": "<?= /* @noEscape */ $isInCart; ?>",
-                            "subsname": "<?= /* @noEscape */ $block->getSubscriptionName(); ?>",
-                            "frequency": "<?= /* @noEscape */ $block->getSubscriptionFrequency(); ?>",
-                            "discountWithoutCurrency": "<?= /* @noEscape */ $block->getSubscriptionDiscount(); ?>",
-                            "discount": "<?= /* @noEscape */ $discount; ?>",
-                            "cost": "<?= /* @noEscape */ $fee; ?>",
-                            "costWithoutCurrency": "<?= /* @noEscape */ $block->getSubscriptionFee(); ?>",
-                            "subscriptionId" : "<?= /* @noEscape */ $block->getSubscriptionId(); ?>",
-                            "productId" : "<?= /* @noEscape */ $block->getProductId(); ?>",
-                            "howMany" : "<?= /* @noEscape */ $block->getSubscriptionHowMany(); ?>",
-                            "isEnableHowMany" : "<?= /* @noEscape */ $block->isEnableHowMany(); ?>",
-                            "howManyUnit": "<?= /* @noEscape */ $block->getHowManyUnit(); ?>"
+                            "isInCart": "<?php echo $isInCart ?>",
+                            "subsname": "<?php echo $block->getSubscriptionName() ?>",
+                            "frequency": "<?php echo $block->getSubscriptionFrequency() ?>",
+                            "discountWithoutCurrency": "<?php echo $block->getSubscriptionDiscount() ?>",
+                            "discount": "<?php echo $discount ?>",
+                            "cost": "<?php echo $fee ?>",
+                            "costWithoutCurrency": "<?php echo $block->getSubscriptionFee() ?>",
+                            "subscriptionId" : "<?php echo $block->getSubscriptionId() ?>",
+                            "productId" : "<?php echo $block->getProductId() ?>",
+                            "howMany" : "<?php echo $block->getSubscriptionHowMany() ?>",
+                            "isEnableHowMany" : "<?php echo $block->isEnableHowMany() ?>",
+                            "howManyUnit": "<?php echo $block->getHowManyUnit() ?>"
                         }
                     }
                 }

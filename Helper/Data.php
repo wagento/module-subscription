@@ -369,7 +369,7 @@ class Data extends AbstractHelper
     {
         $subscription = $this->subscriptionRepository->getById($subscriptionId);
 
-        return $this->getSubscriptionFrequency((array) $subscription->getFrequency());
+        return $this->getSubscriptionFrequency($subscription->getFrequency());
     }
 
     /**
