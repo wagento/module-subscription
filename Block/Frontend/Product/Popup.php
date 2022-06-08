@@ -49,6 +49,11 @@ class Popup extends \Magento\Catalog\Block\Product\View
     public $jsonEncoder;
 
     /**
+     * @var \Magento\Framework\Pricing\Helper\Data
+     */
+    protected $priceHelper;
+
+    /**
      * Popup constructor.
      *
      * @param \Magento\Catalog\Block\Product\Context $context
@@ -65,6 +70,7 @@ class Popup extends \Magento\Catalog\Block\Product\View
      * @param SubscriptionFactory $subscriptionFactory
      * @param ProductFactory $productFactory
      * @param Data $helper
+     * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
      * @param array $data
      */
     public function __construct(
@@ -82,6 +88,7 @@ class Popup extends \Magento\Catalog\Block\Product\View
         SubscriptionFactory $subscriptionFactory,
         ProductFactory $productFactory,
         Data $helper,
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
         array $data = []
     ) {
         parent::__construct(
@@ -106,6 +113,7 @@ class Popup extends \Magento\Catalog\Block\Product\View
         ;
         $this->cart = $cart;
         $this->helper = $helper;
+        $this->priceHelper = $priceHelper;
     }
 
     /**
@@ -254,5 +262,16 @@ class Popup extends \Magento\Catalog\Block\Product\View
         foreach ($productCollector as $item) {
             return $item->getData('subscription_id');
         }
+    }
+
+    /**
+     * Get formatted Price.
+     *
+     * @param mixed $price
+     * @return float|string
+     */
+    public function getFormattedPrice($price)
+    {
+        return $this->priceHelper->currency($price, true, false);
     }
 }

@@ -6,16 +6,14 @@
 $blockGrid = $block->getBlockGrid();
 $gridJsObjectName = $blockGrid->getJsObjectName();
 ?>
-<?php echo $block->getGridHtml(); ?>
+<?= $block->getGridHtml(); ?>
 <input type="hidden" name="category_products" id="in_category_products" data-form-part="subscription_form" value=""/>
 <script type="text/x-magento-init">
     {
         "*": {
             "Wagento_Subscription/products/assign-products": {
-                "selectedProducts": <?php /* @escapeNotVerified */
-                echo $block->getProductsJson(); ?>,
-                "gridJsObjectName": <?php /* @escapeNotVerified */
-                echo '"' . $gridJsObjectName . '"' ?: '{}'; ?>
+                "selectedProducts": <?=  /* @noEscape */   $block->getProductsJson(); ?>,
+                "gridJsObjectName": <?=  /* @noEscape */  '"' . $gridJsObjectName . '"' ?: '{}'; ?>
             }
         }
     }

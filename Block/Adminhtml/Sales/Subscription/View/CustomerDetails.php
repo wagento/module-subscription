@@ -51,6 +51,11 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     protected $helper;
 
     /**
+     * @var \Magento\Framework\Pricing\Helper\Data
+     */
+    protected $priceHelper;
+
+    /**
      * CustomerDetails constructor.
      *
      * @param \Magento\Backend\Block\Template\Context $context
@@ -59,6 +64,7 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
      * @param \Magento\Sales\Block\Items\AbstractItems $abstractItems
      * @param \Magento\Sales\Model\Order\Address\Renderer $addressRenderer
      * @param \Wagento\Subscription\Helper\Data $subHelper
+     * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
      * @param \Magento\Sales\Model\OrderRepository $salesOrder
      * @param array $data
      */
@@ -69,6 +75,7 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         \Magento\Sales\Block\Items\AbstractItems $abstractItems,
         \Magento\Sales\Model\Order\Address\Renderer $addressRenderer,
         \Wagento\Subscription\Helper\Data $subHelper,
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Sales\Model\OrderRepository $salesOrder,
         array $data = []
     ) {
@@ -79,6 +86,7 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         $this->addressRenderer = $addressRenderer;
         $this->salesOrder = $salesOrder;
         $this->helper = $subHelper;
+        $this->priceHelper = $priceHelper;
         parent::__construct($context, $data);
     }
 
@@ -321,5 +329,51 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         $_order = $this->salesOrder->get($orderId);
 
         return $_order->getShippingDescription();
+    }
+
+    /**
+     * Subscription status function.
+     *
+     * @param bool $status
+     * @return mixed
+     */
+    public function getSubscriptionStatus($status)
+    {
+        return $this->helper->getSubscriptionStatus($status);
+    }
+
+    /**
+     * Subscription frequency function.
+     *
+     * @param mixed $subFrequency
+     *
+     * @return \Magento\Framework\Phrase
+     */
+    public function getSubscriptionFrequency($subFrequency)
+    {
+        return $this->helper->getSubscriptionFrequency($subFrequency);
+    }
+
+    /**
+     * Get no of units.
+     *
+     * @param int $subFrequency
+     *
+     * @return string
+     */
+    public function getHowManyUnits($subFrequency)
+    {
+        return $this->helper->getHowManyUnits($subFrequency);
+    }
+
+    /**
+     * Get formatted Price.
+     *
+     * @param mixed $price
+     * @return float|string
+     */
+    public function getFormattedPrice($price)
+    {
+        return $this->priceHelper->currency($price, true, false);
     }
 }

@@ -15,10 +15,6 @@ $subAdminDate = $date->format('F d, Y h:i:s');
 $getLastRenewed = $subDetails->getLastRenewed();
 $dateLastRenew = new DateTime($getLastRenewed);
 $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
-
-$subHelper = $this->helper(\Wagento\Subscription\Helper\Data::class);
-$priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
-
 ?>
 <section class="admin__page-section order-view-account-information sales-subscription">
     <div class="admin__page-section-content">
@@ -26,8 +22,7 @@ $priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
             <?php /* Subscription Sales Order Information */ ?>
             <div class="admin__page-section-item-title">
                 <span class="title">
-                        <?= /* @noEscape */ $block->escapeHtml(__('Subscription Profile # %1',
-                            $subDetails->getId())); ?>
+                        <?= /* @noEscape */ $block->escapeHtml(__('Subscription Profile # %1', $subDetails->getId())); //phpcs:ignore?>
                 </span>
             </div>
             <div class="admin__page-section-item-content">
@@ -40,7 +35,7 @@ $priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
                         <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Status')); ?></th>
                         <td>
                             <span id="subscription_status">
-                                <?= /* @noEscape */ $subHelper->getSubscriptionStatus($subDetails->getStatus()); ?>
+                                <?= /* @noEscape */ $block->getSubscriptionStatus($subDetails->getStatus()); ?>
                             </span>
                         </td>
                     </tr>
@@ -48,13 +43,13 @@ $priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
                         <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Frequency')); ?></th>
                         <td>
                             <?= /* @noEscape */ $block->escapeHtml(
-                                $subHelper->getSubscriptionFrequency($subDetails->getSubFrequency())
+                                $block->getSubscriptionFrequency($subDetails->getSubFrequency())
                             ); ?>
                             <?php if (null != $subDetails->getHowMany()) { ?>
                                 <?= /* @noEscape */ ' - '; ?>
                                 <?= /* @noEscape */ $subDetails->getHowMany(); ?>
                                 <?= /* @noEscape */ $block->escapeHtml(
-                                    $subHelper->getHowManyUnits($subDetails->getFrequency())
+                                    $block->getHowManyUnits($subDetails->getFrequency())
                                 ); ?>
                             <?php } ?>
                         </td>
@@ -118,7 +113,7 @@ $priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
                                 <?= /* @noEscape */ $block->escapeHtml(__('Purchased From')); ?>
                             </th>
                             <td>
-                                <?= $block->escapeHtml($block->getSubscriptionStoreName($subDetails->getStoreId()), ['br']); ?>
+                                <?= $block->escapeHtml($block->getSubscriptionStoreName($subDetails->getStoreId()), ['br']); //phpcs:ignore ?>
                             </td>
                         </tr>
                     <?php } ?>
@@ -168,7 +163,7 @@ $priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
                 <div class="actions"></div>
             </div>
             <?php
-                $paymentDetail = $block->getPaymentMethod($subDetails->getOrderId(), $subDetails->getPublicHash(), $subDetails->getCustomerId());
+                $paymentDetail = $block->getPaymentMethod($subDetails->getOrderId(), $subDetails->getPublicHash(), $subDetails->getCustomerId()); //phpcs:ignore
             ?>
             <div class="box-content">
                 <dl class="payment-method">
@@ -231,21 +226,21 @@ $priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
                     <strong><?= /* @noEscape */ __('SKU:'); ?></strong><?= /* @noEscape */ __($subDetails->getSku()); ?>
                 </td>
                 <td>
-                    <?= /* @noEscape */ $priceHelper->currency(number_format($subDetails->getOriginalPrice(), 2), true, false); ?>
+                    <?= /* @noEscape */ $block->getFormattedPrice(number_format($subDetails->getOriginalPrice(), 2)); //phpcs:ignore ?>
                 </td>
                 <td>
-                    <?= /* @noEscape */ $priceHelper->currency(number_format($subDetails->getPrice(), 2), true, false); ?>
+                    <?= /* @noEscape */ $block->getFormattedPrice(number_format($subDetails->getPrice(), 2)); //phpcs:ignore ?>
                 </td>
                 <td>
-                    <?= /* @noEscape */ $priceHelper->currency(number_format($subDetails->getSubFee(), 2), true, false); ?>
+                    <?= /* @noEscape */ $block->getFormattedPrice(number_format($subDetails->getSubFee(), 2)); //phpcs:ignore ?>
                 </td>
                 <td>
                     <?= /* @noEscape */ __('Subscribed'); ?>
                     <?= /* @noEscape */ (int) $subDetails->getQtyOrdered(); ?>
                 </td>
                 <?php $total = ($subDetails->getPrice()) + $subDetails->getShipping(); ?>
-                <td><?= /* @noEscape */ $priceHelper->currency(number_format($total, 2), true, false); ?></td>
-                <td><?= /* @noEscape */ $priceHelper->currency(number_format($total, 2), true, false); ?></td>
+                <td><?= /* @noEscape */ $block->getFormattedPrice(number_format($total, 2)); ?></td>
+                <td><?= /* @noEscape */ $block->getFormattedPrice(number_format($total, 2)); ?></td>
             </tr>
             </tbody>
         </table>

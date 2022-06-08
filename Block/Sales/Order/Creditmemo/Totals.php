@@ -3,7 +3,6 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo;
 
 class Totals extends \Magento\Framework\View\Element\Template
@@ -21,7 +20,7 @@ class Totals extends \Magento\Framework\View\Element\Template
     protected $_source;
 
     /**
-     * OrderFee constructor.
+     * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
