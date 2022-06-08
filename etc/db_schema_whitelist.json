@@ -1,0 +1,90 @@
+{
+    "wagento_subscription": {
+        "column": {
+            "subscription_id": true,
+            "name": true,
+            "frequency": true,
+            "fee": true,
+            "how_many": true,
+            "discount": true
+        },
+        "index": {
+            "WAGENTO_SUBSCRIPTION_NAME": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wagento_subscription_products": {
+        "column": {
+            "entity_id": true,
+            "subscription_id": true,
+            "product_id": true
+        },
+        "index": {
+            "WAGENTO_SUBSCRIPTION_PRODUCTS_SUBSCRIPTION_ID_PRODUCT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WAGENTO_SUBSCRIPTION_PRODUCTS_SUBSCRIPTION_ID": true
+        }
+    },
+    "wagento_subscription_order": {
+        "column": {
+            "id": true,
+            "customer_id": true,
+            "subscribe_order_id": true,
+            "status": true,
+            "last_renewed": true,
+            "next_renewed": true,
+            "created_at": true,
+            "updated_at": true,
+            "store_id": true,
+            "sub_start_date": true,
+            "sub_order_item_id": true,
+            "how_many": true,
+            "billing_count": true,
+            "billing_address_id": true,
+            "shipping_address_id": true,
+            "public_hash": true,
+            "sub_name": true,
+            "sub_frequency": true,
+            "sub_fee": true,
+            "sub_discount": true,
+            "sub_product_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "quote": {
+        "column": {
+            "initial_fee": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "initial_fee": true
+        }
+    },
+    "sales_invoice": {
+        "column": {
+            "initial_fee": true
+        }
+    },
+    "sales_creditmemo": {
+        "column": {
+            "initial_fee": true
+        }
+    },
+    "quote_item": {
+        "column": {
+            "is_subscribed": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "is_subscribed": true
+        }
+    }
+}
