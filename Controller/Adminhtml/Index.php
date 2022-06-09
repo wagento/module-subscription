@@ -9,10 +9,6 @@ namespace Wagento\Subscription\Controller\Adminhtml;
 use Magento\Backend\App\Action;
 use Wagento\Subscription\Controller\RegistryConstants;
 
-/**
- * Class Index
- * @package Wagento\Subscription\Controller\Adminhtml
- */
 abstract class Index extends Action
 {
     /**
@@ -20,7 +16,7 @@ abstract class Index extends Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Wagento_Subscription::manage';
+    public const ADMIN_RESOURCE = 'Wagento_Subscription::manage';
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */
@@ -109,7 +105,7 @@ abstract class Index extends Action
         \Psr\Log\LoggerInterface $logger,
         \Wagento\Subscription\Model\Subscription\Mapper $subscriptionMapper
     ) {
-    
+
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->resultForwardFactory = $resultForwardFactory;

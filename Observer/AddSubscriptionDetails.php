@@ -12,10 +12,6 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Model\SubscriptionService;
 
-/**
- * Class AddSubscriptionDetails
- * @package Wagento\Subscription\Observer
- */
 class AddSubscriptionDetails implements ObserverInterface
 {
     /**
@@ -52,6 +48,7 @@ class AddSubscriptionDetails implements ObserverInterface
      * @var SubscriptionFactory
      */
     protected $subscriptionFactory;
+
     /**
      * @var ProductFactory
      */
@@ -64,6 +61,7 @@ class AddSubscriptionDetails implements ObserverInterface
 
     /**
      * AddSubscriptionDetails constructor.
+     *
      * @param \Wagento\Subscription\Model\SubscriptionSalesFactory $subscriptionSales
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Sales\Model\OrderFactory $order
@@ -85,7 +83,6 @@ class AddSubscriptionDetails implements ObserverInterface
         ProductFactory $productFactory,
         SubscriptionService $subscriptionService
     ) {
-    
         $this->subscriptionSales = $subscriptionSales;
         $this->logger = $logger;
         $this->order = $order;
@@ -98,85 +95,94 @@ class AddSubscriptionDetails implements ObserverInterface
     }
 
     /**
+     * AddSubscriptionDetails execute function.
+     *
      * @param \Magento\Framework\Event\Observer $observer
-     * @throws \Exception
+     * @return void
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $orderIds = $observer->getEvent()->getOrderIds();
         if (empty($orderIds) || !is_array($orderIds)) {
             return;
-        } else {
-            $storeId = $this->storeManager->getStore()->getId();
-            $orderData = $this->order->create()->load($orderIds[0]);
-            $shippingAddressId = $orderData->getShippingAddressId();
+        }
+        $storeId = $this->storeManager->getStore()->getId();
+        $orderData = $this->order->create()->load($orderIds[0]);
+        $shippingAddressId = $orderData->getShippingAddressId();
 
-            if (!$shippingAddressId) {
-                $selectedShippingId = null;
-            } else {
-                $selectedShippingId = $this->subHelper->getSelectedId($shippingAddressId);
-            }
-            $billingAddressId = $orderData->getBillingAddressId();
-            if (!$billingAddressId) {
-                $billingAddressId = $shippingAddressId;
-            }
-            $selectedBillingId = $this->subHelper->getSelectedId($billingAddressId);
-            $orderItems = $orderData->getAllVisibleItems();
-            $date = $this->dateFactory->create()->gmtDate();
-            foreach ($orderItems as $key => $item) {
-                if ($item->getIsSubscribed() == 1) {
-                    $model = $this->subscriptionSales->create();
-                    $orderId[$key] = $item->getItemId();
-                    $productId[$key] = $item->getProductId();
-                    $productAdditionalOptions[$key] = $item->getProductOptions();
-                    if(isset($productAdditionalOptions[$key]['additional_options'][2]['label'])) {
-                        $getLabel = $productAdditionalOptions[$key]['additional_options'][2]['label'] ;
-                        if ($getLabel == 'Subscription Cycle') {
-                            $howManyValue = $productAdditionalOptions[$key]['additional_options'][2]['value'];
-                            $howManyNumber = preg_replace("/[^0-9]/", '', $howManyValue);
-                        } else {
-                            $howManyNumber = null;
-                        }
+        if (!$shippingAddressId) {
+            $selectedShippingId = null;
+        } else {
+            $selectedShippingId = $this->subHelper->getSelectedId($shippingAddressId);
+        }
+        $billingAddressId = $orderData->getBillingAddressId();
+        if (!$billingAddressId) {
+            $billingAddressId = $shippingAddressId;
+        }
+        $selectedBillingId = $this->subHelper->getSelectedId($billingAddressId);
+        $orderItems = $orderData->getAllVisibleItems();
+        $date = $this->dateFactory->create()->gmtDate();
+        foreach ($orderItems as $key => $item) {
+            if (1 == $item->getIsSubscribed()) {
+                $model = $this->subscriptionSales->create();
+                $orderId[$key] = $item->getItemId();
+                $productId[$key] = $item->getProductId();
+                $productAdditionalOptions[$key] = $item->getProductOptions();
+                if (isset($productAdditionalOptions[$key]['additional_options'][2]['label'])) {
+                    $getLabel = $productAdditionalOptions[$key]['additional_options'][2]['label'];
+                    if ('Subscription Cycle' == $getLabel) {
+                        $howManyValue = $productAdditionalOptions[$key]['additional_options'][2]['value'];
+                        $howManyNumber = preg_replace('/[^0-9]/', '', $howManyValue);
                     } else {
                         $howManyNumber = null;
                     }
-                    $productCollection = $this->productFactory->getCollection()->addFieldToFilter('product_id', ['eq' => $productId[$key]]);
-                    $subscriptionData = $this->subscriptionFactory->load($this->returnSubscriptionId($productCollection));
-                    $subscriptionName = $subscriptionData->getName();
-                    $subscriptionFrequency = $subscriptionData->getFrequency();
-                    $subscriptionFee = $subscriptionData->getFee();
-                    $subscriptionDiscount = $subscriptionData->getDiscount();
-                    $nextRun = $this->subscriptionService->calculateNextRun($subscriptionFrequency);
-                    $model->setCustomerId($orderData->getCustomerId());
-                    $model->setSubscribeOrderId($orderIds[0]);
-                    $model->setStatus(1);
-                    $model->setLastRenewed($date);
-                    $model->setNextRenewed($nextRun);
-                    $model->setCreatedAt($date);
-                    $model->setUpdatedAt($date);
-                    $model->setStoreId($storeId);
-                    $model->setSubStartDate($date);
-                    $model->setSubOrderItemId($orderId[$key]);
-                    $model->setSubDiscount($subscriptionDiscount);
-                    $model->setSubProductId($productId[$key]);
-                    $model->setHowMany($howManyNumber);
-                    $model->setBillingAddressId($selectedBillingId);
-                    $model->setShippingAddressId($selectedShippingId);
-                    $model->setSubName($subscriptionName);
-                    $model->setSubFrequency($subscriptionFrequency);
-                    $model->setSubFee($subscriptionFee);
-                    $model->setSubShippingType(null);
-                    $model->setSubShippingRule(null);
-                    $model->save();
                 } else {
-                    continue;
+                    $howManyNumber = null;
                 }
+                $productCollection = $this->productFactory->getCollection()
+                    ->addFieldToFilter('product_id', ['eq' => $productId[$key]])
+                ;
+                $subscriptionData = $this->subscriptionFactory
+                    ->load($this->returnSubscriptionId($productCollection))
+                ;
+                $subscriptionName = $subscriptionData->getName();
+                $subscriptionFrequency = $subscriptionData->getFrequency();
+                $subscriptionFee = $subscriptionData->getFee();
+                $subscriptionDiscount = $subscriptionData->getDiscount();
+                $nextRun = $this->subscriptionService->calculateNextRun($subscriptionFrequency);
+                $model->setCustomerId($orderData->getCustomerId());
+                $model->setSubscribeOrderId($orderIds[0]);
+                $model->setStatus(1);
+                $model->setLastRenewed($date);
+                $model->setNextRenewed($nextRun);
+                $model->setCreatedAt($date);
+                $model->setUpdatedAt($date);
+                $model->setStoreId($storeId);
+                $model->setSubStartDate($date);
+                $model->setSubOrderItemId($orderId[$key]);
+                $model->setSubDiscount($subscriptionDiscount);
+                $model->setSubProductId($productId[$key]);
+                $model->setHowMany($howManyNumber);
+                $model->setBillingAddressId($selectedBillingId);
+                $model->setShippingAddressId($selectedShippingId);
+                $model->setSubName($subscriptionName);
+                $model->setSubFrequency($subscriptionFrequency);
+                $model->setSubFee($subscriptionFee);
+                $model->setSubShippingType(null);
+                $model->setSubShippingRule(null);
+                $model->save();
+            } else {
+                continue;
             }
         }
     }
 
     /**
-     * @param $productCollector
+     * Return subscription id.
+     *
+     * @param mixed $productCollector
+     *
      * @return mixed
      */
     private function returnSubscriptionId($productCollector)

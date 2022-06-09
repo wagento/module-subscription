@@ -31,13 +31,16 @@ class SubscriptionOrderRepository implements SalesSubscriptionRepositoryInterfac
         \Wagento\Subscription\Model\SubscriptionSalesFactory $subscriptionSalesFactory,
         \Wagento\Subscription\Model\ResourceModel\SubscriptionSales $subscriptionSalesResource
     ) {
-    
         $this->subscriptionSalesFactory = $subscriptionSalesFactory;
         $this->subscriptionSalesResource = $subscriptionSalesResource;
     }
 
     /**
-     * {@inheritdoc}
+     * Save data function.
+     *
+     * @param \Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscription
+     * @return \Wagento\Subscription\Api\Data\SalesSubscriptionInterface
+     * @throws CouldNotSaveException
      */
     public function save(\Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscription)
     {
@@ -54,7 +57,11 @@ class SubscriptionOrderRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * Get id function.
+     *
+     * @param int $id
+     * @return \Wagento\Subscription\Api\Data\SalesSubscriptionInterface|Subscription|SubscriptionSales
+     * @throws NoSuchEntityException
      */
     public function getById($id)
     {
@@ -67,7 +74,12 @@ class SubscriptionOrderRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
-     * {@inheritdoc}
+     * Delete id function.
+     *
+     * @param mixed $subscriptionSalesId
+     * @return bool
+     * @throws CouldNotDeleteException
+     * @throws NoSuchEntityException
      */
     public function deleteById($subscriptionSalesId)
     {
@@ -75,6 +87,8 @@ class SubscriptionOrderRepository implements SalesSubscriptionRepositoryInterfac
     }
 
     /**
+     * Delete subscription function.
+     *
      * @param \Wagento\Subscription\Api\Data\SalesSubscriptionInterface $subscriptionSales
      * @return bool
      * @throws CouldNotDeleteException

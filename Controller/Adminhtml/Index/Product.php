@@ -5,16 +5,13 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Index;
-/**
- * Class Product
- * @package Wagento\Subscription\Controller\Adminhtml\Index
- */
+
 abstract class Product extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
+     * Authorization level of a basic admin session.
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Wagento_Subscription::item_list';
+    public const ADMIN_RESOURCE = 'Wagento_Subscription::item_list';
 }

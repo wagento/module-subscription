@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wagento_subscription" resource="default" engine="innodb" comment="Wagento Subscription Table">
+        <column xsi:type="int" name="subscription_id" unsigned="true" nullable="false" identity="true"
+                comment="Subscription ID"/>
+        <column xsi:type="varchar" name="name" length="255" comment="Name"/>
+        <column xsi:type="smallint" name="frequency" unsigned="true" nullable="false"
+                 default="0" comment="Frequency"/>
+        <column xsi:type="decimal" name="fee" scale="4" precision="12" unsigned="false" default="0.0000"
+                nullable="false" comment="Fee"/>
+        <column xsi:type="smallint" name="how_many" unsigned="true" nullable="false"
+                default="0" comment="No of Subscription Cycles"/>
+        <column xsi:type="decimal" name="discount" scale="4" precision="12" default="0.00"
+                nullable="true" comment="Discount"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="subscription_id"/>
+        </constraint>
+        <index referenceId="WAGENTO_SUBSCRIPTION_NAME" indexType="fulltext">
+            <column name="name"/>
+        </index>
+    </table>
+    <table name="wagento_subscription_products" resource="default" engine="innodb" comment="Wagento Subscription Products Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="subscription_id" unsigned="true" comment="Subscription ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" default="0"  comment="Product ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WAGENTO_SUBSCRIPTION_PRODUCTS_SUBSCRIPTION_ID_PRODUCT_ID" indexType="btree">
+            <column name="subscription_id"/>
+            <column name="product_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="WAGENTO_SUBSCRIPTION_PRODUCTS_SUBSCRIPTION_ID"
+                    table="wagento_subscription_products" column="subscription_id" referenceTable="wagento_subscription"
+                    referenceColumn="subscription_id"/>
+    </table>
+    <table name="wagento_subscription_order" resource="default" engine="innodb" comment="Wagento Subscription Order Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="Id"/>
+        <column xsi:type="int" name="customer_id" nullable="false" default="0" comment="customer ID"/>
+        <column xsi:type="int" name="subscribe_order_id" default="0" nullable="false"  comment="Subscriber\'s order id"/>
+        <column xsi:type="smallint" name="status" nullable="false" default="1" comment="Status"/>
+        <column xsi:type="datetime" name="last_renewed" nullable="false" comment="Last Renewed At"/>
+        <column xsi:type="datetime" name="next_renewed" nullable="false" comment="Next Renewed At"/>
+        <column xsi:type="datetime" name="created_at" nullable="false" comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" comment="Updated At"/>
+        <column xsi:type="smallint" name="store_id" nullable="false" comment="Store Id"/>
+        <column xsi:type="datetime" name="sub_start_date" nullable="false" comment="Subscription Start Date"/>
+        <column xsi:type="int" name="sub_order_item_id" nullable="false"  comment="Subscription Order Item Id"/>
+        <column xsi:type="int" name="how_many" nullable="true"  comment="No of Subscription Cycles"/>
+        <column xsi:type="int" name="billing_count" nullable="true"  comment="Wagento subscription number of times billing"/>
+        <column xsi:type="int" name="billing_address_id" nullable="true"  comment="If Customer Change Billing Address"/>
+        <column xsi:type="int" name="shipping_address_id" nullable="true"  comment="If Customer Change Shipping Address"/>
+        <column xsi:type="text" name="public_hash" nullable="true" comment="If Customer Change Credit Card Details"/>
+        <column xsi:type="text" name="sub_name" nullable="false" comment="Subscription Plan Name"/>
+        <column xsi:type="smallint" name="sub_frequency" nullable="false" comment="Subscription Frequency"/>
+        <column xsi:type="decimal" name="sub_fee" scale="4" precision="12" comment="Subscription Initial Fee"/>
+        <column xsi:type="decimal" name="sub_discount" scale="4" precision="12" comment="Subscription Discount Amount"/>
+        <column xsi:type="int" name="sub_product_id" comment="Subscription Product Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="quote" resource="default" engine="innodb">
+        <column xsi:type="decimal" name="initial_fee" scale="4" precision="12" nullable="true"
+                comment="Wagento Subscription Initial Fee"/>
+    </table>
+    <table name="sales_order" resource="default" engine="innodb">
+        <column xsi:type="decimal" name="initial_fee" scale="4" precision="12" nullable="true"
+                comment="Subscription Initial Fee"/>
+    </table>
+    <table name="sales_invoice" resource="default" engine="innodb">
+        <column xsi:type="decimal" name="initial_fee" scale="4" precision="12" nullable="true"
+                comment="Subscription Initial Fee"/>
+    </table>
+    <table name="sales_creditmemo" resource="default" engine="innodb">
+        <column xsi:type="decimal" name="initial_fee" scale="4" precision="12" nullable="true"
+                comment="Subscription Initial Fee"/>
+    </table>
+    <table name="quote_item" resource="default" engine="innodb">
+        <column xsi:type="smallint" name="is_subscribed" nullable="false"
+                comment="Check product is subscribed or not by customer"/>
+    </table>
+    <table name="sales_order_item" resource="default" engine="innodb">
+        <column xsi:type="smallint" name="is_subscribed" nullable="false"
+                comment="Check product is subscribed or not by customer"/>
+    </table>
+</schema>

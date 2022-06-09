@@ -6,14 +6,10 @@
 
 namespace Wagento\Subscription\Model\Subscription;
 
-use Wagento\Subscription\Api\Data\SubscriptionInterface;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Convert\ConvertArray;
+use Wagento\Subscription\Api\Data\SubscriptionInterface;
 
-/**
- * Class Mapper
- * @package Wagento\Subscription\Model\Subscription
- */
 class Mapper
 {
     /**
@@ -30,14 +26,17 @@ class Mapper
     }
 
     /**
-     * Convert tree data object to a flat array
+     * Convert tree data object to a flat array.
      *
      * @param SubscriptionInterface $subscription
      * @return array
      */
     public function toFlatArray(SubscriptionInterface $subscription)
     {
-        $flatArray = $this->extensibleDataObjectConverter->toNestedArray($subscription, [], '\Wagento\Subscription\Api\Data\SubscriptionInterface');
+        $flatArray = $this->extensibleDataObjectConverter
+            ->toNestedArray($subscription, [], \Wagento\Subscription\Api\Data\SubscriptionInterface::class)
+        ;
+
         return ConvertArray::toFlatArray($flatArray);
     }
 }

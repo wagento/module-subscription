@@ -5,14 +5,12 @@
  */
 
 namespace Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo;
-/**
- * Class Totals
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Order\Creditmemo
- */
+
 class Totals extends \Magento\Framework\View\Element\Template
 {
     /**
-     * OrderFee constructor.
+     * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
@@ -34,6 +32,8 @@ class Totals extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get creditmeno function.
+     *
      * @return mixed
      */
     public function getCreditmemo()

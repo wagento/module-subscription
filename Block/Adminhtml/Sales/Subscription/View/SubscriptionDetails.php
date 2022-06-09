@@ -15,10 +15,6 @@ use Wagento\Subscription\Model\SubscriptionSales;
 use Wagento\Subscription\Helper\Data;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 
-/**
- * Class SubscriptionDetails
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View
- */
 class SubscriptionDetails extends Generic implements TabInterface
 {
     /**
@@ -61,6 +57,8 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
+     * Prepare form function.
+     *
      * @return Generic
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
@@ -175,7 +173,9 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Show tab function.
+     *
+     * @return false
      */
     public function canShowTab()
     {
@@ -183,7 +183,9 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Is hidden function.
+     *
+     * @return false
      */
     public function isHidden()
     {
@@ -191,6 +193,8 @@ class SubscriptionDetails extends Generic implements TabInterface
     }
 
     /**
+     * Get required shipping function.
+     *
      * @return bool
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */

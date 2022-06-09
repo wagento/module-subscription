@@ -8,10 +8,6 @@ namespace Wagento\Subscription\Block\Sales\Totals;
 
 use Magento\Sales\Model\Order;
 
-/**
- * Class InitialFee
- * @package Wagento\Subscription\Block\Sales\Totals
- */
 class InitialFee extends \Magento\Framework\View\Element\Template
 {
     /**
@@ -25,6 +21,8 @@ class InitialFee extends \Magento\Framework\View\Element\Template
     protected $_source;
 
     /**
+     * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
@@ -32,11 +30,12 @@ class InitialFee extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         array $data = []
     ) {
-    
         parent::__construct($context, $data);
     }
 
     /**
+     * Get source function.
+     *
      * @return \Magento\Framework\DataObject
      */
     public function getSource()
@@ -45,6 +44,8 @@ class InitialFee extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Display full summary function.
+     *
      * @return bool
      */
     public function displayFullSummary()
@@ -53,6 +54,8 @@ class InitialFee extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Init totals function.
+     *
      * @return $this
      */
     public function initTotals()
@@ -70,10 +73,13 @@ class InitialFee extends \Magento\Framework\View\Element\Template
             ]
         );
         $parent->addTotal($customAmount, 'initialfee');
+
         return $this;
     }
 
     /**
+     * Get order function.
+     *
      * @return Order
      */
     public function getOrder()
@@ -82,6 +88,8 @@ class InitialFee extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get label properties function.
+     *
      * @return array
      */
     public function getLabelProperties()
@@ -90,6 +98,8 @@ class InitialFee extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Get value properties function.
+     *
      * @return array
      */
     public function getValueProperties()

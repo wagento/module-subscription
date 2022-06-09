@@ -8,29 +8,19 @@ namespace Wagento\Subscription\Block\Adminhtml\Edit;
 
 use Wagento\Subscription\Controller\RegistryConstants;
 
-/**
- * Class GenericButton
- * @package Wagento\Subscription\Block\Adminhtml\Edit
- */
 class GenericButton
 {
     /**
-     * Url Builder
-     *
      * @var \Magento\Framework\UrlInterface
      */
     protected $urlBuilder;
 
     /**
-     * Registry
-     *
      * @var \Magento\Framework\Registry
      */
     protected $registry;
 
     /**
-     * Constructor
-     *
      * @param \Magento\Backend\Block\Widget\Context $context
      * @param \Magento\Framework\Registry $registry
      */
@@ -38,7 +28,6 @@ class GenericButton
         \Magento\Backend\Block\Widget\Context $context,
         \Magento\Framework\Registry $registry
     ) {
-    
         $this->urlBuilder = $context->getUrlBuilder();
         $this->registry = $registry;
     }
@@ -46,7 +35,7 @@ class GenericButton
     /**
      * Return the subscription Id.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getSubscriptionId()
     {
@@ -54,11 +43,12 @@ class GenericButton
     }
 
     /**
-     * Generate url by route and parameters
+     * Generate url by route and parameters.
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param string $route
+     * @param array  $params
+     *
+     * @return string
      */
     public function getUrl($route = '', $params = [])
     {

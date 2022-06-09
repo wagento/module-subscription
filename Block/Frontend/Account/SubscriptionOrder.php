@@ -9,10 +9,6 @@ namespace Wagento\Subscription\Block\Frontend\Account;
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 
-/**
- * Class SubscriptionOrder
- * @package Wagento\Subscription\Block\Frontend\Account
- */
 class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
 {
     /**
@@ -32,6 +28,7 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
 
     /**
      * SubscriptionOrder constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Framework\App\ResourceConnection $resource
      * @param \Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory $subscriptionOrderFactory
@@ -67,28 +64,8 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @return $this
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        $this->pageConfig->getTitle()->set(__('My Subscriptions'));
-
-        if ($this->getSubscriptions()) {
-            $pager = $this->getLayout()->createBlock(
-                'Magento\Theme\Block\Html\Pager',
-                'seller.product.list.pager'
-            )->setAvailableLimit([5 => 5, 10 => 10, 15 => 15])->setShowPerPage(true)->setCollection(
-                $this->getSubscriptions()
-            );
-            $this->setChild('pager', $pager);
-            $this->getSubscriptions()->load();
-        }
-        return $this;
-    }
-
-    /**
+     * Get subscriptions function.
+     *
      * @return mixed
      */
     public function getSubscriptions()
@@ -100,42 +77,72 @@ class SubscriptionOrder extends \Magento\Customer\Block\Account\Dashboard
         $customerTable = $connection->getTableName('customer_entity');
         $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
         $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : 5;
-        if ($customerId != null) {
+        if (null != $customerId) {
             $collectionSubscriptions = $this->subscriptionOrderFactory->create();
 
             $collectionSubscriptions->getSelect()->where(
-                'main_table.customer_id=' . $customerId
+                'main_table.customer_id='.$customerId
             );
 
             $collectionSubscriptions->getSelect()->join(
-                $salesOrderItemTable . ' as soi',
-                "main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1",
+                $salesOrderItemTable.' as soi',
+                'main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1',
                 ['*', 'created_at as order_created_at', 'updated_at as order_updated_at']
             );
 
             $collectionSubscriptions->getSelect()->join(
-                $customerTable . ' as customer',
+                $customerTable.' as customer',
                 'main_table.customer_id = customer.entity_id',
                 ['firstname', 'lastname', 'email']
             )->columns(new \Zend_Db_Expr("CONCAT(`customer`.`firstname`, ' ',`customer`.`lastname`) AS customer_name"));
 
             $collectionSubscriptions->getSelect()->join(
-                $wagentoSubProductTable . ' as wsp',
-                "soi.product_id = wsp.product_id",
+                $wagentoSubProductTable.' as wsp',
+                'soi.product_id = wsp.product_id',
                 ['subscription_id']
             );
             $collectionSubscriptions->setOrder('main_table.id', 'DESC');
             $collectionSubscriptions->setPageSize($pageSize);
             $collectionSubscriptions->setCurPage($page);
             $collectionSubscriptions->setOrder('id', 'DESC');
+
             return $collectionSubscriptions;
         }
-        return;
     }
 
-    /** Return the pager of the grid */
+    /**
+     * Return the pager of the grid.
+     *
+     * @return string
+     */
     public function getPagerHtml()
     {
         return $this->getChildHtml('pager');
+    }
+
+    /**
+     * Prepare layout function.
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        $this->pageConfig->getTitle()->set(__('My Subscriptions'));
+
+        if ($this->getSubscriptions()) {
+            $pager = $this->getLayout()->createBlock(
+                \Magento\Theme\Block\Html\Pager::class,
+                'seller.product.list.pager'
+            )->setAvailableLimit([5 => 5, 10 => 10, 15 => 15])->setShowPerPage(true)->setCollection(
+                $this->getSubscriptions()
+            );
+            $this->setChild('pager', $pager);
+            $this->getSubscriptions()->load();
+        }
+
+        return $this;
     }
 }

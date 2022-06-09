@@ -10,10 +10,6 @@ use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Quote\Model\QuoteRepository;
 
-/**
- * Class AddInitialFeeToOrder
- * @package Wagento\Subscription\Observer
- */
 class AddInitialFeeToOrder implements ObserverInterface
 {
     /**
@@ -28,11 +24,13 @@ class AddInitialFeeToOrder implements ObserverInterface
     public function __construct(
         QuoteRepository $quoteRepository
     ) {
-    
+
         $this->quoteRepository = $quoteRepository;
     }
 
     /**
+     * AddInitialFeeToOrder execute function
+     *
      * @param EventObserver $observer
      * @return $this|void
      * @throws \Magento\Framework\Exception\NoSuchEntityException

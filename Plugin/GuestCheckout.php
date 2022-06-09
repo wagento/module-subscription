@@ -5,10 +5,7 @@
  */
 
 namespace Wagento\Subscription\Plugin;
-/**
- * Class GuestCheckout
- * @package Wagento\Subscription\Plugin
- */
+
 class GuestCheckout
 {
     /**
@@ -26,8 +23,10 @@ class GuestCheckout
     }
 
     /**
+     * Allowed guest checkout function.
+     *
      * @param \Magento\Checkout\Helper\Data $subject
-     * @param $result
+     * @param int|void $result
      * @return int|void
      */
     public function afterIsAllowedGuestCheckout(\Magento\Checkout\Helper\Data $subject, $result)

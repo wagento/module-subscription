@@ -10,135 +10,142 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface SubscriptionInterface extends ExtensibleDataInterface
 {
-    /**#@+
-     * Constants defined for keys of the data array. Identical to the name of the getter in snake case
+    /**
+     * Constants defined for keys of the data array. Identical to the name of the getter in snake case.
      */
-    const SUBSCRIPTION_ID = 'subscription_id';
-    const NAME = 'name';
-    const FREQUENCY = 'frequency';
-    const FEE = 'fee';
-    const DATE_START = 'date_start';
-    const DATE_END = 'date_end';
-    const HOW_MANY = 'how_many';
-    const DISCOUNT = 'discount';
-    /**#@-*/
+    public const SUBSCRIPTION_ID = 'subscription_id';
+    public const NAME = 'name';
+    public const FREQUENCY = 'frequency';
+    public const FEE = 'fee';
+    public const DATE_START = 'date_start';
+    public const DATE_END = 'date_end';
+    public const HOW_MANY = 'how_many';
+    public const DISCOUNT = 'discount';
 
     /**
-     * Get subscription id
+     * Get subscription id.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getSubscriptionId();
 
     /**
-     * Set subscription id
+     * Set subscription id.
      *
      * @param int $subscriptionId
+     *
      * @return $this
      */
     public function setSubscriptionId($subscriptionId);
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getName();
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name);
 
     /**
-     * Get frequency
+     * Get frequency.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getFrequency();
 
     /**
-     * Set frequency
+     * Set frequency.
      *
      * @param int $frequency
+     *
      * @return $this
      */
     public function setFrequency($frequency);
 
     /**
-     * Get fee
+     * Get fee.
      *
-     * @return float|null
+     * @return null|float
      */
     public function getFee();
 
     /**
-     * Set fee
+     * Set fee.
      *
      * @param float $fee
+     *
      * @return $this
      */
     public function setFee($fee);
 
     /**
-     * Get Start Date
+     * Get Start Date.
      *
      * @return $this
      */
     public function getDateStart();
 
     /**
-     * Set Start Date
+     * Set Start Date.
      *
-     * @param $dateStart
+     * @param mixed $dateStart
+     *
      * @return $this
      */
     public function setDateStart($dateStart);
 
     /**
-     * Get End Date
+     * Get End Date.
      *
      * @return $this
      */
     public function getDateEnd();
 
     /**
-     * Set End Date
+     * Set End Date.
      *
-     * @param $dateEnd
+     * @param mixed $dateEnd
+     *
      * @return $this
      */
     public function setDateEnd($dateEnd);
 
     /**
-     * Get How Many
+     * Get How Many.
      *
-     * @return float|null
+     * @return null|float
      */
     public function getHoWMany();
 
     /**
-     * Set How Many
+     * Set How Many.
      *
      * @param float $howMany
+     *
      * @return $this
      */
     public function setHowMany($howMany);
 
     /**
-     * Get Discount
+     * Get Discount.
      *
      * @return float
      */
     public function getDiscount();
 
     /**
-     * Set Discount
+     * Set Discount.
      *
      * @param float $discount
+     *
      * @return $this
      */
     public function setDiscount($discount);

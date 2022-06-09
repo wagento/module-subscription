@@ -13,9 +13,6 @@ use function print_r;
 use function var_dump;
 use Wagento\Subscription\Controller\Adminhtml\Index;
 
-/**
- * Class Save
- */
 class Save extends Index
 {
     /**
@@ -66,7 +63,22 @@ class Save extends Index
         \Wagento\Subscription\Block\Adminhtml\Subscription\ProductGrid $productGrid
     ) {
 
-        parent::__construct($context, $resultPageFactory, $resultForwardFactory, $coreRegistry, $subscriptionRepository, $subscriptionDataFactory, $productRepository, $productDataFactory, $dataObjectHelper, $filter, $collectionFactory, $resultJsonFactory, $logger, $subscriptionMapper);
+        parent::__construct(
+            $context,
+            $resultPageFactory,
+            $resultForwardFactory,
+            $coreRegistry,
+            $subscriptionRepository,
+            $subscriptionDataFactory,
+            $productRepository,
+            $productDataFactory,
+            $dataObjectHelper,
+            $filter,
+            $collectionFactory,
+            $resultJsonFactory,
+            $logger,
+            $subscriptionMapper
+        );
         $this->product = $product;
         $this->productGrid = $productGrid;
     }
@@ -94,7 +106,7 @@ class Save extends Index
                 $this->dataObjectHelper->populateWithArray(
                     $subscription,
                     $data,
-                    '\Wagento\Subscription\Api\Data\SubscriptionInterface'
+                    \Wagento\Subscription\Api\Data\SubscriptionInterface::class
                 );
 
                 $subscription = $this->subscriptionRepository->save($subscription);
@@ -145,9 +157,11 @@ class Save extends Index
     }
 
     /**
-     * @param $data
-     * @param $subscriptionId
-     * @throws \Wagento\Subscription\Api\CouldNotDeleteException
+     * Save subscription products.
+     *
+     * @param array $data
+     * @param int $subscriptionId
+     * @return void
      */
     private function saveSubscriptionProducts($data, $subscriptionId)
     {
@@ -207,7 +221,7 @@ class Save extends Index
                     $this->dataObjectHelper->populateWithArray(
                         $subscriptionProduct,
                         $dataSubscriptionProduct,
-                        '\Wagento\Subscription\Api\Data\ProductInterface'
+                        \Wagento\Subscription\Api\Data\ProductInterface::class
                     );
                     $this->productRepository->save($subscriptionProduct);
                 }

@@ -8,16 +8,12 @@ namespace Wagento\Subscription\CustomerData;
 
 use Magento\Wishlist\CustomerData\Wishlist as CoreWishlist;
 
-/**
- * Wishlist section
- */
 class Wishlist extends CoreWishlist
 {
-
     /**
      * @var string
      */
-    const SIDEBAR_ITEMS_NUMBER = 3;
+    public const SIDEBAR_ITEMS_NUMBER = 3;
 
     /**
      * @var \Magento\Wishlist\Helper\Data
@@ -51,7 +47,6 @@ class Wishlist extends CoreWishlist
         \Magento\Catalog\Helper\ImageFactory $imageHelperFactory,
         \Magento\Framework\App\ViewInterface $view
     ) {
-    
         $this->wishlistHelper = $wishlistHelper;
         $this->imageHelperFactory = $imageHelperFactory;
         $this->block = $block;
@@ -60,10 +55,11 @@ class Wishlist extends CoreWishlist
     }
 
     /**
+     * Retrieve wishlist item data
+     *
      * @param \Magento\Wishlist\Model\Item $wishlistItem
      * @return array
      * @throws \Magento\Framework\Exception\LocalizedException
-     * Retrieve wishlist item data
      */
     protected function getItemData(\Magento\Wishlist\Model\Item $wishlistItem)
     {
@@ -81,7 +77,7 @@ class Wishlist extends CoreWishlist
             'product_is_saleable_and_visible' => $product->isSaleable() && $product->isVisibleInSiteVisibility(),
             'product_has_required_options' => $product->getTypeInstance()->hasRequiredOptions($product),
             'add_to_cart_params' => $this->wishlistHelper->getAddToCartParams($wishlistItem, true),
-            'delete_item_params' => $this->wishlistHelper->getRemoveParams($wishlistItem, true)
+            'delete_item_params' => $this->wishlistHelper->getRemoveParams($wishlistItem, true),
         ];
 
         $subscriptionAttribute = $product->getCustomAttribute('subscription_configurate');
@@ -89,6 +85,7 @@ class Wishlist extends CoreWishlist
             $subAttributeValue = ['subscription_configurate' => $subscriptionAttribute->getValue()];
             array_push($dataArray, $subAttributeValue);
         }
+
         return $dataArray;
     }
 }

@@ -5,10 +5,7 @@
  */
 
 namespace Wagento\Subscription\Controller\Ajax;
-/**
- * Class Subscribecart
- * @package Wagento\Subscription\Controller\Ajax
- */
+
 class Subscribecart extends \Magento\Framework\App\Action\Action
 {
 
@@ -60,7 +57,7 @@ class Subscribecart extends \Magento\Framework\App\Action\Action
         \Magento\Catalog\Model\ProductRepository $product,
         \Magento\Checkout\Model\SidebarFactory $sidebar
     ) {
-    
+
         parent::__construct($context);
         $this->helper = $helper;
         $this->resultJsonFactory = $resultJsonFactory;
@@ -71,6 +68,8 @@ class Subscribecart extends \Magento\Framework\App\Action\Action
     }
 
     /**
+     * Subscribecart execute function
+     *
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */

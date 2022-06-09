@@ -8,10 +8,6 @@ namespace Wagento\Subscription\Controller\Adminhtml\Index;
 
 use Wagento\Subscription\Controller\Adminhtml\Index as IndexAction;
 
-/**
- * Class Index
- * @package Wagento\Subscription\Controller\Adminhtml\Index
- */
 class Index extends IndexAction
 {
     /**

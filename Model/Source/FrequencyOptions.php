@@ -8,13 +8,11 @@ namespace Wagento\Subscription\Model\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
-/**
- * Class FrequencyOptions
- * @package Wagento\Subscription\Model\Source
- */
 class FrequencyOptions implements OptionSourceInterface
 {
     /**
+     * Option label array function.
+     *
      * @return array
      */
     public function toOptionArray()

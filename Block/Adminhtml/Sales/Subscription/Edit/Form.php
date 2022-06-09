@@ -8,13 +8,11 @@ namespace Wagento\Subscription\Block\Adminhtml\Sales\Subscription\Edit;
 
 use Magento\Backend\Block\Widget\Form\Generic;
 
-/**
- * Class Form
- * @package Wagento\Subscription\Block\Adminhtml\Sales\Subscription\Edit
- */
 class Form extends Generic
 {
     /**
+     * Edit form tab.
+     *
      * @return Generic
      * @throws \Magento\Framework\Exception\LocalizedException
      */

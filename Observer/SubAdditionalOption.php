@@ -15,13 +15,10 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Helper\Data as SubscriptionHelper;
 
-/**
- * Class SubAdditionalOption
- * @package Wagento\Subscription\Observer
- */
 class SubAdditionalOption implements ObserverInterface
 {
-    const FLOAT_VALUE = 0.0000;
+    protected const FLOAT_VALUE = 0.0000;
+
     /**
      * @var RequestInterface
      */
@@ -75,7 +72,7 @@ class SubAdditionalOption implements ObserverInterface
         \Magento\Framework\Json\Helper\Data $helper,
         SubscriptionHelper $subHelper
     ) {
-    
+
         $this->_request = $request;
         $this->_serializer = $serializer ?: ObjectManager::getInstance()->get(Json::class);
         $this->productFactory = $productFactory->create();
@@ -86,6 +83,8 @@ class SubAdditionalOption implements ObserverInterface
     }
 
     /**
+     * Execute the SubAdditionalOption values
+     *
      * @param \Magento\Framework\Event\Observer $observer
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
@@ -165,7 +164,9 @@ class SubAdditionalOption implements ObserverInterface
     }
 
     /**
-     * @param $productCollector
+     * Return the subscription option id values
+     *
+     * @param array $productCollector
      * @return mixed
      */
     private function returnSubscriptionId($productCollector)

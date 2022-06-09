@@ -3,87 +3,85 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
-
 // @codingStandardsIgnoreFile
-
-/**
- * @var \Wagento\Subscription\Block\Frontend\Account\SubscriptionOrder $block
- */
+// @var \Wagento\Subscription\Block\Frontend\Account\SubscriptionOrder $block
 ?>
 <?php
 $subscriptions = $block->getSubscriptions();
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
 ?>
-<?php if (count($subscriptions) > 0): ?>
+<?php if (count($subscriptions) > 0) { ?>
     <div class="table-wrapper seller-product">
         <table class="data table table-seller-items" id="my-seller-products">
-            <caption class="table-caption"><?php /* @escapeNotVerified */
-                echo __('My Subscriptions') ?></caption>
+            <caption class="table-caption"><?php // @escapeNotVerified
+                echo __('My Subscriptions'); ?></caption>
             <thead>
 
-            <th scope="col" class="col profile"><?php /* @escapeNotVerified */
-                echo __('Profile #') ?></th>
-            <th scope="col" class="col date"><?php /* @escapeNotVerified */
-                echo __('Purchase Date') ?></th>
-            <th scope="col" class="col next-renew"><?php /* @escapeNotVerified */
-                echo __('Next Renewal Date') ?></th>
-            <th scope="col" class="col last-renew"><?php /* @escapeNotVerified */
-                echo __('Last Renewed Date') ?></th>
-            <th scope="col" class="col shipping"><?php /* @escapeNotVerified */
-                echo __('Ship To') ?></th>
-            <th scope="col" class="col total"><?php /* @escapeNotVerified */
-                echo __('Price') ?></th>
-            <th scope="col" class="col status"><?php /* @escapeNotVerified */
-                echo __('Status') ?></th>
-            <th scope="col" class="col action"><?php /* @escapeNotVerified */
-                echo __('Action') ?></th>
+            <th scope="col" class="col profile"><?php // @escapeNotVerified
+                echo __('Profile #'); ?></th>
+            <th scope="col" class="col date"><?php // @escapeNotVerified
+                echo __('Purchase Date'); ?></th>
+            <th scope="col" class="col next-renew"><?php // @escapeNotVerified
+                echo __('Next Renewal Date'); ?></th>
+            <th scope="col" class="col last-renew"><?php // @escapeNotVerified
+                echo __('Last Renewed Date'); ?></th>
+            <th scope="col" class="col shipping"><?php // @escapeNotVerified
+                echo __('Ship To'); ?></th>
+            <th scope="col" class="col total"><?php // @escapeNotVerified
+                echo __('Price'); ?></th>
+            <th scope="col" class="col status"><?php // @escapeNotVerified
+                echo __('Status'); ?></th>
+            <th scope="col" class="col action"><?php // @escapeNotVerified
+                echo __('Action'); ?></th>
             </thead>
             <tbody>
-            <?php foreach ($subscriptions as $key => $subscription): ?>
+            <?php foreach ($subscriptions as $key => $subscription) { ?>
                 <tr>
-                    <td data-th="<?php echo $block->escapeHtml(__('Subscription Profile #')) ?>" class="col name">
-                        <?php /* @escapeNotVerified */
-                        echo $subscription->getId() ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Subscription Profile #')); ?>" class="col name">
+                        <?php // @escapeNotVerified
+                        echo $subscription->getId(); ?>
                     </td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Purchase Date')) ?>" class="col date">
-                        <?php $dt_str = $subscription->getCreatedAt(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Purchase Date')); ?>" class="col date">
+                        <?php $dt_str = $subscription->getCreatedAt(); $date = new DateTime($dt_str); echo $date->format('m/d/y'); ?>
                     </td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Next Renewal Date')) ?>" class="col date">
-                        <?php $dt_str = $subscription->getNextRenewed(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Next Renewal Date')); ?>" class="col date">
+                        <?php $dt_str = $subscription->getNextRenewed(); $date = new DateTime($dt_str); echo $date->format('m/d/y'); ?>
                     </td>
 
-                    <td data-th="<?php echo $block->escapeHtml(__('Last Renewed Date')) ?>" class="col date">
-                        <?php $dt_str = $subscription->getLastRenewed(); $date   = new Datetime($dt_str); echo $date->format('m/d/y'); ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Last Renewed Date')); ?>" class="col date">
+                        <?php $dt_str = $subscription->getLastRenewed(); $date = new DateTime($dt_str); echo $date->format('m/d/y'); ?>
                     </td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Ship To')) ?>" class="col shipping">
-                        <?= $subscription->getCustomerName(); ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Ship To')); ?>" class="col shipping">
+                        <?php echo $subscription->getCustomerName(); ?>
                     </td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col total">
-                        <?= $priceHelper->currency($subscription->getPrice(), 1, 1); ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Order Total')); ?>" class="col total">
+                        <?php echo $priceHelper->currency($subscription->getPrice(), 1, 1); ?>
                     </td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Subscription Status')) ?>" class="col status">
-                        <?= $subHelper->getSubscriptionStatus($subscription->getStatus()) ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Subscription Status')); ?>" class="col status">
+                        <?php echo $subHelper->getSubscriptionStatus($subscription->getStatus()); ?>
                     </td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Action')) ?>" class="col action">
-                        <a href="<?php echo $block->getUrl('subscription/order/view/',
-                            array('order_id' => $subscription->getId())); ?>">
-                            <?php /* @escapeNotVerified */
-                            echo __("View Subscription"); ?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Action')); ?>" class="col action">
+                        <a href="<?php echo $block->getUrl(
+                            'subscription/order/view/',
+                            ['order_id' => $subscription->getId()]
+                        ); ?>">
+                            <?php // @escapeNotVerified
+                            echo __('View Subscription'); ?>
                         </a>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php } ?>
             </tbody>
         </table>
     </div>
 
-    <?php if ($block->getPagerHtml()): ?>
+    <?php if ($block->getPagerHtml()) { ?>
         <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
-    <?php endif ?>
-<?php else: ?>
+    <?php } ?>
+<?php } else { ?>
     <div class="table-wrapper seller-product">
-        <p><?php /* @escapeNotVerified */
-            echo __('You have no subscription profiles') ?></p>
+        <p><?php // @escapeNotVerified
+            echo __('You have no subscription profiles'); ?></p>
     </div>
-<?php endif; ?>
+<?php } ?>

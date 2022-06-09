@@ -8,10 +8,6 @@ namespace Wagento\Subscription\Model;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
-/**
- * Class CustomerDetail
- * @package Wagento\Subscription\Model
- */
 class CustomerDetail implements OptionSourceInterface
 {
     /**
@@ -31,6 +27,7 @@ class CustomerDetail implements OptionSourceInterface
 
     /**
      * Get Grid row type array for option element.
+     *
      * @return array
      */
     public function getOptions()
@@ -44,6 +41,8 @@ class CustomerDetail implements OptionSourceInterface
     }
 
     /**
+     * Option array function.
+     *
      * {@inheritdoc}
      */
     public function toOptionArray()

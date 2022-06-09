@@ -7,7 +7,7 @@
 // @codingStandardsIgnoreFile
 
 /**
- * @var $block \Wagento\Subscription\Block\Frontend\Account\SubscriptionView
+ * @var \Wagento\Subscription\Block\Frontend\Account\SubscriptionView $block
  */
 $subDetails = $block->getSubscriptions();
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
@@ -18,51 +18,51 @@ $getAction = $this->getRequest()->getActionName();
 ?>
 <div class="subscription-info">
     <div class="subscription-order-date">
-        <data><?= $block->formatDate($subDetails->getCreatedAt(), \IntlDateFormatter::LONG, false); ?></data>
+        <data><?php echo $block->formatDate($subDetails->getCreatedAt(), \IntlDateFormatter::LONG, false); ?></data>
     </div>
 
     <div class="subscription-status">
-        <span><?= $block->escapeHtml(__($subHelper->getSubscriptionStatus($subDetails->getStatus()))) ?></span>
+        <span><?php echo $block->escapeHtml(__($subHelper->getSubscriptionStatus($subDetails->getStatus()))); ?></span>
     </div>
 
-    <?php if ($getAction == 'edit'): ?>
-        <?= $block->escapeHtml(__('Note: Any Change in Subscription will affect next run')); ?>
-    <?php endif; ?>
+    <?php if ('edit' == $getAction) { ?>
+        <?php echo $block->escapeHtml(__('Note: Any Change in Subscription will affect next run')); ?>
+    <?php } ?>
 </div>
 
-<?php if ($getAction == 'view'): ?>
+<?php if ('view' == $getAction) { ?>
     <div class="actions-toolbar subscription-order-actions-toolbar">
         <div class="actions">
-            <?php if ($subDetails->getStatus() == 2): ?>
-                <a class="order-status" href="<?= $block->getReactivateUrl($order_id); ?>">
-                    <?= $block->escapeHtml(__('Reactivate')) ?>
+            <?php if (2 == $subDetails->getStatus()) { ?>
+                <a class="order-status" href="<?php echo $block->getReactivateUrl($order_id); ?>">
+                    <?php echo $block->escapeHtml(__('Reactivate')); ?>
                 </a>
-            <?php endif; ?>
-            <?php if (($subHelper->getCanCustomerCancel() && $subDetails->getStatus() == 1) || $subDetails->getStatus() == 2) : ?>
+            <?php } ?>
+            <?php if (($subHelper->getCanCustomerCancel() && 1 == $subDetails->getStatus()) || 2 == $subDetails->getStatus()) { ?>
                 <a class="order-status" href="#" id="cancel_status">
-                    <?= $block->escapeHtml(__('Cancel')); ?>
+                    <?php echo $block->escapeHtml(__('Cancel')); ?>
                 </a>
-            <?php endif; ?>
+            <?php } ?>
 
-            <?php if ($subHelper->getCanCustomerPause() && $subDetails->getStatus() == 1): ?>
-                <a class="order-status" href="<?= $block->getPauseUrl($order_id); ?>">
-                    <?= $block->escapeHtml(__('Pause')); ?>
+            <?php if ($subHelper->getCanCustomerPause() && 1 == $subDetails->getStatus()) { ?>
+                <a class="order-status" href="<?php echo $block->getPauseUrl($order_id); ?>">
+                    <?php echo $block->escapeHtml(__('Pause')); ?>
                 </a>
-            <?php endif; ?>
+            <?php } ?>
 
-            <?php if ($subDetails->getStatus() != 0): ?>
-                <?php if ($subDetails->getStatus() != 3): ?>
-                    <a class="order-status" href="<?= $block->getEditUrl($order_id); ?>">
-                        <?= $block->escapeHtml(__('Edit')); ?>
+            <?php if (0 != $subDetails->getStatus()) { ?>
+                <?php if (3 != $subDetails->getStatus()) { ?>
+                    <a class="order-status" href="<?php echo $block->getEditUrl($order_id); ?>">
+                        <?php echo $block->escapeHtml(__('Edit')); ?>
                     </a>
-                <?php endif; ?>
-            <?php endif; ?>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
-<?php endif; ?>
+<?php } ?>
 
 <form data-mage-init='{"validation": {}}'
-      action="<?= $block->getUpdateUrl($order_id); ?>"
+      action="<?php echo $block->getUpdateUrl($order_id); ?>"
       method="post"
       id="form-validate"
       class="form form-subscription-edit">
@@ -71,60 +71,60 @@ $getAction = $this->getRequest()->getActionName();
             <div class="col-1-sub">
                 <div class="info-box">
                     <div class="box-title">
-                        <h2><?= $block->escapeHtml(__('Subscription Profile')); ?></h2>
+                        <h2><?php echo $block->escapeHtml(__('Subscription Profile')); ?></h2>
                     </div>
                     <div class="box-content">
                         <table class="info-table">
                             <tbody>
                             <tr>
-                                <th><?= $block->escapeHtml(__('Subscription Plan name')) ?></th>
-                                <td><?= $block->escapeHtml($subDetails->getSubName()) ?></td>
+                                <th><?php echo $block->escapeHtml(__('Subscription Plan name')); ?></th>
+                                <td><?php echo $block->escapeHtml($subDetails->getSubName()); ?></td>
                             </tr>
                             <tr>
-                                <th><?= $block->escapeHtml(__('Subscription Frequency')); ?> </th>
+                                <th><?php echo $block->escapeHtml(__('Subscription Frequency')); ?> </th>
                                 <td>
-                                    <?= $block->escapeHtml($subHelper->getSubscriptionFrequency($subDetails->getSubFrequency())) ?>
+                                    <?php echo $block->escapeHtml($subHelper->getSubscriptionFrequency($subDetails->getSubFrequency())); ?>
                                 </td>
                             </tr>
                             <tr>
-                                <th><?= $block->escapeHtml(__('Subscription Cycle')); ?></th>
+                                <th><?php echo $block->escapeHtml(__('Subscription Cycle')); ?></th>
                                 <td>
-                                    <?php if ($subDetails->getHowMany() != NULL): ?>
-                                        <?= $subDetails->getHowMany() ?>
-                                        <?= $block->escapeHtml($subHelper->getHowManyUnits($subDetails->getFrequency())) ?>
-                                    <?php else: ?>
-                                        <?= $block->escapeHtml(__('N/A')); ?>
-                                    <?php endif; ?>
+                                    <?php if (null != $subDetails->getHowMany()) { ?>
+                                        <?php echo $subDetails->getHowMany(); ?>
+                                        <?php echo $block->escapeHtml($subHelper->getHowManyUnits($subDetails->getFrequency())); ?>
+                                    <?php } else { ?>
+                                        <?php echo $block->escapeHtml(__('N/A')); ?>
+                                    <?php } ?>
                                 </td>
                             </tr>
                             <tr>
-                                <th><?= $block->escapeHtml(__('Subscription Billing Count')); ?></th>
+                                <th><?php echo $block->escapeHtml(__('Subscription Billing Count')); ?></th>
                                 <td>
                                     <?php $billingCount = $subDetails->getBillingCount();
-                                    if (isset($billingCount)): ?>
-                                        <?= $block->escapeHtml($subDetails->getBillingCount()); ?>
-                                        <?= $block->escapeHtml(__('- Times Billed')); ?>
-                                    <?php else: ?>
-                                        <?= $block->escapeHtml(__('0 - Times Billed')); ?>
-                                    <?php endif; ?>
+                                    if (isset($billingCount)) { ?>
+                                        <?php echo $block->escapeHtml($subDetails->getBillingCount()); ?>
+                                        <?php echo $block->escapeHtml(__('- Times Billed')); ?>
+                                    <?php } else { ?>
+                                        <?php echo $block->escapeHtml(__('0 - Times Billed')); ?>
+                                    <?php } ?>
                                 </td>
                             </tr>
                             <tr>
-                                <th><?= $block->escapeHtml(__('Subscription Started Date')) ?></th>
+                                <th><?php echo $block->escapeHtml(__('Subscription Started Date')); ?></th>
                                 <td>
-                                    <?php $dt_str = $subDetails->getSubStartDate(); $date   = new Datetime($dt_str); echo $date->format('F d, Y'); ?>
+                                    <?php $dt_str = $subDetails->getSubStartDate(); $date = new DateTime($dt_str); echo $date->format('F d, Y'); ?>
                                 </td>
                             </tr>
                             <tr>
-                                <th><?= $block->escapeHtml(__('Last Renewed')) ?></th>
+                                <th><?php echo $block->escapeHtml(__('Last Renewed')); ?></th>
                                 <td>
-                                    <?php $dt_str = $subDetails->getLastRenewed(); $date   = new Datetime($dt_str); echo $date->format('F d, Y'); ?>
+                                    <?php $dt_str = $subDetails->getLastRenewed(); $date = new DateTime($dt_str); echo $date->format('F d, Y'); ?>
                                 </td>
                             </tr>
                             <tr>
-                                <th><?= $block->escapeHtml(__('Next Renewal')) ?></th>
+                                <th><?php echo $block->escapeHtml(__('Next Renewal')); ?></th>
                                 <td>
-                                    <?php $dt_str = $subDetails->getNextRenewed(); $date   = new Datetime($dt_str); echo $date->format('F d, Y'); ?>
+                                    <?php $dt_str = $subDetails->getNextRenewed(); $date = new DateTime($dt_str); echo $date->format('F d, Y'); ?>
 
                                 </td>
                             </tr>
@@ -137,72 +137,72 @@ $getAction = $this->getRequest()->getActionName();
             <div class="col-2-sub">
                 <div class="info-box">
                     <div class="box-title">
-                        <h2><?= $block->escapeHtml(__('Subscription Item Details')); ?></h2>
+                        <h2><?php echo $block->escapeHtml(__('Subscription Item Details')); ?></h2>
                     </div>
                 </div>
                 <div class="box-content">
                     <table>
                         <tbody>
                         <tr>
-                            <th><?= $block->escapeHtml(__('Product Name')) ?></th>
-                            <td><?= $block->escapeHtml($subDetails->getName()) ?></td>
+                            <th><?php echo $block->escapeHtml(__('Product Name')); ?></th>
+                            <td><?php echo $block->escapeHtml($subDetails->getName()); ?></td>
                         </tr>
                         <tr>
-                            <th><?= $block->escapeHtml(__('SKU')); ?> </th>
-                            <td><?= $subDetails->getSku() ?></td>
+                            <th><?php echo $block->escapeHtml(__('SKU')); ?> </th>
+                            <td><?php echo $subDetails->getSku(); ?></td>
                         </tr>
                         <tr>
-                            <th><?= $block->escapeHtml(__('Quantity')); ?> </th>
+                            <th><?php echo $block->escapeHtml(__('Quantity')); ?> </th>
                             <td>
-                                <?= $block->escapeHtml((int)$subDetails->getQtyOrdered()) ?>
-                                <?= $block->escapeHtml(__('Subscribed')) ?>
+                                <?php echo $block->escapeHtml((int) $subDetails->getQtyOrdered()); ?>
+                                <?php echo $block->escapeHtml(__('Subscribed')); ?>
                             </td>
                         </tr>
                         <tr>
-                            <th><?= $block->escapeHtml(__('Price')) ?></th>
+                            <th><?php echo $block->escapeHtml(__('Price')); ?></th>
                             <td>
                                 <strong>
-                                    <?= $priceHelper->currency(number_format($subDetails->getPrice(), 2), true, false) ?>
+                                    <?php echo $priceHelper->currency(number_format($subDetails->getPrice(), 2), true, false); ?>
                                 </strong>
                             </td>
                         </tr>
                         <tr>
-                            <th><?= $block->escapeHtml(__('Initial Fee')) ?></th>
+                            <th><?php echo $block->escapeHtml(__('Initial Fee')); ?></th>
                             <td>
                                 <strong>
-                                    <?= $priceHelper->currency(number_format($subDetails->getSubFee(), 2), true, false) ?>
+                                    <?php echo $priceHelper->currency(number_format($subDetails->getSubFee(), 2), true, false); ?>
                                 </strong>
                             </td>
                         </tr>
                         <tr>
                             <?php $paymentDetail = $block->getPaymentMethod($subDetails->getOrderId(), $subDetails->getPublicHash(), $subDetails->getCustomerId()); ?>
-                            <th class="card_detail"><?= $block->escapeHtml(__('Card Details')) ?></th>
-                            <?php if ($getAction == 'view') : ?>
-                                <?php if (isset($paymentDetail['cc_number'])): ?>
-                                    <td><?= $paymentDetail['cc_number'] ?></td>
-                                <?php else: ?>
-                                    <td><?= $block->escapeHtml(__('N/A')) ?></td>
-                                <?php endif; ?>
-                            <?php elseif ($getAction == 'edit'): ?>
+                            <th class="card_detail"><?php echo $block->escapeHtml(__('Card Details')); ?></th>
+                            <?php if ('view' == $getAction) { ?>
+                                <?php if (isset($paymentDetail['cc_number'])) { ?>
+                                    <td><?php echo $paymentDetail['cc_number']; ?></td>
+                                <?php } else { ?>
+                                    <td><?php echo $block->escapeHtml(__('N/A')); ?></td>
+                                <?php } ?>
+                            <?php } elseif ('edit' == $getAction) { ?>
                                 <?php $cardCollection = $subHelper->getCardCollection($subDetails->getCustomerId()); ?>
                                 <?php $selected = ''; ?>
                                 <td><select name="subscription-card" data-validate="{required:true}">
-                                        <?= $block->escapeHtml(__('Card Details')) ?>
-                                        <option value=""><?= $block->escapeHtml(__('Select Card')) ?></option>
-                                        <?php if (!empty($cardCollection)) : ?>
-                                            <?php foreach ($cardCollection as $key => $cc): ?>
-                                                <?php if (isset($paymentDetail['cc_number'])): ?>
+                                        <?php echo $block->escapeHtml(__('Card Details')); ?>
+                                        <option value=""><?php echo $block->escapeHtml(__('Select Card')); ?></option>
+                                        <?php if (!empty($cardCollection)) { ?>
+                                            <?php foreach ($cardCollection as $key => $cc) { ?>
+                                                <?php if (isset($paymentDetail['cc_number'])) { ?>
                                                     <?php if ($paymentDetail['cc_number'] == $cc['label']) {
-                                                        $selected = 'selected';
-                                                    } else {
-                                                        $selected = '';
-                                                    } ?>
-                                                <?php endif; ?>
-                                                <option value="<?= $cc['value'] ?>" <?= $selected ?>><?= $cc['label'] ?></option>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
+                                        $selected = 'selected';
+                                    } else {
+                                        $selected = '';
+                                    } ?>
+                                                <?php } ?>
+                                                <option value="<?php echo $cc['value']; ?>" <?php echo $selected; ?>><?php echo $cc['label']; ?></option>
+                                            <?php } ?>
+                                        <?php } ?>
                                     </select></td>
-                            <?php endif; ?>
+                            <?php } ?>
                         </tr>
                         </tbody>
                     </table>
@@ -215,29 +215,29 @@ $getAction = $this->getRequest()->getActionName();
     <div class="order-details-items">
         <div class="block block-order-details-view">
             <div class="block-title">
-                <h2><?= $block->escapeHtml(__('Subscription Address Information')) ?></h2>
+                <h2><?php echo $block->escapeHtml(__('Subscription Address Information')); ?></h2>
             </div>
             <div class="block-content">
                 <div class="box box-order-shipping-address">
                     <?php /* Shipping Address */ ?>
                     <div class="info-box">
-                        <div class="box-title"><h3><?= $block->escapeHtml(__('Shipping Address')); ?></h3></div>
-                            <?php if ($getAction == 'view') : ?>
+                        <div class="box-title"><h3><?php echo $block->escapeHtml(__('Shipping Address')); ?></h3></div>
+                            <?php if ('view' == $getAction) { ?>
                                 <address>
-                                    <?php $shippingAddress = $block->getShippingAddress($subDetails->getOrderId()) ?>
-                                    <?php if(empty($shippingAddress)) : ?>
-                                        <?= $block->escapeHtml(__('N/A')) ?>
-                                    <?php else: ?>
-                                        <?=  $block->getShippingAddress($subDetails->getOrderId()); ?>
+                                    <?php $shippingAddress = $block->getShippingAddress($subDetails->getOrderId()); ?>
+                                    <?php if (empty($shippingAddress)) { ?>
+                                        <?php echo $block->escapeHtml(__('N/A')); ?>
+                                    <?php } else { ?>
+                                        <?php echo $block->getShippingAddress($subDetails->getOrderId()); ?>
                                     <?php ?>
                                 </address>
-                            <?php endif;?>
-                        <?php elseif ($getAction == 'edit'): ?>
-                            <?php if($subDetails->getProductType()=='downloadable') : ?>
-                                <br/><?= $block->escapeHtml(__('N/A')) ?>
-                            <?php else: ?>
+                            <?php }?>
+                        <?php } elseif ('edit' == $getAction) { ?>
+                            <?php if ('downloadable' == $subDetails->getProductType()) { ?>
+                                <br/><?php echo $block->escapeHtml(__('N/A')); ?>
+                            <?php } else { ?>
                                 <select name="subscription-shipping">
-                                    <option value=""><?= $block->escapeHtml(__('Select Shipping Address')) ?></option>
+                                    <option value=""><?php echo $block->escapeHtml(__('Select Shipping Address')); ?></option>
                                     <?php
                                     $addresses = $block->getCustomerAddressInline();
                                     $subShippingId = $subDetails->getShippingAddressId();
@@ -247,52 +247,52 @@ $getAction = $this->getRequest()->getActionName();
                                         $orderAddress = $subHelper->getSelectedId($subDetails->getOrderShippingAddress());
                                     }
                                     ?>
-                                    <?php if (!empty($addresses)): ?>
-                                        <?php foreach ($addresses as $key => $address): ?>
+                                    <?php if (!empty($addresses)) { ?>
+                                        <?php foreach ($addresses as $key => $address) { ?>
                                             <?php
                                             $selected = '';
                                             if (isset($subShippingId) && $subShippingId == $address['value']) {
                                                 $selected = 'selected';
-                                            } else if (isset($orderAddress) && $orderAddress == $address['value']) {
+                                            } elseif (isset($orderAddress) && $orderAddress == $address['value']) {
                                                 $selected = 'selected';
                                             }
                                             ?>
-                                            <option value="<?= $address['value'] ?>" <?= $selected ?>><?= $address['label'] ?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
+                                            <option value="<?php echo $address['value']; ?>" <?php echo $selected; ?>><?php echo $address['label']; ?></option>
+                                        <?php } ?>
+                                    <?php } ?>
                                 </select>
-                                <?php endif;?>
-                            <?php endif; ?>
+                                <?php }?>
+                            <?php } ?>
                     </div>
                 </div>
 
-                <?php if ($getAction == 'view') : ?>
+                <?php if ('view' == $getAction) { ?>
                     <div class="box box-order-shipping-method">
-                        <?php $shippingMethod = $block->getShippingMethod($subDetails->getOrderId()) ?>
+                        <?php $shippingMethod = $block->getShippingMethod($subDetails->getOrderId()); ?>
                         <div class="info-box">
-                            <div class="box-title"><h3><?= $block->escapeHtml(__('Shipping Method')); ?></h3></div>
+                            <div class="box-title"><h3><?php echo $block->escapeHtml(__('Shipping Method')); ?></h3></div>
                         </div>
                         <address>
-                            <?php if(empty($shippingMethod)) : ?>
-                                <?= $block->escapeHtml(__('N/A')) ?>
-                            <?php else :?>
-                                <?= /* @noEscape */ $block->getShippingMethod($subDetails->getOrderId()) ?>
-                            <?php endif; ?>
+                            <?php if (empty($shippingMethod)) { ?>
+                                <?php echo $block->escapeHtml(__('N/A')); ?>
+                            <?php } else { ?>
+                                <?php echo /* @noEscape */ $block->getShippingMethod($subDetails->getOrderId()); ?>
+                            <?php } ?>
                         </address>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
 
 
                 <div class="box box-order-billing-address">
                     <?php /* Billing Address */ ?>
                     <div class="info-box">
-                        <div class="box-title"><h3><?= $block->escapeHtml(__('Billing Address')); ?></h3></div>
-                        <?php if ($getAction == 'view') : ?>
-                            <address><?= /* @noEscape */
-                                $block->getBillingAddress($subDetails->getOrderId()) ?></address>
-                        <?php elseif ($getAction == 'edit'): ?>
+                        <div class="box-title"><h3><?php echo $block->escapeHtml(__('Billing Address')); ?></h3></div>
+                        <?php if ('view' == $getAction) { ?>
+                            <address><?php echo // @noEscape
+                                $block->getBillingAddress($subDetails->getOrderId()); ?></address>
+                        <?php } elseif ('edit' == $getAction) { ?>
                             <select name="subscription-billing" data-validate="{required:true}">
-                                <option value=""><?= $block->escapeHtml(__('Select Billing Address')) ?></option>
+                                <option value=""><?php echo $block->escapeHtml(__('Select Billing Address')); ?></option>
                                 <?php
                                 $addresses = $block->getCustomerAddressInline();
                                 $subBillingId = $subDetails->getBillingAddressId();
@@ -302,77 +302,77 @@ $getAction = $this->getRequest()->getActionName();
                                     $orderAddressShip = $subHelper->getSelectedId($subDetails->getOrderShippingAddress());
                                 }
                                 ?>
-                                <?php foreach ($addresses as $key => $address): ?>
+                                <?php foreach ($addresses as $key => $address) { ?>
                                     <?php
                                     $selected = '';
                                     if (isset($subBillingId) && $subBillingId == $address['value']) {
                                         $selected = 'selected';
-                                    } else if ($orderAddressBill == $address['value']) {
+                                    } elseif ($orderAddressBill == $address['value']) {
                                         $selected = 'selected';
-                                    } else if ($orderAddressShip == $address['value']) {
+                                    } elseif ($orderAddressShip == $address['value']) {
                                         $selected = 'selected';
                                     }
                                     ?>
-                                    <option value="<?= $address['value'] ?>" <?= $selected ?>><?= $address['label'] ?></option>
-                                <?php endforeach; ?>
-                                <!--                                --><?php //endif; ?>
+                                    <option value="<?php echo $address['value']; ?>" <?php echo $selected; ?>><?php echo $address['label']; ?></option>
+                                <?php } ?>
+                                <!--                                --><?php // endif;?>
                             </select>
-                        <?php endif; ?>
+                        <?php } ?>
                     </div>
                 </div>
 
-                <?php if ($getAction == 'view') : ?>
+                <?php if ('view' == $getAction) { ?>
                     <div class="box box-order-billing-method">
                         <?php /* Billing Method */ ?>
                         <div class="info-box">
-                            <div class="box-title"><h3><?= $block->escapeHtml(__('Payment Method')); ?></h3></div>
+                            <div class="box-title"><h3><?php echo $block->escapeHtml(__('Payment Method')); ?></h3></div>
                         </div>
                         <?php $paymentDetail = $block->getPaymentMethod($subDetails->getOrderId(), $subDetails->getPublicHash(), $subDetails->getCustomerId()); ?>
                         <div class="box-content">
                             <dl class="payment-method">
-                                <p><?= $paymentDetail['method_title'] ?></p>
-                                <?php if (isset($paymentDetail['cc_type'])): ?>
+                                <p><?php echo $paymentDetail['method_title']; ?></p>
+                                <?php if (isset($paymentDetail['cc_type'])) { ?>
                                     <dd class="content">
                                         <table class="data table">
                                             <tbody>
                                             <tr>
-                                                <th scope="row"><?= $block->escapeHtml(__('Credit Card Type')); ?></th>
-                                                <td><?= $paymentDetail['cc_type'] ?></td>
+                                                <th scope="row"><?php echo $block->escapeHtml(__('Credit Card Type')); ?></th>
+                                                <td><?php echo $paymentDetail['cc_type']; ?></td>
                                             </tr>
                                             <tr>
-                                                <th scope="row"><?= $block->escapeHtml(__('Credit Card Number')); ?></th>
-                                                <td><?= $paymentDetail['cc_number'] ?></td>
+                                                <th scope="row"><?php echo $block->escapeHtml(__('Credit Card Number')); ?></th>
+                                                <td><?php echo $paymentDetail['cc_number']; ?></td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </dd>
-                                <?php endif; ?>
+                                <?php } ?>
                             </dl>
                         </div>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if ($getAction == 'edit') : ?>
+                <?php if ('edit' == $getAction) { ?>
                     <div class="box-content edit-subscription">
-                        <button type="submit"><span><?= $block->escapeHtml(__('Update Subscription')); ?></span>
+                        <button type="submit"><span><?php echo $block->escapeHtml(__('Update Subscription')); ?></span>
                         </button>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
             </div>
         </div>
 </form>
-<?php if ($subDetails['how_many'] == NULL): ?>
+<?php if (null == $subDetails['how_many']) { ?>
     <div class="order-details-note">
         <div class="block block-subscription-details-view">
             <div class="block-title">
-                <h2><?= $block->escapeHtml(__('Subscription Note')) ?></h2>
+                <h2><?php echo $block->escapeHtml(__('Subscription Note')); ?></h2>
             </div>
             <div class="block-content">
-                <th><?= $block->escapeHtml(__('You can stop subscription at any time by pausing or cancelling the subscription')) ?></th>
+                <th><?php echo $block->escapeHtml(__('You can stop subscription at any time by pausing or cancelling the subscription')); ?></th>
             </div>
         </div>
     </div>
-<?php endif; ?>
+<?php } ?>
 </div>
 
 
@@ -382,7 +382,7 @@ $getAction = $this->getRequest()->getActionName();
     ], function ($) {
         $("#cancel_status").click(function () {
             if (confirm("Are you sure want to cancel this subscription?")) {
-                $(location).attr('href', "<?= $block->getCancelUrl($order_id); ?>");
+                $(location).attr('href', "<?php echo $block->getCancelUrl($order_id); ?>");
             }
         })
     });

@@ -11,10 +11,6 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Wagento\Subscription\Api\ProductRepositoryInterface;
 
-/**
- * Class ProductRepository
- * @package Wagento\Subscription\Model
- */
 class ProductRepository implements ProductRepositoryInterface
 {
     /**
@@ -49,6 +45,8 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Save data function.
+     *
      * @param \Wagento\Subscription\Api\Data\ProductInterface $product
      * @return \Wagento\Subscription\Api\Data\ProductInterface
      * @throws CouldNotSaveException
@@ -68,6 +66,8 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Get product id function.
+     *
      * @param int $productId
      * @return mixed
      * @throws NoSuchEntityException
@@ -83,6 +83,8 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Get subscription id function.
+     *
      * @param int $subscriptionId
      * @return mixed
      */
@@ -92,6 +94,8 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Get subscritpion product id function.
+     *
      * @param int $productId
      * @return mixed
      */
@@ -102,6 +106,8 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * Delete product id function.
+     *
      * @param int $productId
      * @return bool
      */

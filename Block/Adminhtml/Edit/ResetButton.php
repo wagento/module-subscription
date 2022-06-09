@@ -8,12 +8,11 @@ namespace Wagento\Subscription\Block\Adminhtml\Edit;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
-/**
- * Class ResetButton
- */
 class ResetButton extends GenericButton implements ButtonProviderInterface
 {
     /**
+     * Get button function.
+     *
      * @return array
      */
     public function getButtonData()

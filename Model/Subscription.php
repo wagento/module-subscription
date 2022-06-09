@@ -7,12 +7,9 @@
 namespace Wagento\Subscription\Model;
 
 use Magento\Framework\Model\AbstractExtensibleModel;
+use Magento\TestFramework\Eav\Model\Attribute\DataProvider\Date;
 use Wagento\Subscription\Api\Data\SubscriptionInterface;
 
-/**
- * Class Subscription
- * @package Wagento\Subscription\Model
- */
 class Subscription extends AbstractExtensibleModel implements SubscriptionInterface
 {
     /**
@@ -22,7 +19,7 @@ class Subscription extends AbstractExtensibleModel implements SubscriptionInterf
      */
     public function _construct()
     {
-        $this->_init('Wagento\Subscription\Model\ResourceModel\Subscription');
+        $this->_init(\Wagento\Subscription\Model\ResourceModel\Subscription::class);
     }
 
     /**
@@ -143,7 +140,7 @@ class Subscription extends AbstractExtensibleModel implements SubscriptionInterf
     /**
      * Set End Date
      *
-     * @param $dateEnd
+     * @param mixed $dateEnd
      * @return $this
      */
     public function setDateEnd($dateEnd)

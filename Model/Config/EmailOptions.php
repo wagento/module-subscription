@@ -5,14 +5,13 @@
  */
 
 namespace Wagento\Subscription\Model\Config;
-/**
- * Class EmailOptions
- * @package Wagento\Subscription\Model\Config
- */
+
 class EmailOptions implements \Magento\Framework\Option\ArrayInterface
 {
     /**
-     * @return array
+     * Option label array function.
+     *
+     * @return array[]
      */
     public function toOptionArray()
     {

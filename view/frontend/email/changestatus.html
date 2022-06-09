@@ -5,12 +5,19 @@
  */
 -->
 <!--@subject {{trans "Update to your %store_name Subscription Profile" store_name=$store.getFrontendName()}} @-->
-<!--@vars
-{"store url=\"\"":"Store Url",
+<!--@vars {
+"store url=\"\"":"Store Url",
 "skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
-"var this.getUrl($store, 'customer/account/')":"Customer Account URL"
-}
-@-->
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var store_hours":"Email Store Hours",
+"var store_phone":"Email Store Phone",
+"var store.getFrontendName()":"Store Name",
+"var customer_name|nl2br":"Customer Name",
+"var increament_id|nl2br":"Increament Id",
+"var store_email":"Store Email",
+"var status|nl2br":"Email Status",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL"
+} @-->
 <!--@styles
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
 @-->

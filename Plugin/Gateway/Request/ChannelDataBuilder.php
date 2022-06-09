@@ -6,19 +6,19 @@
 
 namespace Wagento\Subscription\Plugin\Gateway\Request;
 
-/**
- * Class BnCodeDataBuilder
- */
 class ChannelDataBuilder
 {
     /**
+     * After build function.
+     *
      * @param \PayPal\Braintree\Gateway\Request\ChannelDataBuilder $subject
-     * @param $result
+     * @param mixed $result
      * @return mixed
      */
     public function afterBuild(\PayPal\Braintree\Gateway\Request\ChannelDataBuilder $subject, $result)
     {
         $result['channel'] = 'Wagento_subscription';
+
         return $result;
     }
 }

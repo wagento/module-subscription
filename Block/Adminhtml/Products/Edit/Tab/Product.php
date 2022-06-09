@@ -10,16 +10,13 @@ use Magento\Backend\Block\Widget\Grid;
 use Magento\Backend\Block\Widget\Grid\Column;
 use Magento\Backend\Block\Widget\Grid\Extended;
 
-/**
- * Class Product
- * @package Wagento\Subscription\Block\Adminhtml\Products\Edit\Tab
- */
 class Product extends \Magento\Backend\Block\Widget\Grid\Extended
 {
+    /**
+     * @var $logger
+     */
     protected $logger;
     /**
-     * Core registry
-     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
@@ -67,7 +64,10 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Construct function.
+     *
      * @return void
+     * @throws \Magento\Framework\Exception\FileSystemException
      */
     protected function _construct()
     {
@@ -78,6 +78,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Get item function.
+     *
      * @return array|null
      */
     public function getItem()
@@ -86,6 +88,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Add coloum filter collection function.
+     *
      * @param Column $column
      * @return $this|Extended
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -111,6 +115,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Prepare collection function.
+     *
      * @return Grid
      */
     protected function _prepareCollection()
@@ -132,9 +138,7 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
         )->addAttributeToSelect(
             'price'
         )->addFieldToFilter('entity_id', ['nin' => $allProductIds])->addAttributeToFilter('visibility', 4)
-            ->addAttributeToFilter('type_id', array('in' => $types));
-
-
+            ->addAttributeToFilter('type_id', ['in' => $types]);
         $storeId = (int)$this->getRequest()->getParam('store', 0);
         if ($storeId > 0) {
             $collection->addStoreFilter($storeId);
@@ -145,6 +149,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Prepate columns function.
+     *
      * @return Extended
      * @throws \Exception
      */
@@ -200,6 +206,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Get grid url function.
+     *
      * @return string
      */
     public function getGridUrl()
@@ -208,6 +216,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Get selected products function.
+     *
      * @return array
      */
     protected function _getSelectedProducts()
@@ -226,6 +236,8 @@ class Product extends \Magento\Backend\Block\Widget\Grid\Extended
     }
 
     /**
+     * Get all products function.
+     *
      * @return array
      */
     protected function _getAllProducts()

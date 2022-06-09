@@ -11,17 +11,20 @@ use Magento\Backend\Block\Widget\Tab\TabInterface;
 class CustomerDetails extends \Magento\Backend\Block\Template implements TabInterface
 {
     /**
-     * @var string
-     */
-    protected $_template = 'sales/subscription/customer_details.phtml';
-    /**
      * @var \Wagento\Subscription\Model\ResourceModel\SubscriptionSales\Collection
      */
     public $collection;
+
+    /**
+     * @var string
+     */
+    protected $_template = 'sales/subscription/customer_details.phtml';
+
     /**
      * @var \Magento\Framework\App\ResourceConnection
      */
     protected $_resource;
+
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
@@ -38,20 +41,31 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     protected $addressRenderer;
 
     /**
-     * @var Order
+     * @var \Magento\Sales\Model\OrderRepository
      */
     protected $salesOrder;
 
     /**
-     * @var Data
+     * @var \Wagento\Subscription\Helper\Data
      */
     protected $helper;
 
     /**
+     * @var \Magento\Framework\Pricing\Helper\Data
+     */
+    protected $priceHelper;
+
+    /**
      * CustomerDetails constructor.
+     *
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\App\ResourceConnection $resource
      * @param \Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory $collectionFactory
+     * @param \Magento\Sales\Block\Items\AbstractItems $abstractItems
+     * @param \Magento\Sales\Model\Order\Address\Renderer $addressRenderer
+     * @param \Wagento\Subscription\Helper\Data $subHelper
+     * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
+     * @param \Magento\Sales\Model\OrderRepository $salesOrder
      * @param array $data
      */
     public function __construct(
@@ -61,10 +75,10 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         \Magento\Sales\Block\Items\AbstractItems $abstractItems,
         \Magento\Sales\Model\Order\Address\Renderer $addressRenderer,
         \Wagento\Subscription\Helper\Data $subHelper,
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
         \Magento\Sales\Model\OrderRepository $salesOrder,
         array $data = []
     ) {
-    
         $this->collection = $collectionFactory->create();
         $this->_resource = $resource;
         $this->_storeManager = $context->getStoreManager();
@@ -72,10 +86,13 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         $this->addressRenderer = $addressRenderer;
         $this->salesOrder = $salesOrder;
         $this->helper = $subHelper;
+        $this->priceHelper = $priceHelper;
         parent::__construct($context, $data);
     }
 
     /**
+     * Get subscription details function.
+     *
      * @return \Magento\Framework\DataObject
      */
     public function getSubscriptionDetail()
@@ -89,21 +106,22 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         $this->collection->addFieldToFilter('id', ['eq' => $id]);
 
         $this->collection->getSelect()->join(
-            $salesOrderItemTable . ' as soi',
-            "main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1",
+            $salesOrderItemTable.' as soi',
+            'main_table.sub_order_item_id = soi.item_id && soi.is_subscribed = 1',
             ['*', 'created_at as order_created_at', 'updated_at as order_updated_at']
         );
 
         $this->collection->getSelect()->join(
-            $customerTable . ' as customer',
+            $customerTable.' as customer',
             'main_table.customer_id = customer.entity_id',
             ['firstname', 'lastname', 'email']
         )
-            ->columns(new \Zend_Db_Expr("CONCAT(`customer`.`firstname`, ' ',`customer`.`lastname`) AS customer_name"));
+            ->columns(new \Zend_Db_Expr("CONCAT(`customer`.`firstname`, ' ',`customer`.`lastname`) AS customer_name"))
+        ;
 
         $this->collection->getSelect()->join(
-            $wagentoSubProductTable . ' as wsp',
-            "soi.product_id = wsp.product_id",
+            $wagentoSubProductTable.' as wsp',
+            'soi.product_id = wsp.product_id',
             ['subscription_id']
         );
 
@@ -111,7 +129,9 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * Get order store name
+     * Get order store name.
+     *
+     * @param mixed $storeId
      *
      * @return null|string
      */
@@ -119,11 +139,12 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     {
         $store = $this->_storeManager->getStore($storeId);
         $name = [$store->getWebsite()->getName(), $store->getGroup()->getName(), $store->getName()];
+
         return implode('<br/>', $name);
     }
 
     /**
-     * Check if is single store mode
+     * Check if is single store mode.
      *
      * @return bool
      */
@@ -133,9 +154,10 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * Get timezone for store
+     * Get timezone for store.
      *
      * @param mixed $store
+     *
      * @return string
      */
     public function getTimezoneForStore($store)
@@ -147,7 +169,10 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * @param $storeId
+     * Get store function.
+     *
+     * @param mixed $storeId
+     *
      * @return \Magento\Store\Api\Data\StoreInterface
      */
     public function getStore($storeId)
@@ -155,11 +180,14 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         if ($storeId) {
             return $this->_storeManager->getStore($storeId);
         }
+
         return $this->_storeManager->getStore();
     }
 
     /**
      * Get URL to edit the customer.
+     *
+     * @param mixed $customerId
      *
      * @return string
      */
@@ -173,7 +201,9 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * {@inheritdoc}
+     * Show tab function.
+     *
+     * @return bool
      */
     public function canShowTab()
     {
@@ -181,7 +211,9 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * {@inheritdoc}
+     * Is hidden function.
+     *
+     * @return false
      */
     public function isHidden()
     {
@@ -189,7 +221,7 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * Prepare label for tab
+     * Prepare label for tab.
      *
      * @return string
      */
@@ -199,7 +231,7 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * Prepare title for tab
+     * Prepare title for tab.
      *
      * @return string
      */
@@ -209,45 +241,61 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
     }
 
     /**
-     * @param $orderId
-     * @param $shippingAddressId
-     * @return \Magento\Framework\Phrase|mixed|string|null
+     * Get shipping address function.
+     *
+     * @param mixed $orderId
+     * @param mixed $shippingAddressId
+     *
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return null|\Magento\Framework\Phrase|mixed|string
      */
     public function getShippingAddress($orderId, $shippingAddressId)
     {
         $_order = $this->salesOrder->get($orderId);
         if (isset($shippingAddressId)) {
             return $this->helper->getSubCustomerAddress($shippingAddressId, 'html');
-        } else {
-            $shipingAddress = $_order->getShippingAddress();
-            if (isset($shipingAddress)) {
-                return $this->addressRenderer->format($shipingAddress, 'html');
-            } else {
-                return __('N/A');
-            }
         }
+        $shipingAddress = $_order->getShippingAddress();
+        if (isset($shipingAddress)) {
+            return $this->addressRenderer->format($shipingAddress, 'html');
+        }
+
+        return __('N/A');
     }
 
+    /**
+     * Get billing address function.
+     *
+     * @param mixed $orderId
+     * @param mixed $billingAddressId
+     * @return mixed|string|null
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function getBillingAddress($orderId, $billingAddressId)
     {
         $_order = $this->salesOrder->get($orderId);
         if (isset($billingAddressId)) {
             return $this->helper->getSubCustomerAddress($billingAddressId, 'html');
-        } else {
-            $billingAddress = $_order->getBillingAddress();
-            return $this->addressRenderer->format($billingAddress, 'html');
         }
+        $billingAddress = $_order->getBillingAddress();
+
+        return $this->addressRenderer->format($billingAddress, 'html');
     }
 
     /**
-     * @param $orderId
-     * @param $publicHash
-     * @param $customerId
-     * @return array
+     * Get payment method function.
+     *
+     * @param mixed $orderId
+     * @param mixed $publicHash
+     * @param mixed $customerId
+     *
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return array
      */
     public function getPaymentMethod($orderId, $publicHash, $customerId)
     {
@@ -257,23 +305,75 @@ class CustomerDetails extends \Magento\Backend\Block\Template implements TabInte
         $_order = $this->salesOrder->get($orderId);
         $details = [];
         $additionalInfo = $_order->getPayment()->getAdditionalInformation();
-        if (isset($additionalInfo['cc_number']) && isset($additionalInfo['cc_type'])) {
+        if (isset($additionalInfo['cc_number'], $additionalInfo['cc_type'])) {
             $details['cc_number'] = $additionalInfo['cc_number'];
             $details['cc_type'] = $additionalInfo['cc_type'];
         }
         $details['method_title'] = $additionalInfo['method_title'];
+
         return $details;
     }
 
     /**
-     * @param $orderId
-     * @return string|null
+     * Get shipping method function.
+     *
+     * @param mixed $orderId
+     *
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return null|string
      */
     public function getShippingMethod($orderId)
     {
         $_order = $this->salesOrder->get($orderId);
+
         return $_order->getShippingDescription();
+    }
+
+    /**
+     * Subscription status function.
+     *
+     * @param bool $status
+     * @return mixed
+     */
+    public function getSubscriptionStatus($status)
+    {
+        return $this->helper->getSubscriptionStatus($status);
+    }
+
+    /**
+     * Subscription frequency function.
+     *
+     * @param mixed $subFrequency
+     *
+     * @return \Magento\Framework\Phrase
+     */
+    public function getSubscriptionFrequency($subFrequency)
+    {
+        return $this->helper->getSubscriptionFrequency($subFrequency);
+    }
+
+    /**
+     * Get no of units.
+     *
+     * @param int $subFrequency
+     *
+     * @return string
+     */
+    public function getHowManyUnits($subFrequency)
+    {
+        return $this->helper->getHowManyUnits($subFrequency);
+    }
+
+    /**
+     * Get formatted Price.
+     *
+     * @param mixed $price
+     * @return float|string
+     */
+    public function getFormattedPrice($price)
+    {
+        return $this->priceHelper->currency($price, true, false);
     }
 }

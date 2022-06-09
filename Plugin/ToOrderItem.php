@@ -6,22 +6,18 @@
 
 namespace Wagento\Subscription\Plugin;
 
-use Magento\Quote\Model\Quote\Item\ToOrderItem as QuoteToOrderItem;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Quote\Model\Quote\Item\ToOrderItem as QuoteToOrderItem;
 
-/**
- * Class ToOrderItem
- * @package Wagento\Subscription\Plugin
- */
 class ToOrderItem
 {
     /**
-     * @var
+     * @var Json
      */
     private $_serializer;
 
     /**
-     * ToOrderItem constructor.
      * @param Json $serializer
      */
     public function __construct(Json $serializer)
@@ -30,32 +26,30 @@ class ToOrderItem
     }
 
     /**
-     * aroundConvert
+     *  Around convert function.
      *
      * @param QuoteToOrderItem $subject
      * @param \Closure $proceed
-     * @param \Magento\Quote\Model\Quote\Item $item
-     * @param array $data
-     *
-     * @return \Magento\Sales\Model\Order\Item
+     * @param mixed $item
+     * @param mixed $data
+     * @return mixed
      */
-
     public function aroundConvert(
         QuoteToOrderItem $subject,
         \Closure $proceed,
         $item,
         $data = []
     ) {
-    
         $orderItem = $proceed($item, $data);
         $additionalOptions = $item->getOptionByCode('additional_options');
-        if (!is_null($additionalOptions)) {
+        if ($additionalOptions !== null) {
             $options = $orderItem->getProductOptions();
             // Set additional options to Order Item
             $options['additional_options'] = $this->_serializer->unserialize($additionalOptions->getValue());
             $orderItem->setProductOptions($options);
         }
         $orderItem->setIsSubscribed($item->getIsSubscribed());
+
         return $orderItem;
     }
 }

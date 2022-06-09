@@ -6,18 +6,17 @@
 
 namespace Wagento\Subscription\Controller\Adminhtml\Sales;
 
-use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
-use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory;
 use Wagento\Subscription\Api\SalesSubscriptionRepositoryInterface;
+use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory;
 
-/**
- * Class MassDelete
- * @package Wagento\Subscription\Controller\Adminhtml\Sales
- */
 class MassDelete extends \Magento\Backend\App\Action
 {
+    /**
+     * @var string
+     */
     protected $redirectUrl = 'subscription/sales/index';
 
     /**
@@ -32,15 +31,18 @@ class MassDelete extends \Magento\Backend\App\Action
      */
     protected $_collectionFactory;
 
-    /*
-     * @var SalesSubscriptionRepository
+    /**
+     * @var SalesSubscriptionRepositoryInterface
      */
     protected $salesSubscriptionRepository;
-
+    
     /**
+     * MassDelete constructor function.
+     *
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
+     * @param SalesSubscriptionRepositoryInterface $salesSubscriptionRepository
      */
     public function __construct(
         Context $context,
@@ -48,7 +50,6 @@ class MassDelete extends \Magento\Backend\App\Action
         CollectionFactory $collectionFactory,
         SalesSubscriptionRepositoryInterface $salesSubscriptionRepository
     ) {
-    
         $this->_filter = $filter;
         $this->_collectionFactory = $collectionFactory;
         $this->salesSubscriptionRepository = $salesSubscriptionRepository;
@@ -56,25 +57,32 @@ class MassDelete extends \Magento\Backend\App\Action
     }
 
     /**
+     * MassDelete execute function.
+     *
      * @return $this|\Magento\Backend\Model\View\Result\Redirect|\Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
         try {
             $collection = $this->_filter->getCollection($this->_collectionFactory->create());
             $subscriptionsDeleted = 0;
             foreach ($collection->getAllIds() as $subscriptionId) {
                 $this->salesSubscriptionRepository->deleteById($subscriptionId);
-                $subscriptionsDeleted++;
+                ++$subscriptionsDeleted;
             }
             if ($subscriptionsDeleted) {
-                $this->messageManager->addSuccessMessage(__('A total of %1 record(s) were deleted.', $subscriptionsDeleted));
+                $this->messageManager
+                    ->addSuccessMessage(__('A total of %1 record(s) were deleted.', $subscriptionsDeleted))
+                ;
             }
             $resultRedirect->setPath('subscription/sales/index');
+
             return $resultRedirect;
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
+
             return $resultRedirect->setPath($this->redirectUrl);
         }
     }

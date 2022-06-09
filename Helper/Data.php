@@ -6,40 +6,35 @@
 
 namespace Wagento\Subscription\Helper;
 
-use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Serialize\Serializer\Json;
-use Magento\Framework\App\ObjectManager;
-use function var_dump;
-use Wagento\Subscription\Model\ProductFactory;
-use Wagento\Subscription\Model\SubscriptionRepository;
+use Magento\Catalog\Model\Product\Type\Price;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Checkout\Model\Session as CheckoutSession;
-use Magento\Customer\Model\AddressFactory;
-use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Customer\Model\Address\Config as AddressConfig;
+use Magento\Customer\Model\AddressFactory;
 use Magento\Customer\Model\CustomerFactory;
-use Magento\Vault\Api\PaymentTokenManagementInterface;
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Encryption\EncryptorInterface;
-use Magento\Payment\Model\CcConfig;
+use Magento\Framework\Event\ManagerInterface as EventManager;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Payment\Helper\Data as PaymentHelper;
+use Magento\Payment\Model\CcConfig;
 use Magento\Sales\Model\Order\AddressRepository;
-use Magento\Catalog\Model\Product\Type\Price;
+use Magento\Vault\Api\PaymentTokenManagementInterface;
+use Wagento\Subscription\Model\ProductFactory;
+use Wagento\Subscription\Model\SubscriptionRepository;
 
-/**
- * Class Data
- * @package Wagento\Subscription\Helper
- */
 class Data extends AbstractHelper
 {
+    public const XML_PATH_ENABLE_SUB = 'braintree_subscription/subscription_config/enable';
+    public const XML_PATH_SUBSCRIPTION_LABEL = 'braintree_subscription/subscription_config/product_option_label';
+    public const XML_PATH_SUBSCRIPTION_CANCEL = 'braintree_subscription/subscription_config
+    /customer_cancel_subscription';
+    public const XML_PATH_SUBSCRIPTION_PAUSE = 'braintree_subscription/subscription_config/customer_pause_subscription';
+    public const XML_PATH_ENABLE_HOWMANY = 'braintree_subscription/subscription_config/customer_howmany_subscription';
 
-    const XML_PATH_ENABLE_SUB = 'braintree_subscription/subscription_config/enable';
-    const XML_PATH_SUBSCRIPTION_LABEL = 'braintree_subscription/subscription_config/product_option_label';
-    const XML_PATH_SUBSCRIPTION_CANCEL = 'braintree_subscription/subscription_config/customer_cancel_subscription';
-    const XML_PATH_SUBSCRIPTION_PAUSE = 'braintree_subscription/subscription_config/customer_pause_subscription';
-    const XML_PATH_ENABLE_HOWMANY = 'braintree_subscription/subscription_config/customer_howmany_subscription';
-
-    const FLOAT_VALUE = 0.0000;
+    public const FLOAT_VALUE = 0.0000;
 
     /**
      * @var mixed
@@ -116,10 +111,14 @@ class Data extends AbstractHelper
      */
     protected $links;
 
+    /**
+     * @var \Magento\Customer\Model\Session|Magento\Customer\Model\Session
+     */
     protected $customerSession;
 
     /**
      * Data constructor.
+     *
      * @param Context $context
      * @param Json $serializer
      * @param ProductFactory $subProductFactory
@@ -137,7 +136,7 @@ class Data extends AbstractHelper
      * @param AddressRepository $addressRepository
      * @param Price $price
      * @param \Magento\Downloadable\Model\Link $links
-     * @param Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
         Context $context,
@@ -159,7 +158,6 @@ class Data extends AbstractHelper
         \Magento\Downloadable\Model\Link $links,
         \Magento\Customer\Model\Session $customerSession
     ) {
-    
         parent::__construct($context);
         $this->scopeConfig = $context->getScopeConfig();
         $this->_serializer = $serializer ?: ObjectManager::getInstance()->get(Json::class);
@@ -182,25 +180,31 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Subscription module enable function.
+     *
      * @return mixed
      */
     public function isSubscriptionModuleEnable()
     {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+
         return $this->scopeConfig->getValue(self::XML_PATH_ENABLE_SUB, $storeScope);
     }
 
     /**
-     * @param $subFrequency
+     * Subscription frequency function.
+     *
+     * @param mixed $subFrequency
+     *
      * @return \Magento\Framework\Phrase
      */
     public function getSubscriptionFrequency($subFrequency)
     {
         $frequencyLabels = [
-            1 => "Daily",
-            2 => "Weekly",
-            3 => "Monthly",
-            4 => "Yearly",
+            1 => 'Daily',
+            2 => 'Weekly',
+            3 => 'Monthly',
+            4 => 'Yearly',
         ];
 
         if (array_key_exists($subFrequency, $frequencyLabels)) {
@@ -211,7 +215,10 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @param $status
+     * Subscription status function.
+     *
+     * @param bool $status
+     *
      * @return \Magento\Framework\Phrase
      */
     public function getSubscriptionStatus($status)
@@ -231,62 +238,82 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @param $subFrequency
-     * @return \Magento\Framework\Phrase
+     * Get no of units.
+     *
+     * @param int $subFrequency
+     *
+     * @return string
      */
     public function getHowManyUnits($subFrequency)
     {
-        if ($subFrequency == 1) {
-            return "Day(s)";
-        } elseif ($subFrequency == 2) {
-            return "Week(s)";
-        } elseif ($subFrequency == 3) {
-            return "Month(s)";
-        } elseif ($subFrequency == 4) {
-            return "Year(s)";
+        if (1 == $subFrequency) {
+            return 'Day(s)';
+        }
+        if (2 == $subFrequency) {
+            return 'Week(s)';
+        }
+        if (3 == $subFrequency) {
+            return 'Month(s)';
+        }
+        if (4 == $subFrequency) {
+            return 'Year(s)';
         }
     }
 
     /**
-     * @param $additionalOptions
+     * Get no of subscription.
+     *
+     * @param string $additionalOptions
+     *
      * @return false|int|string
      */
-
     public function getSubscriptionHowMany($additionalOptions)
     {
         if (!empty($additionalOptions)) {
             $options = $this->_serializer->unserialize($additionalOptions);
             $howManyValue = $options['additional_options'][2]['value'];
-            $howManyNumber = preg_replace("/[^0-9]/", '', $howManyValue);
-            return $howManyNumber;
-        } else {
-            return __('N/A');
+
+            return preg_replace('/[^0-9]/', '', $howManyValue);
         }
+
+        return __('N/A');
     }
 
     /**
-     * @return mixed
+     * Get product option label.
+     *
+     * @return array mixed
      */
     public function getProductOptionLabel()
     {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+
         return $this->scopeConfig->getValue(self::XML_PATH_SUBSCRIPTION_LABEL, $storeScope);
     }
 
     /**
-     * @param $productId
+     * Get subscription id function.
+     *
+     * @param int $productId
+     *
      * @return mixed
      */
     public function getSubscriptionId($productId)
     {
-        $subProduct = $this->subProductFactory->create()->getCollection()->addFieldToFilter('product_id', ['eq' => $productId]);
+        $subProduct = $this->subProductFactory
+            ->create()->getCollection()->addFieldToFilter('product_id', ['eq' => $productId]);
+
         return $subProduct->getFirstItem()->getSubscriptionId();
     }
 
     /**
-     * @param $productId
-     * @return mixed
+     * Get subscription configurations.
+     *
+     * @param mixed $productId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return mixed
      */
     public function getSubscriptionConfigurations($productId)
     {
@@ -295,54 +322,75 @@ class Data extends AbstractHelper
         if ($subConfig) {
             return $subConfig->getValue();
         }
-        return;
     }
 
     /**
-     * @param $subscriptionId
-     * @return null|string
+     * Get sub name function.
+     *
+     * @param int $subscriptionId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return null|string
      */
     public function getSubName($subscriptionId)
     {
         $subscription = $this->subscriptionRepository->getById($subscriptionId);
+
         return $subscription->getName();
     }
 
     /**
-     * @param $subscriptionId
-     * @return float
+     * Get subscription discount function.
+     *
+     * @param int $subscriptionId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return float
      */
     public function getSubscriptionDiscount($subscriptionId)
     {
         $subscription = $this->subscriptionRepository->getById($subscriptionId);
+
         return $subscription->getDiscount();
     }
 
     /**
-     * @param $subscriptionId
-     * @return \Magento\Framework\Phrase
+     * Get sub frequency function.
+     *
+     * @param int $subscriptionId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return \Magento\Framework\Phrase
      */
     public function getSubFrequency($subscriptionId)
     {
         $subscription = $this->subscriptionRepository->getById($subscriptionId);
+
         return $this->getSubscriptionFrequency($subscription->getFrequency());
     }
 
     /**
-     * @param $subscriptionId
-     * @return float|null
+     * Get sub fee function.
+     *
+     * @param int $subscriptionId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return null|float
      */
     public function getSubFee($subscriptionId)
     {
         $subscription = $this->subscriptionRepository->getById($subscriptionId);
+
         return $subscription->getFee();
     }
 
     /**
+     * Get guest checkout function.
+     *
      * @return int|void
      */
     public function getIsGuestCheckout()
@@ -350,57 +398,70 @@ class Data extends AbstractHelper
         $isLoggedIn = $this->customerSession->isLoggedIn();
         if ($isLoggedIn) {
             return true;
-        } else {
-            //check quote contain subscription items
-            $subCount = 0;
-            $cartData = $this->checkoutSession->getQuote()->getAllVisibleItems();
-            foreach ($cartData as $item) {
-                if ($item->getIsSubscribed() == 1) {
-                    $subCount++;
-                } else {
-                    continue;
-                }
-            }
-            if ($subCount > 0) {
-                return false;
+        }
+        // check quote contain subscription items
+        $subCount = 0;
+        $cartData = $this->checkoutSession->getQuote()->getAllVisibleItems();
+        foreach ($cartData as $item) {
+            if (1 == $item->getIsSubscribed()) {
+                ++$subCount;
             } else {
-                return true;
+                continue;
             }
         }
+        if ($subCount > 0) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
-     * @param $productId
-     * @return mixed
+     * Get product details url.
+     *
+     * @param int $productId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return mixed
      */
     public function getProductDetailUrl($productId)
     {
         $productData = $this->productRepository->getById($productId);
+
         return $subConfig = $productData->getProductUrl();
     }
 
     /**
+     * Get customer cancel function.
+     *
      * @return mixed
      */
     public function getCanCustomerCancel()
     {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+
         return $this->scopeConfig->getValue(self::XML_PATH_SUBSCRIPTION_CANCEL, $storeScope);
     }
 
     /**
+     * Get customer pause function.
+     *
      * @return mixed
      */
     public function getCanCustomerPause()
     {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+
         return $this->scopeConfig->getValue(self::XML_PATH_SUBSCRIPTION_PAUSE, $storeScope);
     }
 
     /**
-     * @param $addressId
-     * @param $type
+     * Get customer address.
+     *
+     * @param int    $addressId
+     * @param string $type
+     *
      * @return mixed
      */
     public function getSubCustomerAddress($addressId, $type)
@@ -408,11 +469,15 @@ class Data extends AbstractHelper
         $formatType = $this->addressConfig->getFormatByCode($type);
         $address = $this->address->create()->load($addressId);
         $this->eventManager->dispatch('customer_address_format', ['type' => $formatType, 'address' => $address]);
+
         return $formatType->getRenderer()->renderArray($address->getData());
     }
 
     /**
-     * @param $customerId
+     * Get customer address inline function.
+     *
+     * @param int $customerId
+     *
      * @return array
      */
     public function getCustomerAddressInline($customerId)
@@ -426,12 +491,16 @@ class Data extends AbstractHelper
             $customerAddress[$key]['label'] = $this->getSubCustomerAddress($address->getEntityId(), 'inline');
             $customerAddress[$key]['value'] = $address->getEntityId();
         }
+
         return $customerAddress;
     }
 
     /**
-     * @param $product_id
-     * @return boolean
+     * Get product subscribed function.
+     *
+     * @param int $product_id
+     *
+     * @return bool
      */
     public function getProductSubscribed($product_id)
     {
@@ -440,13 +509,19 @@ class Data extends AbstractHelper
         foreach ($items as $item) {
             if ($item->getData('product_id') == $product_id && $item->getData('is_subscribed')) {
                 $found = 1;
+
                 break;
             }
         }
+
         return $found;
     }
 
     /**
+     * Get card collection function.
+     *
+     * @param mixed $customerId
+     *
      * @return array
      */
     public function getCardCollection($customerId)
@@ -455,15 +530,19 @@ class Data extends AbstractHelper
         $details = [];
         foreach ($cardList as $key => $cl) {
             $maskedCC = json_decode($cl->getDetails(), true);
-            $details[$key]['label'] = 'xxxx-' . $maskedCC['maskedCC'];
+            $details[$key]['label'] = 'xxxx-'.$maskedCC['maskedCC'];
             $details[$key]['value'] = $cl->getPublicHash();
         }
+
         return $details;
     }
 
     /**
-     * @param $customerId
-     * @param $publicHash
+     * Get card function.
+     *
+     * @param mixed $customerId
+     * @param mixed $publicHash
+     *
      * @return array
      */
     public function getCard($customerId, $publicHash)
@@ -475,50 +554,66 @@ class Data extends AbstractHelper
         if ($cardList) {
             $cardDetails = $cardList->getTokenDetails();
             $a = json_decode($cardDetails, true);
-            $details['cc_number'] = 'xxxx-' . $a['maskedCC'];
+            $details['cc_number'] = 'xxxx-'.$a['maskedCC'];
             foreach ($cardTypes as $code => $type) {
                 if ($code == $a['type']) {
                     $details['cc_type'] = $type;
                 }
             }
             $details['method_title'] = $paymentTitle->getTitle();
+
             return $details;
         }
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * Get selected id function.
+     *
+     * @param int $id
+     *
+     * @return int
      */
     public function getSelectedId($id)
     {
         $add = $this->addressRepository->get($id);
+
         return $add->getCustomerAddressId();
     }
 
     /**
+     * Subscription enable function.
+     *
      * @return mixed
      */
     public function isSubscriptionEnableHowMany()
     {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+
         return $this->scopeConfig->getValue(self::XML_PATH_ENABLE_HOWMANY, $storeScope);
     }
 
     /**
-     * @param $subscriptionId
-     * @return float|null
+     * Get default subscription function.
+     *
+     * @param mixed $subscriptionId
+     *
+     * @return null|float
      */
     public function getDefaultSubscriptionHowMany($subscriptionId)
     {
         $subscription = $this->subscriptionRepository->getById($subscriptionId);
+
         return $subscription->getHoWMany();
     }
 
     /**
-     * @param $subscriptionId
-     * @return \Magento\Framework\Phrase
+     * Get subfrequency data function.
+     *
+     * @param mixed $subscriptionId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return \Magento\Framework\Phrase
      */
     public function getSubFrequencyData($subscriptionId)
     {
@@ -526,11 +621,16 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @param $newQty
-     * @param $productId
-     * @return float
+     * Product custom price function.
+     *
+     * @param mixed $newQty
+     * @param mixed $productId
+     * @param mixed $downloadableLinks
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return float
      */
     public function getProductCustomPrice($newQty, $productId, $downloadableLinks)
     {
@@ -549,28 +649,42 @@ class Data extends AbstractHelper
                 }
             }
         }
-        if ($baseprice == self::FLOAT_VALUE || $baseprice <= $discount) {
+        if (self::FLOAT_VALUE == $baseprice || $baseprice <= $discount) {
             return $baseprice;
-        } else {
-            if ($discount != self::FLOAT_VALUE) {
-                $newPrice = $baseprice - $discount;
-            } else {
-                $newPrice = $baseprice;
-            }
-            return $newPrice;
         }
+        if (self::FLOAT_VALUE != $discount) {
+            $newPrice = $baseprice - $discount;
+        } else {
+            $newPrice = $baseprice;
+        }
+
+        return $newPrice;
     }
 
+    /**
+     * Get product type function.
+     *
+     * @param mixed $productId
+     *
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return null|string
+     */
     public function getProductType($productId)
     {
         $productData = $this->productRepository->getById($productId);
+
         return $subConfig = $productData->getTypeId();
     }
 
     /**
-     * @param $productId
-     * @return \Magento\Catalog\Api\Data\ProductInterface|mixed
+     * Get product function.
+     *
+     * @param mixed $productId
+     *
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return \Magento\Catalog\Api\Data\ProductInterface|mixed
      */
     public function getProduct($productId)
     {
@@ -580,11 +694,14 @@ class Data extends AbstractHelper
     /**
      * Enter description here...
      *
+     * @param mixed $productId
+     *
      * @return array
      */
     public function getLinks($productId)
     {
         return $this->getProduct($productId)->getTypeInstance(true)
-            ->getLinks($this->getProduct($productId));
+            ->getLinks($this->getProduct($productId))
+        ;
     }
 }

@@ -8,12 +8,11 @@ namespace Wagento\Subscription\Ui\Component\Listing\Column;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
-/**
- * Class Options
- */
 class StatusOptions implements OptionSourceInterface
 {
     /**
+     * Option Lable Array
+     *
      * @return array
      */
     public function toOptionArray()

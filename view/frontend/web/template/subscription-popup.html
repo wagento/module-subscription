@@ -1,8 +1,8 @@
 <!--
-    /**
-    * Copyright Wagento Creative LLC ©, All rights reserved.
-    * See COPYING.txt for license details.
-    */
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
 -->
 <div class="block-subscription"
      data-bind="afterRender: setModalElement"
@@ -16,7 +16,10 @@
             <div class="content">
                 <p class="content" data-bind="i18n: 'Are you sure, you want to unsubscribe this product?'"></p>
             </div>
-            <input id="un_product_id" name="product_id" type="hidden" data-bind="value:subscriptionProductId"/>
+            <input id="un_product_id"
+                   name="product_id"
+                   type="hidden"
+                   data-bind="value:subscriptionProductId"> </input>
             <div class="actions-toolbar">
                 <div class="primary">
                     <button type="submit" class="action action-unsubscribe secondary action delete"
@@ -45,12 +48,10 @@
                         <span data-bind="i18n: 'Name:'"></span>
                         <span data-bind="text: subscriptionName"></span>
                     </div>
-
                     <div class="field subscription-frequency">
                         <span data-bind="i18n: 'Frequency:'"></span>
                         <span data-bind="text: subscriptionFrequency"></span>
                     </div>
-
                     <!-- ko if: isEnableHowMany == "0" -->
                     <!-- ko if: howMany != "0" && howMany != ""-->
                     <div class="field subscription-howmany">
@@ -60,19 +61,16 @@
                     </div>
                     <!--/ko-->
                     <!--/ko-->
-
                     <div class="field subscription-discount">
                         <span data-bind="i18n: 'Discount:'"></span>
                         <span data-bind="text: subscriptionDiscount"></span>
                     </div>
-
                     <!-- ko if: costWithoutCurrency != "0.0000" -->
                     <div class="field subscription-fee">
                         <span data-bind="i18n: 'Fee:'"></span>
                         <span data-bind="text: subscriptionFee"></span>
                     </div>
                     <!--/ko-->
-
                 </div>
             </div>
         </div>
@@ -88,14 +86,13 @@
                         aria-level="2"
                         data-bind="i18n: 'Subscription Detail'"></strong>
             </div>
-            <br/>
+            <br>
             <div class="block-content">
                 <form class="form form-subscription"
                       method="post"
                       data-bind="event: {submit: subscribe }"
                       id="subscription-form">
                     <div class="fieldset login">
-
                         <div class="field subscription-howmany required">
                             <!-- ko if: isEnableHowMany == "1" -->
                             <span data-bind="i18n: 'Enter Subscription Cycle Number'"></span><em> * </em>
@@ -110,7 +107,6 @@
                                        data-bind="value: subHowMany"/>
                             </div>
                             <!-- /ko -->
-
                             <div class="field subscription-qty required">
                                 <span data-bind="i18n: 'Qty'"></span><em> *</em>
                                 <div class="control">
@@ -125,10 +121,16 @@
                                 </div>
                             </div>
                             <div>hola hola hola</div>
-                            <input id="product_id" name="product_id" type="hidden"
-                                   data-bind="value:subscriptionProductId"/>
-                            <input id="mysubscription" name="mysubscription" type="hidden"
-                                   data-bind="value: subSubscription"/>
+                            <input id="product_id"
+                                   name="product_id"
+                                   type="hidden"
+                                   data-bind="value:subscriptionProductId">
+                            </input>
+                            <input id="mysubscription"
+                                   name="mysubscription"
+                                   type="hidden"
+                                   data-bind="value: subSubscription">
+                            </input>
                         </div>
                         <div class="actions-toolbar">
                             <div class="primary">

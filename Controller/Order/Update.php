@@ -8,14 +8,10 @@ namespace Wagento\Subscription\Controller\Order;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\TemporaryState\CouldNotSaveException;
+use Wagento\Subscription\Model\SubscriptionSalesRepository;
 
-/**
- * Class Update
- * @package Wagento\Subscription\Controller\Order
- */
 class Update extends Action
 {
     /**
@@ -25,6 +21,7 @@ class Update extends Action
 
     /**
      * Update constructor.
+     *
      * @param Context $context
      * @param SubscriptionSalesRepository $subSalesRepository
      */
@@ -32,19 +29,21 @@ class Update extends Action
         Context $context,
         SubscriptionSalesRepository $subSalesRepository
     ) {
-    
         parent::__construct($context);
         $this->subSalesRepository = $subSalesRepository;
     }
 
     /**
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * Order update action.
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
         $data = $this->getRequest()->getParams();
+
         try {
             $subSales = $this->subSalesRepository->getById($data['order_id']);
             $subSales->setBillingAddressId($data['subscription-billing']);
@@ -58,6 +57,7 @@ class Update extends Action
         } catch (CouldNotSaveException $ex) {
             $this->messageManager->addErrorMessage(__($ex->getMessage()));
         }
+
         return $resultRedirect->setPath('subscription/order/view', ['order_id' => $data['order_id']]);
     }
 }

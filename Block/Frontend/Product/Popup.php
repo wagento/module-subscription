@@ -7,14 +7,10 @@
 namespace Wagento\Subscription\Block\Frontend\Product;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Wagento\Subscription\Helper\Data;
 use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
-use Wagento\Subscription\Helper\Data;
 
-/**
- * Class Popup
- * @package Wagento\Subscription\Block\Frontend\Product
- */
 class Popup extends \Magento\Catalog\Block\Product\View
 {
     /**
@@ -48,12 +44,18 @@ class Popup extends \Magento\Catalog\Block\Product\View
     public $productId;
 
     /**
-     * @var
+     * @var  array|string
      */
     public $jsonEncoder;
 
     /**
+     * @var \Magento\Framework\Pricing\Helper\Data
+     */
+    protected $priceHelper;
+
+    /**
      * Popup constructor.
+     *
      * @param \Magento\Catalog\Block\Product\Context $context
      * @param \Magento\Framework\Url\EncoderInterface $urlEncoder
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -68,6 +70,7 @@ class Popup extends \Magento\Catalog\Block\Product\View
      * @param SubscriptionFactory $subscriptionFactory
      * @param ProductFactory $productFactory
      * @param Data $helper
+     * @param \Magento\Framework\Pricing\Helper\Data $priceHelper
      * @param array $data
      */
     public function __construct(
@@ -85,6 +88,7 @@ class Popup extends \Magento\Catalog\Block\Product\View
         SubscriptionFactory $subscriptionFactory,
         ProductFactory $productFactory,
         Data $helper,
+        \Magento\Framework\Pricing\Helper\Data $priceHelper,
         array $data = []
     ) {
         parent::__construct(
@@ -102,14 +106,19 @@ class Popup extends \Magento\Catalog\Block\Product\View
         );
 
         $this->productFactory = $productFactory->create()->getCollection()
-            ->addFieldToFilter('product_id', ['eq' => $this->getProductId()]);
+            ->addFieldToFilter('product_id', ['eq' => $this->getProductId()])
+        ;
         $this->subscriptionFactory = $subscriptionFactory->create()
-            ->load($this->returnSubscriptionId($this->productFactory));
+            ->load($this->returnSubscriptionId($this->productFactory))
+        ;
         $this->cart = $cart;
         $this->helper = $helper;
+        $this->priceHelper = $priceHelper;
     }
 
     /**
+     * Get subscription name.
+     *
      * @return null|string
      */
     public function getSubscriptionName()
@@ -118,7 +127,9 @@ class Popup extends \Magento\Catalog\Block\Product\View
     }
 
     /**
-     * @return float|null
+     * Get subscription fee.
+     *
+     * @return null|float
      */
     public function getSubscriptionFee()
     {
@@ -126,28 +137,35 @@ class Popup extends \Magento\Catalog\Block\Product\View
     }
 
     /**
+     * Get subscription frequency.
+     *
      * @return string
      */
     public function getSubscriptionFrequency()
     {
         $frequency = $this->subscriptionFactory->getFrequency();
+
         return $this->helper->getSubscriptionFrequency($frequency);
     }
 
     /**
-     * @return float|null
+     * Get no of subscription.
+     *
+     * @return null|float
      */
     public function getSubscriptionHowMany()
     {
         $howMany = $this->subscriptionFactory->getHowMany();
-        if (isset($howMany) && $howMany != 0) {
+        if (isset($howMany) && 0 != $howMany) {
             return $howMany;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
+     * Get subscription discount.
+     *
      * @return float
      */
     public function getSubscriptionDiscount()
@@ -156,6 +174,8 @@ class Popup extends \Magento\Catalog\Block\Product\View
     }
 
     /**
+     * Get subscription id.
+     *
      * @return mixed
      */
     public function getSubscriptionId()
@@ -164,6 +184,8 @@ class Popup extends \Magento\Catalog\Block\Product\View
     }
 
     /**
+     * Get product id.
+     *
      * @return int
      */
     public function getProductId()
@@ -175,8 +197,11 @@ class Popup extends \Magento\Catalog\Block\Product\View
     }
 
     /**
-     * @param $product_id
-     * @return boolean
+     * Get no fo products in cart.
+     *
+     * @param mixed $product_id
+     *
+     * @return bool
      */
     public function getProductInCart($product_id)
     {
@@ -185,14 +210,51 @@ class Popup extends \Magento\Catalog\Block\Product\View
         foreach ($items as $item) {
             if ($item->getData('product_id') == $product_id && $item->getData('is_subscribed')) {
                 $found = 1;
+
                 break;
             }
         }
+
         return $found;
     }
 
     /**
-     * @param $productCollector
+     * Enable no of subscription.
+     *
+     * @return mixed
+     */
+    public function isEnableHowMany()
+    {
+        return $this->helper->isSubscriptionEnableHowMany();
+    }
+
+    /**
+     * No of subscription unit.
+     *
+     * @return string
+     */
+    public function getHowManyUnit()
+    {
+        $frequency = $this->subscriptionFactory->getFrequency();
+
+        return $this->helper->getHowManyUnits($frequency);
+    }
+
+    /**
+     * Get product type.
+     *
+     * @return array|string
+     */
+    public function getProductType()
+    {
+        return $this->_coreRegistry->registry('product')->getTypeId();
+    }
+
+    /**
+     * Return subscription id.
+     *
+     * @param mixed $productCollector
+     *
      * @return mixed
      */
     private function returnSubscriptionId($productCollector)
@@ -203,28 +265,13 @@ class Popup extends \Magento\Catalog\Block\Product\View
     }
 
     /**
-     * @return mixed
+     * Get formatted Price.
+     *
+     * @param mixed $price
+     * @return float|string
      */
-    public function isEnableHowMany()
+    public function getFormattedPrice($price)
     {
-        return $this->helper->isSubscriptionEnableHowMany();
-    }
-
-    /**
-     * @return string
-     */
-    public function getHowManyUnit()
-    {
-        $frequency = $this->subscriptionFactory->getFrequency();
-        $howManyUnit = $this->helper->getHowManyUnits($frequency);
-        return $howManyUnit;
-    }
-
-    /**
-     * @return array|string
-     */
-    public function getProductType()
-    {
-        return $this->_coreRegistry->registry('product')->getTypeId();
+        return $this->priceHelper->currency($price, true, false);
     }
 }

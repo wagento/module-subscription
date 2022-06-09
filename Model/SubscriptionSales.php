@@ -8,18 +8,16 @@ namespace Wagento\Subscription\Model;
 
 use Wagento\Subscription\Api\Data\SalesSubscriptionInterface;
 
-/**
- * Class SubscriptionSales
- * @package Wagento\Subscription\Model
- */
 class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implements SalesSubscriptionInterface
 {
     /**
      * Initialize resource model.
+     *
+     * @return void
      */
     protected function _construct()
     {
-        $this->_init('Wagento\Subscription\Model\ResourceModel\SubscriptionSales');
+        $this->_init(\Wagento\Subscription\Model\ResourceModel\SubscriptionSales::class);
     }
 
     /**
@@ -33,6 +31,8 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
+     * Set id function.
+     *
      * @param int|mixed $entityId
      * @return $this
      */
@@ -42,6 +42,8 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
+     * Get customer id function.
+     *
      * @return mixed
      */
     public function getCustomerId()
@@ -50,8 +52,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $customerId
-     * @return mixed
+     * Set customer id function.
+     *
+     * @param int $customerId
+     * @return mixed|SubscriptionSales
      */
     public function setCustomerId($customerId)
     {
@@ -59,6 +63,8 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
+     * Get subscribe order id.
+     *
      * @return mixed
      */
     public function getSubscribeOrderId()
@@ -67,8 +73,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subscribeOrderId
-     * @return mixed
+     * Set subscribe order id function.
+     *
+     * @param int $subscribeOrderId
+     * @return mixed|SubscriptionSales
      */
     public function setSubscribeOrderId($subscribeOrderId)
     {
@@ -76,7 +84,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get status function.
+     *
+     * @return array|mixed|null
      */
     public function getStatus()
     {
@@ -84,8 +94,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $status
-     * @return mixed
+     * Set stutus function.
+     *
+     * @param mixed $status
+     * @return mixed|SubscriptionSales
      */
     public function setStatus($status)
     {
@@ -93,7 +105,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get last renewed function.
+     *
+     * @return array|mixed|null
      */
     public function getLastRenewed()
     {
@@ -101,8 +115,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $lastRenewed
-     * @return mixed
+     * Set last renewed function.
+     *
+     * @param mixed $lastRenewed
+     * @return mixed|SubscriptionSales
      */
     public function setLastRenewed($lastRenewed)
     {
@@ -110,7 +126,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get next renewed function.
+     *
+     * @return array|mixed|null
      */
     public function getNextRenewed()
     {
@@ -118,8 +136,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $nextRenewed
-     * @return mixed
+     * Set next renewed function.
+     *
+     * @param string $nextRenewed
+     * @return mixed|SubscriptionSales
      */
     public function setNextRenewed($nextRenewed)
     {
@@ -127,7 +147,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get createdat function.
+     *
+     * @return array|mixed|null
      */
     public function getCreatedAt()
     {
@@ -135,8 +157,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $createdAt
-     * @return mixed
+     * Set createdat function.
+     *
+     * @param mixed $createdAt
+     * @return mixed|SubscriptionSales
      */
     public function setCreatedAt($createdAt)
     {
@@ -144,7 +168,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get updatedat function.
+     *
+     * @return array|mixed|null
      */
     public function getUpdatedAt()
     {
@@ -152,8 +178,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $updatedAt
-     * @return mixed
+     * Set updatedat function.
+     *
+     * @param mixed $updatedAt
+     * @return mixed|SubscriptionSales
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -161,7 +189,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get storeid function.
+     *
+     * @return array|mixed|null
      */
     public function getStoreId()
     {
@@ -169,8 +199,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $storeId
-     * @return mixed
+     * Set store id function.
+     *
+     * @param mixed $storeId
+     * @return mixed|SubscriptionSales
      */
     public function setStoreId($storeId)
     {
@@ -178,7 +210,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get sub start date function.
+     *
+     * @return array|mixed|null
      */
     public function getSubStartDate()
     {
@@ -186,8 +220,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subStartDate
-     * @return mixed
+     * Set substart date id.
+     *
+     * @param mixed $subStartDate
+     * @return mixed|SubscriptionSales
      */
     public function setSubStartDate($subStartDate)
     {
@@ -195,7 +231,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get sub order itemid function.
+     *
+     * @return array|mixed|null
      */
     public function getSubOrderItemId()
     {
@@ -203,8 +241,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subOrderItemId
-     * @return mixed
+     * Set suborder itemid function.
+     *
+     * @param mixed $subOrderItemId
+     * @return mixed|SubscriptionSales
      */
     public function setSubOrderItemId($subOrderItemId)
     {
@@ -212,7 +252,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get howmany function key.
+     *
+     * @return array|mixed|null
      */
     public function getHowMany()
     {
@@ -220,8 +262,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $howmMany
-     * @return mixed
+     * Set howmany function key.
+     *
+     * @param mixed $howmMany
+     * @return mixed|SubscriptionSales
      */
     public function setHowMany($howmMany)
     {
@@ -229,7 +273,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get billing count function.
+     *
+     * @return array|mixed|null
      */
     public function getBillingCount()
     {
@@ -237,8 +283,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $billingCount
-     * @return mixed
+     * Set billing count function.
+     *
+     * @param mixed $billingCount
+     * @return mixed|SubscriptionSales
      */
     public function setBillingCount($billingCount)
     {
@@ -246,7 +294,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get billing address id function.
+     *
+     * @return array|mixed|null
      */
     public function getBillingAddressId()
     {
@@ -254,8 +304,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $billingAddressId
-     * @return mixed
+     * Set billing address id.
+     *
+     * @param mixed $billingAddressId
+     * @return mixed|SubscriptionSales
      */
     public function setBillingAddressId($billingAddressId)
     {
@@ -263,7 +315,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get shipping address id.
+     *
+     * @return array|mixed|null
      */
     public function getShippingAddressId()
     {
@@ -271,8 +325,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $shippingAddressId
-     * @return mixed
+     * Set shipping address id.
+     *
+     * @param mixed $shippingAddressId
+     * @return mixed|SubscriptionSales
      */
     public function setShippingAddressId($shippingAddressId)
     {
@@ -280,7 +336,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get publichash function.
+     *
+     * @return array|mixed|null
      */
     public function getPublicHash()
     {
@@ -288,8 +346,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $publicHash
-     * @return mixed
+     * Set publichash function.
+     *
+     * @param mixed $publicHash
+     * @return mixed|SubscriptionSales
      */
     public function setPublicHash($publicHash)
     {
@@ -297,7 +357,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get subname function.
+     *
+     * @return array|mixed|null
      */
     public function getSubName()
     {
@@ -305,8 +367,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subName
-     * @return mixed
+     * Set sub name function.
+     *
+     * @param mixed $subName
+     * @return mixed|SubscriptionSales
      */
     public function setSubName($subName)
     {
@@ -314,7 +378,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get sub frequency function.
+     *
+     * @return array|mixed|null
      */
     public function getSubFrequency()
     {
@@ -322,8 +388,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subFrequency
-     * @return mixed
+     * Set sub frequency function.
+     *
+     * @param mixed $subFrequency
+     * @return mixed|SubscriptionSales
      */
     public function setSubFrequency($subFrequency)
     {
@@ -331,7 +399,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get sub fee function.
+     *
+     * @return array|mixed|null
      */
     public function getSubFee()
     {
@@ -339,16 +409,20 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subFee
-     * @return mixed
+     * Set sub fee function.
+     *
+     * @param mixed $subFee
+     * @return mixed|SubscriptionSales
      */
     public function setSubFee($subFee)
     {
-        return $this->setData(self::SUB_FEE,$subFee);
+        return $this->setData(self::SUB_FEE, $subFee);
     }
 
     /**
-     * @return mixed
+     * Get sub discount function.
+     *
+     * @return array|mixed|null
      */
     public function getSubDiscount()
     {
@@ -356,8 +430,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subDiscount
-     * @return mixed
+     * Set sub discount function.
+     *
+     * @param mixed $subDiscount
+     * @return mixed|SubscriptionSales
      */
     public function setSubDiscount($subDiscount)
     {
@@ -365,7 +441,9 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @return mixed
+     * Get sub product id function.
+     *
+     * @return array|mixed|null
      */
     public function getSubProductId()
     {
@@ -373,8 +451,10 @@ class SubscriptionSales extends \Magento\Framework\Model\AbstractModel implement
     }
 
     /**
-     * @param $subProductId
-     * @return mixed
+     * Set sub product date function.
+     *
+     * @param mixed $subProductId
+     * @return mixed|SubscriptionSales
      */
     public function setSubProductId($subProductId)
     {

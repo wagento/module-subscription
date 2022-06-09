@@ -7,36 +7,36 @@
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
 ?>
-<?php if ($block->isProductVisibleInSiteVisibility()): ?>
+<?php if ($block->isProductVisibleInSiteVisibility()) { ?>
     <?php
     $itemId = $block->getItem()->getId();
     $productId = $block->getItem()->getProductId();
     $isSubscribed = $block->getItem()->getIsSubscribed();
-    $actionSubscription = ($isSubscribed) ? "Unsubscribe" : "Subscribe";
+    $actionSubscription = ($isSubscribed) ? 'Unsubscribe' : 'Subscribe';
     $productType = $subHelper->getProductType($productId);
     ?>
     <!-- Show Subscription popup Only for non subscription Items-->
     <?php $subscriptionOptions = $subHelper->getSubscriptionConfigurations($productId); ?>
-    <?php if ($subscriptionOptions == 'optional' || $subscriptionOptions == 'subscription_only'): ?>
-        <?php //if(!$isSubscribed): ?>
+    <?php if ('optional' == $subscriptionOptions || 'subscription_only' == $subscriptionOptions) { ?>
+        <?php // if(!$isSubscribed):?>
         <div class="field subscription">
-            <input type="checkbox" id="subscriptionPopup<?= $itemId ?>"
-                   data-bind="scope: subscriptionPopup<?= $itemId ?>"
-                   data-role="subscriptionPopup<?= $itemId ?>"
-                   class="subscriptionPopup<?= $itemId ?> subscriptionPopup<?= $actionSubscription?><?= $itemId ?>"
-                   title="<?= $subHelper->getProductOptionLabel() ?>" class="checkbox"
-                   <?php if($isSubscribed): ?> checked="checked" <?php endif; ?>
+            <input type="checkbox" id="subscriptionPopup<?php echo $itemId; ?>"
+                   data-bind="scope: subscriptionPopup<?php echo $itemId; ?>"
+                   data-role="subscriptionPopup<?php echo $itemId; ?>"
+                   class="subscriptionPopup<?php echo $itemId; ?> subscriptionPopup<?php echo $actionSubscription; ?><?php echo $itemId; ?>"
+                   title="<?php echo $subHelper->getProductOptionLabel(); ?>" class="checkbox"
+                   <?php if ($isSubscribed) { ?> checked="checked" <?php } ?>
             >
             <label class="label" for="product_subscription">
                 <span>
                     <!--get label value from system configurations -->
-                    <?= $subHelper->getProductOptionLabel() ?>
+                    <?php echo $subHelper->getProductOptionLabel(); ?>
                 </span>
             </label>
         </div>
         <?php $subId = $subHelper->getSubscriptionId($productId); ?>
         <!-- if subscription plan assigned start -->
-        <?php if (isset($subId)) : ?>
+        <?php if (isset($subId)) { ?>
             <?php
             $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
             $fee = $priceHelper->currency(number_format($subHelper->getSubFee($subId), 2), true, false);
@@ -48,37 +48,37 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
             $_isRequired = $subHelperLinks->getLinkSelectionRequired($productId);
             $_links = $subHelperLinks->getLinks($productId);
             ?>
-            <div id="subscriptionPopup<?= $itemId ?>" data-bind="scope:'subscriptionPopup<?= $itemId ?>'"
-                 data-role="subscriptionPopup<?= $itemId ?>" class="subscriptionPopup<?= $itemId ?>">
+            <div id="subscriptionPopup<?php echo $itemId; ?>" data-bind="scope:'subscriptionPopup<?php echo $itemId; ?>'"
+                 data-role="subscriptionPopup<?php echo $itemId; ?>" class="subscriptionPopup<?php echo $itemId; ?>">
 
                 <!-- ko template: getTemplate() --><!-- /ko -->
                 <script type="text/x-magento-init">
                 {
-                    "#subscriptionPopup<?php echo $itemId ?>": {
+                    "#subscriptionPopup<?php echo $itemId; ?>": {
                         "Magento_Ui/js/core/app": {
                             "components": {
-                                "subscriptionPopup<?php echo $itemId ?>": {
+                                "subscriptionPopup<?php echo $itemId; ?>": {
                                     "component": "Wagento_Subscription/js/view/subscription-popup-cart",
                                     "isVisible": true,
-                                    "subsname": "<?php echo $subHelper->getSubName($subId) ?>",
-                                    "frequency": "<?php echo $subHelper->getSubFrequency($subId) ?>",
-                                    "discountWithoutCurrency": "<?php echo $subHelper->getSubscriptionDiscount($subId) ?>",
-                                    "discount": "<?php echo $discount ?>",
-                                    "cost": "<?php echo $fee ?>",
-                                    "costWithoutCurrency": "<?php echo $subHelper->getSubFee($subId) ?>",
-                                    "subscriptionId" : "<?php echo $subHelper->getSubscriptionId($productId) ?>",
-                                    "state": "<?php echo $actionSubscription ?>",
-                                    "productId" : "<?php echo $productId ?>",
-                                    "itemId":"<?php echo $itemId ?>",
-                                    "howMany" : "<?php echo $subHelper->getDefaultSubscriptionHowMany($subId) ?>",
-                                    "isEnableHowMany" : "<?php echo $subHelper->isSubscriptionEnableHowMany() ?>",
-                                    "howManyUnit": "<?php echo $subHelper->getHowManyUnits($subId) ?>",
-                                    "linksPurchasedSeparately" : "<?php echo $_linksPurchasedSeparately ?>",
-                                    "isSaleable" : "<?php echo $isSaleable ?>",
-                                    "hasLinks" : "<?php echo $hasLinks ?>",
-                                    "linksTitle" : "<?php echo $getLinksTitle ?>",
-                                    "isRequired" : "<?php echo $_isRequired ?>",
-                                    "links" : <?php echo \Zend_Json::encode($subHelperLinks->getLinks($productId)) ?>
+                                    "subsname": "<?php echo $subHelper->getSubName($subId); ?>",
+                                    "frequency": "<?php echo $subHelper->getSubFrequency($subId); ?>",
+                                    "discountWithoutCurrency": "<?php echo $subHelper->getSubscriptionDiscount($subId); ?>",
+                                    "discount": "<?php echo $discount; ?>",
+                                    "cost": "<?php echo $fee; ?>",
+                                    "costWithoutCurrency": "<?php echo $subHelper->getSubFee($subId); ?>",
+                                    "subscriptionId" : "<?php echo $subHelper->getSubscriptionId($productId); ?>",
+                                    "state": "<?php echo $actionSubscription; ?>",
+                                    "productId" : "<?php echo $productId; ?>",
+                                    "itemId":"<?php echo $itemId; ?>",
+                                    "howMany" : "<?php echo $subHelper->getDefaultSubscriptionHowMany($subId); ?>",
+                                    "isEnableHowMany" : "<?php echo $subHelper->isSubscriptionEnableHowMany(); ?>",
+                                    "howManyUnit": "<?php echo $subHelper->getHowManyUnits($subId); ?>",
+                                    "linksPurchasedSeparately" : "<?php echo $_linksPurchasedSeparately; ?>",
+                                    "isSaleable" : "<?php echo $isSaleable; ?>",
+                                    "hasLinks" : "<?php echo $hasLinks; ?>",
+                                    "linksTitle" : "<?php echo $getLinksTitle; ?>",
+                                    "isRequired" : "<?php echo $_isRequired; ?>",
+                                    "links" : <?php echo \Zend_Json::encode($subHelperLinks->getLinks($productId)); ?>
                                 }
                             }
                         }
@@ -87,7 +87,7 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
 
                 </script>
             </div>
-        <?php endif; ?>
+        <?php } ?>
         <!-- if subscription plan assigned End -->
-    <?php endif; ?>
-<?php endif ?>
+    <?php } ?>
+<?php } ?>

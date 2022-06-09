@@ -5,10 +5,7 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Sales;
-/**
- * Class Index
- * @package Wagento\Subscription\Controller\Adminhtml\Sales
- */
+
 class Index extends \Magento\Backend\App\Action
 {
     /**
@@ -24,7 +21,7 @@ class Index extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
     ) {
-    
+
         parent::__construct($context);
         $this->_resultPageFactory = $resultPageFactory;
     }

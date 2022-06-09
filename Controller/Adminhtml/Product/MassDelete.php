@@ -16,10 +16,6 @@ use Wagento\Subscription\Model\ProductFactory;
 use Wagento\Subscription\Model\SubscriptionFactory;
 use Wagento\Subscription\Model\SubscriptionSalesFactory;
 
-/**
- * Class MassDelete
- * @package Wagento\Subscription\Controller\Adminhtml\Product
- */
 class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelete
 {
     /**
@@ -61,7 +57,7 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
         ProductFactory $productFactory,
         SubscriptionSalesFactory $subscriptionSalesFactory
     ) {
-    
+
         parent::__construct($context, $productBuilder, $filter, $collectionFactory, $productRepository);
         $this->productRepository = $productRepository;
         $this->subscriptionFactory = $subscriptionFactory;
@@ -70,6 +66,8 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
     }
 
     /**
+     * MassDelete execute function
+     *
      * @return \Magento\Backend\Model\View\Result\Redirect
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
@@ -81,11 +79,12 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
         $productDeleted = 0;
         $productSubscribes = 0;
         $productSalesSubscribes = 0;
-        
+
         /** @var \Magento\Catalog\Model\Product $product */
         foreach ($collection->getItems() as $product) {
             $productData = $this->productRepository->getById($product->getId());
-            $subOptions =  $productData->getResource()->getAttribute('subscription_configurate')->getFrontend()->getValue($productData);
+            $subOptions =  $productData->getResource()->getAttribute('subscription_configurate')
+                            ->getFrontend()->getValue($productData);
 
             if (in_array($product->getId(), $this->getIdProductsSubscription()) == true && $subOptions!='no') {
                 if (in_array($product->getId(), $this->getIdProductsSubscriptionSales()) == true) {
@@ -105,19 +104,22 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
 
         if ($productSubscribes > 0 && $productSalesSubscribes > 0) {
             $this->messageManager->addNoticeMessage(
-                __('%1 products were not deleted, because they have some associated subscription plans and subscription profiles.', $productSubscribes)
+                __('%1 products were not deleted, because they have some
+                associated subscription plans and subscription profiles.', $productSubscribes)
             );
         }
 
         if ($productSubscribes > 0 && $productSalesSubscribes == 0) {
             $this->messageManager->addNoticeMessage(
-                __('%1 products were not deleted, because they have some associated subscription plans.', $productSubscribes)
+                __('%1 products were not deleted, because they have some
+                associated subscription plans.', $productSubscribes)
             );
         }
 
         if ($productSalesSubscribes > 0 && $productSubscribes==0) {
             $this->messageManager->addNoticeMessage(
-                __('%1 products were not deleted, because they have some associated subscription profiles.', $productSubscribes)
+                __('%1 products were not deleted, because they have some
+                associated subscription profiles.', $productSubscribes)
             );
         }
 
@@ -130,6 +132,8 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
     }
 
     /**
+     * Id products subscription products
+     *
      * @return array
      */
     private function getIdProductsSubscription()
@@ -138,6 +142,8 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
     }
 
     /**
+     * Id products subscription sales
+     *
      * @return array
      */
     private function getIdProductsSubscriptionSales()

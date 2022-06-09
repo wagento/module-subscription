@@ -11,14 +11,10 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 
-/**
- * Class Action
- * @package Wagento\Subscription\Ui\Component\Listing\Sales\Grid\Column
- */
 class Action extends Column
 {
     /** Url path */
-    const ROW_EDIT_URL = 'subscription/sales/view';
+    protected const ROW_EDIT_URL = 'subscription/sales/view';
 
     /** @var UrlInterface */
     protected $_urlBuilder;
@@ -44,7 +40,7 @@ class Action extends Column
         array $data = [],
         $editUrl = self::ROW_EDIT_URL
     ) {
-    
+
         $this->_urlBuilder = $urlBuilder;
         $this->_editUrl = $editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);

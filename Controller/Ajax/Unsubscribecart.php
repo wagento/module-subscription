@@ -10,10 +10,6 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\UrlInterface;
 
-/**
- * Class Unsubscribecart
- * @package Wagento\Subscription\Controller\Ajax
- */
 class Unsubscribecart extends \Magento\Framework\App\Action\Action
 {
 
@@ -102,6 +98,8 @@ class Unsubscribecart extends \Magento\Framework\App\Action\Action
     }
 
     /**
+     * Unsubscribecart execute function
+     *
      * @return ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()

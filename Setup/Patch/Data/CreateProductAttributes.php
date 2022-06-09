@@ -4,49 +4,50 @@
  * See COPYING.txt for license details.
  */
 
-namespace Wagento\Subscription\Setup;
+namespace Wagento\Subscription\Setup\Patch\Data;
 
-use Magento\Framework\Setup\InstallDataInterface;
-use Magento\Framework\Setup\ModuleContextInterface;
-use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Eav\Setup\EavSetup;
 use Magento\Eav\Setup\EavSetupFactory;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Framework\Setup\Patch\DataPatchInterface;
 
-/**
- * Class InstallData
- * @package Wagento\Subscription\Setup
- */
-class InstallData implements InstallDataInterface
+class CreateProductAttributes implements DataPatchInterface
 {
+    /**
+     * ModuleDataSetupInterface.
+     *
+     * @var ModuleDataSetupInterface
+     */
+    private $moduleDataSetup;
+
     /**
      * @var EavSetupFactory
      */
     private $eavSetupFactory;
-    /**
-     * @var ModuleDataSetupInterface
-     */
-    private $eavSetup;
 
     /**
-     * InstallData constructor.
+     * @param ModuleDataSetupInterface $moduleDataSetup
      * @param EavSetupFactory $eavSetupFactory
-     * @param ModuleDataSetupInterface $eavSetup
      */
-    public function __construct(EavSetupFactory $eavSetupFactory, ModuleDataSetupInterface $eavSetup)
-    {
+    public function __construct(
+        ModuleDataSetupInterface $moduleDataSetup,
+        EavSetupFactory $eavSetupFactory
+    ) {
+        $this->moduleDataSetup = $moduleDataSetup;
         $this->eavSetupFactory = $eavSetupFactory;
-        $this->eavSetup = $eavSetup;
     }
 
     /**
-     * @param ModuleDataSetupInterface $setup
-     * @param ModuleContextInterface $context
+     * Apply new attribute function.
+     *
+     * @return void|CreateProductAttributes
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Zend_Validate_Exception
      */
-    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    public function apply()
     {
-        $installer = $setup;
-        $installer->startSetup();
-
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $this->eavSetup]);
+        /** @var EavSetup $eavSetup */
+        $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
 
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
@@ -70,7 +71,7 @@ class InstallData implements InstallDataInterface
                 'used_in_product_listing' => true,
                 'unique' => false,
                 'apply_to' => 'simple,downloadable,virtual',
-                'group' => 'Subscription Options'
+                'group' => 'Subscription Options',
             ]
         );
 
@@ -96,8 +97,28 @@ class InstallData implements InstallDataInterface
                 'used_in_product_listing' => true,
                 'unique' => false,
                 'apply_to' => 'simple,downloadable,virtual',
-                'group' => 'Subscription Options'
+                'group' => 'Subscription Options',
             ]
         );
+    }
+
+    /**
+     * Get dependencies function.
+     *
+     * @return array|string[]
+     */
+    public static function getDependencies()
+    {
+        return [];
+    }
+
+    /**
+     * Get aliases function.
+     *
+     * @return array|string[]
+     */
+    public function getAliases()
+    {
+        return [];
     }
 }

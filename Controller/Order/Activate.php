@@ -8,22 +8,19 @@ namespace Wagento\Subscription\Controller\Order;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
-use Wagento\Subscription\Model\SubscriptionSalesRepository;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\TemporaryState\CouldNotSaveException;
 use Wagento\Subscription\Helper\Email;
+use Wagento\Subscription\Model\SubscriptionSalesRepository;
 
-/**
- * Class Activate
- * @package Wagento\Subscription\Controller\Order
- */
 class Activate extends Action
 {
-    const XML_PATH_EMAIL_TEMPLATE_FIELD_RECIEVER = 'braintree_subscription/email_config/email_reciever';
-    const XML_PATH_EMAIL_TEMPLATE_ENABLE = 'braintree_subscription/email_config/enable_email';
-    const XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS = 'braintree_subscription/email_config/email_options';
+    public const XML_PATH_EMAIL_TEMPLATE_FIELD_RECIEVER = 'braintree_subscription/email_config/email_reciever';
+    public const XML_PATH_EMAIL_TEMPLATE_ENABLE = 'braintree_subscription/email_config/enable_email';
+    public const XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS = 'braintree_subscription/email_config/email_options';
 
-    const SUB_STATUS_ACTIVATE = 1;
+    public const SUB_STATUS_ACTIVATE = 1;
+
     /**
      * @var SubscriptionSalesRepository
      */
@@ -41,6 +38,7 @@ class Activate extends Action
 
     /**
      * Activate constructor.
+     *
      * @param Context $context
      * @param SubscriptionSalesRepository $subSalesRepository
      * @param Email $emailHelper
@@ -52,7 +50,6 @@ class Activate extends Action
         Email $emailHelper,
         \Psr\Log\LoggerInterface $logger
     ) {
-    
         parent::__construct($context);
         $this->subSalesRepository = $subSalesRepository;
         $this->emailHelper = $emailHelper;
@@ -60,9 +57,12 @@ class Activate extends Action
     }
 
     /**
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     * Activate execute function.
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     *
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
@@ -75,25 +75,30 @@ class Activate extends Action
             $customerId = $subSales->getCustomerId();
             $id = $subSales->save()->getId();
             $getIsEnable = $this->emailHelper->getIsEmailConfigEnable(self::XML_PATH_EMAIL_TEMPLATE_ENABLE);
-            $getIsSelectChangeStatusEmail = $this->emailHelper->getIsStatusChangeEmailAdmin(self::XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS);
-            if ($getIsEnable == 1 && $getIsSelectChangeStatusEmail == 1) {
-                //send email to customer
-                $emailTempVariables = $this->emailHelper->getStatusEmailVariables($id, self::SUB_STATUS_ACTIVATE, $customerId);
+            $getIsSelectChangeStatusEmail = $this->emailHelper
+                ->getIsStatusChangeEmailAdmin(self::XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS)
+            ;
+            if (1 == $getIsEnable && 1 == $getIsSelectChangeStatusEmail) {
+                // send email to customer
+                $emailTempVariables = $this->emailHelper
+                    ->getStatusEmailVariables($id, self::SUB_STATUS_ACTIVATE, $customerId)
+                ;
                 $receiverInfo = $this->emailHelper->getEmailSenderInfo(self::XML_PATH_EMAIL_TEMPLATE_FIELD_RECIEVER);
                 $senderInfo = $this->emailHelper->getRecieverInfo($customerId);
                 $result = $this->emailHelper->sentStatusChangeEmail($emailTempVariables, $senderInfo, $receiverInfo);
                 if (isset($result['success'])) {
-                    $message = __('Subscription Status Change Email Sent Successfully %1' . $receiverInfo['email']);
-                    $this->logger->info((string)$message);
+                    $message = __('Subscription Status Change Email Sent Successfully %1'.$receiverInfo['email']);
+                    $this->logger->info((string) $message);
                 } elseif (isset($result['error'])) {
                     $message = __($result['error_msg']);
-                    $this->logger->info((string)$message);
+                    $this->logger->info((string) $message);
                 }
                 $this->messageManager->addSuccessMessage(__('Subscription Profile #%1 Reactivated Successfully.', $id));
             }
         } catch (CouldNotSaveException $ex) {
             $this->messageManager->addErrorMessage(__($ex->getMessage()));
         }
+
         return $resultRedirect->setPath('subscription/order/view', ['order_id' => $data['order_id']]);
     }
 }

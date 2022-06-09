@@ -10,262 +10,363 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface SalesSubscriptionInterface extends ExtensibleDataInterface
 {
-    /**#@+
-     * Constants defined for keys of the data array. Identical to the name of the getter in snake case
+    /**
+     * Constants defined for keys of the data array. Identical to the name of the getter in snake case.
      */
-    const ID = 'id';
-    const CUSTOMER_ID = 'customer_id';
-    const SUBSCRIBE_ORDER_ID = 'subscribe_order_id';
-    const STATUS = 'status';
-    const LAST_RENEWED = 'last_renewed';
-    const NEXT_RENEWED = 'next_renewed';
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
-    const STORE_ID = 'store_id';
-    const SUB_START_DATE = 'sub_start_date';
-    const SUB_ORDER_ITEM_ID = 'sub_order_item_id';
-    const HOW_MANY = 'how_many';
-    const BILLING_COUNT = 'billing_count';
-    const BILLING_ADDRESS_ID = 'billing_address_id';
-    const SHIPPING_ADDRESS_ID = 'shipping_address_id';
-    const PUBLIC_HASH = 'public_hash';
-    const SUB_NAME = 'sub_name';
-    const SUB_FREQUENCY = 'sub_frequency';
-    const SUB_FEE = 'sub_fee';
-    const SUB_DISCOUNT = 'sub_discount';
-    const SUB_PRODUCT_ID = 'sub_product_id';
+    public const ID = 'id';
+    public const CUSTOMER_ID = 'customer_id';
+    public const SUBSCRIBE_ORDER_ID = 'subscribe_order_id';
+    public const STATUS = 'status';
+    public const LAST_RENEWED = 'last_renewed';
+    public const NEXT_RENEWED = 'next_renewed';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
+    public const STORE_ID = 'store_id';
+    public const SUB_START_DATE = 'sub_start_date';
+    public const SUB_ORDER_ITEM_ID = 'sub_order_item_id';
+    public const HOW_MANY = 'how_many';
+    public const BILLING_COUNT = 'billing_count';
+    public const BILLING_ADDRESS_ID = 'billing_address_id';
+    public const SHIPPING_ADDRESS_ID = 'shipping_address_id';
+    public const PUBLIC_HASH = 'public_hash';
+    public const SUB_NAME = 'sub_name';
+    public const SUB_FREQUENCY = 'sub_frequency';
+    public const SUB_FEE = 'sub_fee';
+    public const SUB_DISCOUNT = 'sub_discount';
+    public const SUB_PRODUCT_ID = 'sub_product_id';
 
     /**
-     * Get Id
+     * Get Id.
      *
-     * @return int|null
+     * @return null|int
      */
     public function getId();
 
     /**
-     * Set Id
+     * Set Id.
      *
      * @param int $id
+     *
      * @return $this
      */
     public function setId($id);
 
     /**
+     * Get customer id.
+     *
      * @return mixed
      */
     public function getCustomerId();
 
     /**
-     * @param $customerId
+     * Set customer id.
+     *
+     * @param mixed $customerId
+     *
      * @return mixed
      */
     public function setCustomerId($customerId);
 
     /**
+     * Get subscribeorder id.
+     *
      * @return mixed
      */
     public function getSubscribeOrderId();
 
     /**
-     * @param $subscribeOrderId
+     * Set subscribeorder id.
+     *
+     * @param mixed $subscribeOrderId
+     *
      * @return mixed
      */
     public function setSubscribeOrderId($subscribeOrderId);
 
     /**
+     * Get status.
+     *
      * @return mixed
      */
     public function getStatus();
 
     /**
-     * @param $status
+     * Set status.
+     *
+     * @param mixed $status
+     *
      * @return mixed
      */
     public function setStatus($status);
 
     /**
+     * Get last renewed.
+     *
      * @return mixed
      */
     public function getLastRenewed();
 
     /**
-     * @param $lastRenewed
+     * Set last renewed.
+     *
+     * @param mixed $lastRenewed
+     *
      * @return mixed
      */
     public function setLastRenewed($lastRenewed);
 
     /**
+     * Get next renewed.
+     *
      * @return mixed
      */
     public function getNextRenewed();
 
     /**
-     * @param $nextRenewed
+     * Set next renewed.
+     *
+     * @param mixed $nextRenewed
+     *
      * @return mixed
      */
     public function setNextRenewed($nextRenewed);
 
     /**
+     * Get createdat.
+     *
      * @return mixed
      */
     public function getCreatedAt();
 
     /**
-     * @param $createdAt
+     * Set created at.
+     *
+     * @param mixed $createdAt
+     *
      * @return mixed
      */
     public function setCreatedAt($createdAt);
 
     /**
+     * Get updated at.
+     *
      * @return mixed
      */
     public function getUpdatedAt();
 
     /**
-     * @param $updatedAt
+     * Set updated at.
+     *
+     * @param mixed $updatedAt
+     *
      * @return mixed
      */
     public function setUpdatedAt($updatedAt);
 
     /**
+     * Get store id.
+     *
      * @return mixed
      */
     public function getStoreId();
 
     /**
-     * @param $storeId
+     * Set store id.
+     *
+     * @param mixed $storeId
+     *
      * @return mixed
      */
     public function setStoreId($storeId);
 
     /**
+     * Get substart date.
+     *
      * @return mixed
      */
     public function getSubStartDate();
 
     /**
-     * @param $subStartDate
+     * Set substart date.
+     *
+     * @param mixed $subStartDate
+     *
      * @return mixed
      */
     public function setSubStartDate($subStartDate);
 
     /**
+     * Get suborder item id.
+     *
      * @return mixed
      */
     public function getSubOrderItemId();
 
     /**
-     * @param $subOrderItemId
+     * Set suborder item id.
+     *
+     * @param mixed $subOrderItemId
+     *
      * @return mixed
      */
     public function setSubOrderItemId($subOrderItemId);
 
     /**
+     * Get how many.
+     *
      * @return mixed
      */
     public function getHowMany();
 
     /**
-     * @param $howmMany
+     * Set how many.
+     *
+     * @param mixed $howmMany
+     *
      * @return mixed
      */
     public function setHowMany($howmMany);
 
     /**
+     * Get billing count.
+     *
      * @return mixed
      */
     public function getBillingCount();
 
     /**
-     * @param $billingCount
+     * Set billing count.
+     *
+     * @param mixed $billingCount
+     *
      * @return mixed
      */
     public function setBillingCount($billingCount);
 
     /**
+     * Get billing address id.
+     *
      * @return mixed
      */
     public function getBillingAddressId();
 
     /**
-     * @param $billingAddressId
+     * Set billing address id.
+     *
+     * @param mixed $billingAddressId
+     *
      * @return mixed
      */
     public function setBillingAddressId($billingAddressId);
 
     /**
+     * Get shipping address id.
+     *
      * @return mixed
      */
     public function getShippingAddressId();
 
     /**
-     * @param $shippingAddressId
+     * Set shipping address id.
+     *
+     * @param mixed $shippingAddressId
+     *
      * @return mixed
      */
     public function setShippingAddressId($shippingAddressId);
 
     /**
+     * Get public hash.
+     *
      * @return mixed
      */
     public function getPublicHash();
 
     /**
-     * @param $publicHash
+     * Set public hash.
+     *
+     * @param mixed $publicHash
+     *
      * @return mixed
      */
     public function setPublicHash($publicHash);
 
     /**
+     * Get sub name.
+     *
      * @return mixed
      */
     public function getSubName();
 
     /**
-     * @param $subName
+     * Set subname.
+     *
+     * @param mixed $subName
+     *
      * @return mixed
      */
     public function setSubName($subName);
 
     /**
+     * Get sub frequency.
+     *
      * @return mixed
      */
     public function getSubFrequency();
 
     /**
-     * @param $subFrequency
+     * Set sub frequency.
+     *
+     * @param mixed $subFrequency
+     *
      * @return mixed
      */
     public function setSubFrequency($subFrequency);
 
     /**
+     * Get subfee.
+     *
      * @return mixed
      */
     public function getSubFee();
 
     /**
-     * @param $subFee
+     * Set subfee.
+     *
+     * @param mixed $subFee
+     *
      * @return mixed
      */
     public function setSubFee($subFee);
 
     /**
+     * Get sub discount.
+     *
      * @return mixed
      */
     public function getSubDiscount();
 
     /**
-     * @param $subDiscount
+     * Set sub discount.
+     *
+     * @param mixed $subDiscount
+     *
      * @return mixed
      */
     public function setSubDiscount($subDiscount);
 
     /**
+     * Get sub product id.
+     *
      * @return mixed
      */
     public function getSubProductId();
 
     /**
-     * @param $subProductId
+     * Set sub product id.
+     *
+     * @param mixed $subProductId
+     *
      * @return mixed
      */
     public function setSubProductId($subProductId);

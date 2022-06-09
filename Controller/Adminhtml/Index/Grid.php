@@ -5,10 +5,7 @@
  */
 
 namespace Wagento\Subscription\Controller\Adminhtml\Index;
-/**
- * Class Grid
- * @package Wagento\Subscription\Controller\Adminhtml\Index
- */
+
 class Grid extends \Wagento\Subscription\Controller\Adminhtml\Index\Product
 {
     /**
@@ -37,7 +34,6 @@ class Grid extends \Wagento\Subscription\Controller\Adminhtml\Index\Product
     }
 
     /**
-     * Grid Action
      * Display list of products related to current category
      *
      * @return \Magento\Framework\Controller\Result\Raw

@@ -12,19 +12,16 @@ use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult;
 use Psr\Log\LoggerInterface as Logger;
 
-/**
- * Class Collection
- * @package Wagento\Subscription\Model\ResourceModel\Grid
- */
 class Collection extends SearchResult
 {
     /**
-     * @inheritdoc
+     * @var \string[][]
      */
     protected $_map = ['fields' => ['subscription_id' => 'main_table.subscription_id']];
 
     /**
-     * Collection constructor.
+     * phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod
+     *
      * @param EntityFactory $entityFactory
      * @param Logger $logger
      * @param FetchStrategy $fetchStrategy
@@ -41,7 +38,7 @@ class Collection extends SearchResult
         $mainTable = 'wagento_subscription',
         $resourceModel = \Wagento\Subscription\Model\ResourceModel\Subscription::class
     ) {
-    
+
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $mainTable, $resourceModel);
     }
 }

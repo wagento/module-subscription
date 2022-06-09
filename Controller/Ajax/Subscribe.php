@@ -8,10 +8,6 @@ namespace Wagento\Subscription\Controller\Ajax;
 
 use Magento\Customer\Api\AccountManagementInterface;
 
-/**
- * Class Subscribe
- * @package Wagento\Subscription\Controller\Ajax
- */
 class Subscribe extends \Magento\Framework\App\Action\Action
 {
     /**
@@ -64,6 +60,8 @@ class Subscribe extends \Magento\Framework\App\Action\Action
     }
 
     /**
+     * Subscribe execute function
+     *
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */

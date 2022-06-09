@@ -8,18 +8,15 @@ namespace Wagento\Subscription\Block\Frontend\Cart\Item\Renderer;
 
 use Magento\Checkout\Block\Cart\Item\Renderer\Actions\Generic;
 
-/**
- * Class Edit
- * @package Wagento\Subscription\Block\Frontend\Cart\Item\Renderer
- */
 class Edit extends Generic
 {
     /**
-     * @var ProductFactory
+     * @var \Wagento\Subscription\Model\Product
      */
     public $productFactory;
+
     /**
-     * @var SubscriptionFactory
+     * @var \Wagento\Subscription\Model\Subscription
      */
     public $subscriptionFactory;
     /**
@@ -34,6 +31,7 @@ class Edit extends Generic
 
     /**
      * Edit constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Wagento\Subscription\Model\ProductFactory $productFactory
      * @param \Wagento\Subscription\Model\SubscriptionFactory $subscriptionFactory
@@ -58,6 +56,8 @@ class Edit extends Generic
     }
 
     /**
+     * Get subscription function.
+     *
      * @return null|string
      */
     public function getSubscription()
@@ -67,6 +67,8 @@ class Edit extends Generic
     }
 
     /**
+     * Get subscription frequency function.
+     *
      * @return string
      */
     public function getSubscriptionFrequency()
@@ -76,6 +78,8 @@ class Edit extends Generic
     }
 
     /**
+     * Get subscription data function.
+     *
      * @return mixed
      */
     public function getSubscriptionData()
@@ -84,6 +88,8 @@ class Edit extends Generic
     }
 
     /**
+     * Get product id function.
+     *
      * @return int
      */
     public function getProductId()

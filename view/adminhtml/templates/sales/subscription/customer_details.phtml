@@ -3,23 +3,18 @@
  * Copyright Wagento Creative LLC ©, All rights reserved.
  * See COPYING.txt for license details.
  */
-
-/** @var \Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View\CustomerDetails $block */
 ?>
+<?php // @var \Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View\CustomerDetails $block ?>
+
 <?php $subDetails = $block->getSubscriptionDetail(); ?>
 
-<?php 
-$getCreatedAt = $subDetails->getCreatedAt(); 
-$date   = new Datetime($getCreatedAt); 
-$subAdminDate =  $date->format('F d, Y h:i:s');
+<?php $getCreatedAt = $subDetails->getCreatedAt();
+$date = new DateTime($getCreatedAt);
+$subAdminDate = $date->format('F d, Y h:i:s');
 
-$getLastRenewed = $subDetails->getLastRenewed(); 
-$dateLastRenew   = new Datetime($getLastRenewed); 
-$subLastRenewedDate =  $dateLastRenew->format('F d, Y h:i:s');
-
-$subHelper = $this->helper('Wagento\Subscription\Helper\Data');
-$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
-
+$getLastRenewed = $subDetails->getLastRenewed();
+$dateLastRenew = new DateTime($getLastRenewed);
+$subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
 ?>
 <section class="admin__page-section order-view-account-information sales-subscription">
     <div class="admin__page-section-content">
@@ -27,41 +22,47 @@ $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
             <?php /* Subscription Sales Order Information */ ?>
             <div class="admin__page-section-item-title">
                 <span class="title">
-                        <?= $block->escapeHtml(__('Subscription Profile # %1', $subDetails->getId())) ?>
+                        <?= /* @noEscape */ $block->escapeHtml(__('Subscription Profile # %1', $subDetails->getId())); //phpcs:ignore?>
                 </span>
             </div>
             <div class="admin__page-section-item-content">
                 <table class="admin__table-secondary order-information-table sales-subscription">
                     <tr>
-                        <th><?= $block->escapeHtml(__('Subscription Plan name')) ?></th>
-                        <td><?= $block->escapeHtml($subDetails->getSubName()) ?></td>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Plan name')); ?></th>
+                        <td><?= /* @noEscape */ $block->escapeHtml($subDetails->getSubName()); ?></td>
                     </tr>
                     <tr>
-                        <th><?= $block->escapeHtml(__('Subscription Status')) ?></th>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Status')); ?></th>
                         <td>
-                            <span id="subscription_status"><?= $subHelper->getSubscriptionStatus($subDetails->getStatus()) ?></span>
+                            <span id="subscription_status">
+                                <?= /* @noEscape */ $block->getSubscriptionStatus($subDetails->getStatus()); ?>
+                            </span>
                         </td>
                     </tr>
                     <tr>
-                        <th><?= $block->escapeHtml(__('Subscription Frequency')) ?></th>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Frequency')); ?></th>
                         <td>
-                            <?= $block->escapeHtml($subHelper->getSubscriptionFrequency($subDetails->getSubFrequency())) ?>
-                            <?php if ($subDetails->getHowMany() != null) : ?>
-                                <?= " - " ?>
-                                <?= $subDetails->getHowMany() ?>
-                                <?= $block->escapeHtml($subHelper->getHowManyUnits($subDetails->getFrequency())) ?>
-                            <?php endif; ?>
+                            <?= /* @noEscape */ $block->escapeHtml(
+                                $block->getSubscriptionFrequency($subDetails->getSubFrequency())
+                            ); ?>
+                            <?php if (null != $subDetails->getHowMany()) { ?>
+                                <?= /* @noEscape */ ' - '; ?>
+                                <?= /* @noEscape */ $subDetails->getHowMany(); ?>
+                                <?= /* @noEscape */ $block->escapeHtml(
+                                    $block->getHowManyUnits($subDetails->getFrequency())
+                                ); ?>
+                            <?php } ?>
                         </td>
                     </tr>
 
                     <tr>
-                        <th><?= $block->escapeHtml(__('Subscription Started Date')) ?></th>
-                        <td><?= $block->escapeHtml($subAdminDate) ?></td>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Started Date')); ?></th>
+                        <td><?= /* @noEscape */ $block->escapeHtml($subAdminDate); ?></td>
                     </tr>
 
                     <tr>
-                        <th><?= $block->escapeHtml(__('Last Renewed')) ?></th>
-                        <td><?= $block->escapeHtml($subLastRenewedDate) ?></td>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Last Renewed')); ?></th>
+                        <td><?= /* @noEscape */ $block->escapeHtml($subLastRenewedDate); ?></td>
                     </tr>
                 </table>
             </div>
@@ -70,46 +71,52 @@ $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
         <div class="admin__page-section-item order-account-information sales-subscription">
             <?php /* Account Information */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= $block->escapeHtml(__('Customer Information')) ?></span>
+                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Customer Information')); ?></span>
                 <div class="actions">
-                    <?php if ($customerUrl = $block->getCustomerViewUrl($subDetails->getCustomerId())) : ?>
+                    <?php if ($customerUrl = $block->getCustomerViewUrl($subDetails->getCustomerId())) { ?>
                         <a href="<?= /* @noEscape */
-                        $block->getCustomerViewUrl($subDetails->getCustomerId()) ?>" target="_blank">
-                            <?= $block->escapeHtml(__('Edit Customer')) ?>
+                        $block->getCustomerViewUrl($subDetails->getCustomerId()); ?>" target="_blank">
+                            <?= /* @noEscape */ $block->escapeHtml(__('Edit Customer')); ?>
                         </a>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
             </div>
             <div class="admin__page-section-item-content">
                 <table class="admin__table-secondary order-account-information-table sales-subscription">
                     <tr>
-                        <th><?= $block->escapeHtml(__('Customer Name')) ?></th>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Customer Name')); ?></th>
                         <td>
-                            <?php if ($customerUrl = $block->getCustomerViewUrl($subDetails->getCustomerId())) : ?>
-                                <a href="<?= $block->escapeUrl($customerUrl) ?>" target="_blank">
-                                    <span><?= $block->escapeHtml($subDetails->getCustomerName()) ?></span>
+                            <?php if ($customerUrl = $block->getCustomerViewUrl($subDetails->getCustomerId())) { ?>
+                                <a href="<?= /* @noEscape */ $block->escapeUrl($customerUrl); ?>" target="_blank">
+                                    <span>
+                                        <?= /* @noEscape */ $block->escapeHtml($subDetails->getCustomerName()); ?>
+                                    </span>
                                 </a>
-                            <?php else : ?>
-                                <?= $block->escapeHtml($subDetails->getCustomerName()) ?>
-                            <?php endif; ?>
+                            <?php } else { ?>
+                                <?= /* @noEscape */ $block->escapeHtml($subDetails->getCustomerName()); ?>
+                            <?php } ?>
                         </td>
                     </tr>
                     <tr>
-                        <th><?= $block->escapeHtml(__('Email')) ?></th>
-                        <td><a href="mailto:<?= $block->escapeHtml($subDetails->getEmail()) ?>">
-                                <?= $block->escapeHtml($subDetails->getEmail()) ?></a></td>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Email')); ?></th>
+                        <td><a href="mailto:<?= /* @noEscape */ $block->escapeHtml($subDetails->getEmail()); ?>">
+                                <?= /* @noEscape */ $block->escapeHtml($subDetails->getEmail()); ?></a></td>
                     </tr>
                     <tr>
-                        <th><?= $block->escapeHtml(__('Subscription Billing Count')) ?></th>
-                        <td><?= $block->escapeHtml($subDetails->getBillingCount()); ?></td>
+                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Billing Count')); ?></th>
+                        <td><?= /* @noEscape */ $block->escapeHtml($subDetails->getBillingCount()); ?></td>
 
                     </tr>
-                    <?php if ($block->isSingleStoreMode() == false) : ?>
+                    <?php if (false == $block->isSingleStoreMode()) { ?>
                         <tr>
-                            <th><?= $block->escapeHtml(__('Purchased From')) ?></th>
-                            <td><?= $block->escapeHtml($block->getSubscriptionStoreName($subDetails->getStoreId()), ['br']) ?></td>
+                            <th>
+                                <?= /* @noEscape */ $block->escapeHtml(__('Purchased From')); ?>
+                            </th>
+                            <td>
+                                <?= $block->escapeHtml($block->getSubscriptionStoreName($subDetails->getStoreId()), ['br']); //phpcs:ignore ?>
+                            </td>
                         </tr>
-                    <?php endif; ?>
+                    <?php } ?>
                 </table>
             </div>
         </div>
@@ -118,74 +125,77 @@ $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
 
 <section class="admin__page-section order-addresses">
     <div class="admin__page-section-title">
-        <span class="title"><?= $block->escapeHtml(__('Subscription Address Information')) ?></span>
+        <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Subscription Address Information')); ?></span>
     </div>
     <div class="admin__page-section-content">
         <div class="admin__page-section-item order-billing-address">
             <?php /* Billing Address */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= $block->escapeHtml(__('Billing Address')) ?></span>
+                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Billing Address')); ?></span>
                 <div class="actions"></div>
             </div>
             <address class="admin__page-section-item-content"><?= /* @noEscape */
-                $block->getBillingAddress($subDetails->getOrderId(), $subDetails->getBillingAddressId()) ?></address>
+                $block->getBillingAddress($subDetails->getOrderId(), $subDetails->getBillingAddressId()); ?></address>
         </div>
-        <?php //if (!$block->getIsVirtual($subDetails->getOrderId())): ?>
         <div class="admin__page-section-item order-shipping-address">
             <?php /* Shipping Address */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= $block->escapeHtml(__('Shipping Address')) ?></span>
+                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Shipping Address')); ?></span>
                 <div class="actions"></div>
             </div>
             <address class="admin__page-section-item-content"><?= /* @noEscape */
                 $block->getShippingAddress($subDetails->getOrderId(), $subDetails->getShippingAddressId()); ?></address>
         </div>
-        <?php //endif; ?>
+        <?php // endif;?>
     </div>
 </section>
 
 <section class="admin__page-section">
     <div class="admin__page-section-title">
-        <span class="title"><?= /* @escapeNotVerified */
-            __('Payment & Shipping Method') ?></span>
+        <span class="title"><?= /* @noEscape */
+            __('Payment & Shipping Method'); ?></span>
     </div>
     <div class="admin__page-section-content">
         <div class="admin__page-section-item order-payment-method">
             <?php /* Billing Address */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= $block->escapeHtml(__('Payment Information')) ?></span>
+                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Payment Information')); ?></span>
                 <div class="actions"></div>
             </div>
-            <?php $paymentDetail = $block->getPaymentMethod($subDetails->getOrderId(), $subDetails->getPublicHash(), $subDetails->getCustomerId()); ?>
+            <?php
+                $paymentDetail = $block->getPaymentMethod($subDetails->getOrderId(), $subDetails->getPublicHash(), $subDetails->getCustomerId()); //phpcs:ignore
+            ?>
             <div class="box-content">
                 <dl class="payment-method">
-                    <p><?= $paymentDetail['method_title'] ?></p>
-                    <?php if (isset($paymentDetail['cc_type'])) : ?>
+                    <p><?= /* @noEscape */ $paymentDetail['method_title']; ?></p>
+                    <?php if (isset($paymentDetail['cc_type'])) { ?>
                         <dd class="content">
-                            <strong><?= $block->escapeHtml(__('Credit Card Type')); ?></strong>
-                            <?= $paymentDetail['cc_type'] ?>
+                            <strong><?= /* @noEscape */ $block->escapeHtml(__('Credit Card Type')); ?></strong>
+                            <?= /* @noEscape */ $paymentDetail['cc_type']; ?>
 
                             <br/>
-                            <strong><?= $block->escapeHtml(__('Credit Card Number')); ?></strong>
-                            <?= $paymentDetail['cc_number'] ?>
+                            <strong><?= /* @noEscape */ $block->escapeHtml(__('Credit Card Number')); ?></strong>
+                            <?= /* @noEscape */ $paymentDetail['cc_number']; ?>
                         </dd>
-                    <?php endif; ?>
+                    <?php } ?>
                 </dl>
             </div>
         </div>
         <div class="admin__page-section-item order-shipping-method">
             <?php /* Shipping Address */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= $block->escapeHtml(__('Shipping & Handling Information')) ?></span>
+                <span class="title">
+                    <?= /* @noEscape */ $block->escapeHtml(__('Shipping & Handling Information')); ?>
+                </span>
                 <div class="actions"></div>
             </div>
             <address>
                 <?php $shipping = $block->getShippingMethod($subDetails->getOrderId()); ?>
-                <?php if (!empty($shipping)) : ?>
-                    <?= /* @noEscape */ $shipping ?>
-                    <?php else : ?>
+                <?php if (!empty($shipping)) { ?>
+                    <?= /* @noEscape */ $shipping; ?>
+                    <?php } else { ?>
                     <?= $block->escapeHtml(__('N/A')); ?>
-                <?php endif; ?>
+                <?php } ?>
             </address>
         </div>
     </div>
@@ -193,38 +203,44 @@ $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
 
 <section class="admin__page-section">
     <div class="admin__page-section-title">
-        <span class="title"><?= /* @escapeNotVerified */
-            __('Item Subscribed') ?></span>
+        <span class="title"><?= /* @noEscape */
+            __('Item Subscribed'); ?></span>
     </div>
     <div class="admin__table-wrapper">
         <table class="data-table admin__table-primary edit-order-table">
             <thead>
             <tr class="headings">
-                <th><?= __('Product') ?></th>
-                <th><?= __('Original Price') ?></th>
-                <th><?= __('Price') ?></th>
-                <th><?= __('Initial Fee') ?></th>
-                <th><?= __('Qty') ?></th>
-                <th><?= __('Subtotal') ?></th>
-                <th><?= __('Row Total') ?></th>
+                <th><?= /* @noEscape */ __('Product'); ?></th>
+                <th><?= /* @noEscape */ __('Original Price'); ?></th>
+                <th><?= /* @noEscape */ __('Price'); ?></th>
+                <th><?= /* @noEscape */ __('Initial Fee'); ?></th>
+                <th><?= /* @noEscape */ __('Qty'); ?></th>
+                <th><?= /* @noEscape */ __('Subtotal'); ?></th>
+                <th><?= /* @noEscape */ __('Row Total'); ?></th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>
-                    <?= __($subDetails->getName()) ?><em> </em><br/>
-                    <strong><?= __('SKU:') ?></strong><?= __($subDetails->getSku()) ?>
+                    <?= /* @noEscape */ __($subDetails->getName()); ?><em> </em><br/>
+                    <strong><?= /* @noEscape */ __('SKU:'); ?></strong><?= /* @noEscape */ __($subDetails->getSku()); ?>
                 </td>
-                <td><?= $priceHelper->currency(number_format($subDetails->getOriginalPrice(), 2), true, false) ?></td>
-                <td><?= $priceHelper->currency(number_format($subDetails->getPrice(), 2), true, false) ?></td>
-                <td><?= $priceHelper->currency(number_format($subDetails->getSubFee(), 2), true, false) ?></td>
                 <td>
-                    <?= __('Subscribed') ?>
-                    <?= (int)$subDetails->getQtyOrdered() ?>
+                    <?= /* @noEscape */ $block->getFormattedPrice(number_format($subDetails->getOriginalPrice(), 2)); //phpcs:ignore ?>
                 </td>
-                <?php $total = ($subDetails->getPrice()) + $subDetails->getShipping() ?>
-                <td><?= $priceHelper->currency(number_format($total, 2), true, false) ?></td>
-                <td><?= $priceHelper->currency(number_format($total, 2), true, false) ?></td>
+                <td>
+                    <?= /* @noEscape */ $block->getFormattedPrice(number_format($subDetails->getPrice(), 2)); //phpcs:ignore ?>
+                </td>
+                <td>
+                    <?= /* @noEscape */ $block->getFormattedPrice(number_format($subDetails->getSubFee(), 2)); //phpcs:ignore ?>
+                </td>
+                <td>
+                    <?= /* @noEscape */ __('Subscribed'); ?>
+                    <?= /* @noEscape */ (int) $subDetails->getQtyOrdered(); ?>
+                </td>
+                <?php $total = ($subDetails->getPrice()) + $subDetails->getShipping(); ?>
+                <td><?= /* @noEscape */ $block->getFormattedPrice(number_format($total, 2)); ?></td>
+                <td><?= /* @noEscape */ $block->getFormattedPrice(number_format($total, 2)); ?></td>
             </tr>
             </tbody>
         </table>
