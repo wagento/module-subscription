@@ -161,8 +161,7 @@
         </container>
         <container name="assign_products_container" sortOrder="160">
             <htmlContent name="html__suncsription_content">
-                <argument name="block" xsi:type="object">Wagento\Subscription\Block\Adminhtml\Subscription\ProductGrid
-                </argument>
+                <block name="subscription.productGrid" class="Wagento\Subscription\Block\Adminhtml\Subscription\ProductGrid"/>
             </htmlContent>
         </container>
     </fieldset>
