@@ -11,6 +11,9 @@ If you are facing any issue with module installation and configuration please se
 Based in `setup_version`
 
 v2.3.1
+- Make module compatible with 2.4.5
+
+v2.3.1
 - Make module compatible with 2.4.4
 - Resolve Magento_Braintree dependency issues.
 - Module compatible with php 8.1 version.
