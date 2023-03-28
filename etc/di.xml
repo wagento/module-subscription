@@ -36,7 +36,7 @@
                 type="Wagento\Subscription\Controller\Adminhtml\Product\MassDelete"/>
 
     <!--Braintree Customer Subscription Sales Orders-->
-    <virtualType name="Wagento\Subscription\Model\ResourceModel\SubscriptionSales\Collection"
+    <virtualType name="Wagento\Subscription\Model\ResourceModel\SubscriptionSales\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">wagento_subscription_order</argument>

@@ -36,8 +36,7 @@ class Tabs extends WidgetTabs
                 'label' => __('Information'),
                 'title' => __('Information'),
                 'content' => $this->getLayout()->createBlock(
-                    'Wagento\Subscription\
-                    Block\Adminhtml\Sales\Subscription\View\CustomerDetails'
+                    'Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View\CustomerDetails'
                 )->toHtml(),
                 'active' => true,
             ]
@@ -49,8 +48,7 @@ class Tabs extends WidgetTabs
                 'label' => __('Subscription Details'),
                 'title' => __('Subscription Details'),
                 'content' => $this->getLayout()->createBlock(
-                    'Wagento\Subscription\Block\
-                    Adminhtml\Sales\Subscription\View\SubscriptionDetails'
+                    'Wagento\Subscription\Block\Adminhtml\Sales\Subscription\View\SubscriptionDetails'
                 )->toHtml(),
                 'active' => false,
             ]
