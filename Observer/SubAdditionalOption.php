@@ -94,7 +94,7 @@ class SubAdditionalOption implements ObserverInterface
             $product = $observer->getProduct();
             $subOptionsJson = $this->helper->jsonDecode($this->_request->getContent());
             $subOptions = $this->helper->jsonDecode($subOptionsJson);
-
+            $howMany = '';
             if ($subOptions['isEnableHowMany'] == 1) {
                 if (isset($subOptions['subHowMany'])) {
                     //for PDP

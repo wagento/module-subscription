@@ -78,7 +78,7 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
                                     "hasLinks" : "<?php echo $hasLinks; ?>",
                                     "linksTitle" : "<?php echo $getLinksTitle; ?>",
                                     "isRequired" : "<?php echo $_isRequired; ?>",
-                                    "links" : <?php echo \Zend_Json::encode($subHelperLinks->getLinks($productId)); ?>
+                                    "links" : <?php echo $subHelper->getJsonEncode($subHelperLinks->getLinks($productId)); ?>
                                 }
                             }
                         }

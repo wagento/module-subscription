@@ -14,6 +14,7 @@ v101.0.114
 - Fixed empty My Subscription page in frontend for registered user.
 - Fixed Delete Subscription not working in admin.
 - Fixed View Subscription not loading in admin.
+- Fixed the PHP 8.1 version bugs.
 
 v101.0.113 
 - Made module compatible with 2.4.5
