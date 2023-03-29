@@ -10,8 +10,13 @@ If you are facing any issue with module installation and configuration please se
 ## Changelog
 Based in `setup_version`
 
-v2.3.1
-- Make module compatible with 2.4.5
+v101.0.114
+- Fixed empty My Subscription page in frontend for registered user.
+- Fixed Delete Subscription not working in admin.
+- Fixed View Subscription not loading in admin.
+
+v101.0.113 
+- Made module compatible with 2.4.5
 
 v2.3.1
 - Make module compatible with 2.4.4
