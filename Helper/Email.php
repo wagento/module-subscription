@@ -325,7 +325,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getIsEmailConfigEnable($xmlPath)
     {
-        return $this->getConfigValue($xmlPath, (int) $this->getStore());
+        return $this->getConfigValue($xmlPath, $this->getStore());
     }
 
     /**

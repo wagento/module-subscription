@@ -261,6 +261,15 @@ class Data extends AbstractHelper
     }
 
     /**
+     * @param $data
+     * @return bool|false|string
+     */
+    public function getJsonEncode($data)
+    {
+        return $this->_serializer->serialize($data); // it's same as like json_encode
+    }
+
+    /**
      * Get no of subscription.
      *
      * @param string $additionalOptions
