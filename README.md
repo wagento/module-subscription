@@ -15,6 +15,8 @@ v101.0.114
 - Fixed Delete Subscription not working in admin.
 - Fixed View Subscription not loading in admin.
 - Fixed the PHP 8.1 version bugs.
+- Fixed the PHP 8.2 version bugs.
+- Made module compatible with 2.4.6
 
 v101.0.113 
 - Made module compatible with 2.4.5
