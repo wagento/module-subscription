@@ -136,6 +136,9 @@ class SubscriptionService
      */
     private $productRepository;
 
+    /** @var SubscriptionHelper  */
+    private $subHelper;
+
     /**
      * SubscriptionService constructor.
      *
@@ -147,7 +150,6 @@ class SubscriptionService
      * @param \Magento\Quote\Model\QuoteManagement $quoteManagementModel
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      * @param Json $serializer
-     * @param SubscriptionFactory $subscriptionFactory
      * @param ProductFactory $subProductFactory
      * @param SubscriptionHelper $subHelper
      * @param PriceHelper $priceHelper
@@ -174,7 +176,6 @@ class SubscriptionService
         \Magento\Quote\Model\QuoteManagement $quoteManagementModel,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         Json $serializer,
-        SubscriptionFactory $subscriptionFactory,
         ProductFactory $subProductFactory,
         SubscriptionHelper $subHelper,
         PriceHelper $priceHelper,
@@ -199,7 +200,6 @@ class SubscriptionService
         $this->_customerRepository = $customerRepository;
         $this->_quoteManagementModel = $quoteManagementModel;
         $this->_serializer = $serializer ?: ObjectManager::getInstance()->get(Json::class);
-        $this->subscriptionFactory = $subscriptionFactory->create();
         $this->subProductFactory = $subProductFactory->create();
         $this->subHelper = $subHelper;
         $this->priceHelper = $priceHelper;
