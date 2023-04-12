@@ -15,7 +15,6 @@ use Magento\Customer\Model\CustomerFactory;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\ObjectManager;
-use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\Event\ManagerInterface as EventManager;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Payment\Helper\Data as PaymentHelper;
@@ -130,7 +129,6 @@ class Data extends AbstractHelper
      * @param AddressConfig $addressConfig
      * @param CustomerFactory $customer
      * @param PaymentTokenManagementInterface $paymentTokenManagement
-     * @param EncryptorInterface $encryptor
      * @param CcConfig $ccConfig
      * @param PaymentHelper $paymentHelper
      * @param AddressRepository $addressRepository
@@ -150,7 +148,6 @@ class Data extends AbstractHelper
         AddressConfig $addressConfig,
         CustomerFactory $customer,
         PaymentTokenManagementInterface $paymentTokenManagement,
-        EncryptorInterface $encryptor,
         CcConfig $ccConfig,
         PaymentHelper $paymentHelper,
         AddressRepository $addressRepository,
@@ -170,7 +167,6 @@ class Data extends AbstractHelper
         $this->addressConfig = $addressConfig;
         $this->customer = $customer;
         $this->paymentTokenManagement = $paymentTokenManagement;
-        $this->encryptor = $encryptor;
         $this->ccCongig = $ccConfig;
         $this->paymentHelper = $paymentHelper;
         $this->addressRepository = $addressRepository;

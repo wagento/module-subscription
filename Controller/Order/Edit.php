@@ -21,6 +21,9 @@ class Edit extends \Magento\Sales\Controller\AbstractController\View implements 
      */
     private $session;
 
+    /** @var CustomerRepositoryInterface  */
+    private $customerRepository;
+
     /**
      * Edit constructor.
      *
