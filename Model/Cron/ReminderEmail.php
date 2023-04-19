@@ -139,7 +139,7 @@ class ReminderEmail
      */
     public function getIsEmailConfigEnable($xmlPath)
     {
-        return $this->emailHelper->getConfigValue($xmlPath, (int) $this->emailHelper->getStore());
+        return $this->emailHelper->getConfigValue($xmlPath, $this->emailHelper->getStore());
     }
 
     /**
