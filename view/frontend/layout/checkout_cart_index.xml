@@ -35,7 +35,7 @@
             </arguments>
         </referenceBlock>
         <referenceBlock name="checkout.cart.form">
-            <action method="setTemplate">
+            <action method="setTemplate" ifconfig="braintree_subscription/subscription_config/enable">
                 <argument name="template" xsi:type="string">Wagento_Subscription::cart.phtml</argument>
             </action>
         </referenceBlock>
