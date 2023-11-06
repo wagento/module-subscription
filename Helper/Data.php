@@ -220,14 +220,14 @@ class Data extends AbstractHelper
     public function getSubscriptionStatus($status)
     {
         $statusLabels = [
-            0 => __('Canceled'),
-            1 => __('Active'),
-            2 => __('Paused'),
-            3 => __('Completed'),
+            0 => 'Canceled',
+            1 => 'Active',
+            2 => 'Paused',
+            3 => 'Completed',
         ];
 
         if (array_key_exists($status, $statusLabels)) {
-            return __($statusLabels[$status]);
+            return $statusLabels[$status];
         }
 
         return __('N/A');

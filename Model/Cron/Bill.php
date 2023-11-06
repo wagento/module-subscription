@@ -6,8 +6,14 @@
 
 namespace Wagento\Subscription\Model\Cron;
 
+use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use Psr\Log\LoggerInterface;
 use Wagento\Subscription\Helper\Email;
 use Wagento\Subscription\Model\ResourceModel\SubscriptionSales\CollectionFactory;
+use Wagento\Subscription\Model\SubscriptionSalesFactory;
+use Wagento\Subscription\Model\SubscriptionService;
 
 class Bill
 {
@@ -21,17 +27,17 @@ class Bill
     protected $collectionFactory;
 
     /**
-     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     * @var TimezoneInterface
      */
     protected $dateProcessor;
 
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 
     /**
-     * @var \Wagento\Subscription\Model\SubscriptionService
+     * @var SubscriptionService
      */
     protected $subscriptionService;
 
@@ -41,7 +47,7 @@ class Bill
     protected $subscriptionSales;
 
     /**
-     * @var \Magento\Framework\App\ResourceConnection
+     * @var ResourceConnection
      */
     protected $resource;
 
@@ -54,22 +60,23 @@ class Bill
      * Bill constructor.
      *
      * @param CollectionFactory $collectionFactory
-     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $dateProcessor
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Wagento\Subscription\Model\SubscriptionService $subscriptionService
-     * @param \Wagento\Subscription\Model\SubscriptionSalesFactory $subscriptionSales
-     * @param \Magento\Framework\App\ResourceConnection $resource
+     * @param TimezoneInterface $dateProcessor
+     * @param LoggerInterface $logger
+     * @param SubscriptionService $subscriptionService
+     * @param SubscriptionSalesFactory $subscriptionSales
+     * @param ResourceConnection $resource
      * @param Email $emailHelper
      */
     public function __construct(
-        CollectionFactory $collectionFactory,
-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $dateProcessor,
-        \Psr\Log\LoggerInterface $logger,
-        \Wagento\Subscription\Model\SubscriptionService $subscriptionService,
-        \Wagento\Subscription\Model\SubscriptionSalesFactory $subscriptionSales,
-        \Magento\Framework\App\ResourceConnection $resource,
-        Email $emailHelper
-    ) {
+        CollectionFactory        $collectionFactory,
+        TimezoneInterface        $dateProcessor,
+        LoggerInterface          $logger,
+        SubscriptionService      $subscriptionService,
+        SubscriptionSalesFactory $subscriptionSales,
+        ResourceConnection       $resource,
+        Email                    $emailHelper
+    )
+    {
         $this->collectionFactory = $collectionFactory;
         $this->dateProcessor = $dateProcessor;
         $this->logger = $logger;
@@ -99,18 +106,17 @@ class Bill
         $subscriptions = $this->collectionFactory->create();
         $connection = $this->resource->getConnection();
         $vaultPaymentToken = $connection->getTableName('vault_payment_token_order_payment_link');
-        $currentDateEnd = $currentDate.' 23:59:59';
+        $currentDateEnd = $currentDate . ' 23:59:59';
         $currentDate .= ' 00:00:00';
         $subscriptions->getSelect()->join(
-            $vaultPaymentToken.' as pt',
+            $vaultPaymentToken . ' as pt',
             'main_table.subscribe_order_id = pt.order_payment_id',
             ['payment_token_id']
         );
         $subscriptions->addFieldToFilter('next_renewed', ['lteq' => $currentDateEnd])
             ->addFieldToFilter('next_renewed', ['gteq' => $currentDate])
             ->addFieldToFilter('status', ['eq' => 1])
-            ->addFieldToFilter('how_many', ['neq' => 'billing_count'])
-        ;
+            ->addFieldToFilter('how_many', ['neq' => 'billing_count']);
 
         if ($subscriptions->getSize() > 0) {
             foreach ($subscriptions as $subscription) {
@@ -130,21 +136,23 @@ class Bill
                             // Set Status COmpleted when Billing = How Many
                             $getBillingCount = $salesSubModel->getBillingCount();
                             $getHowMany = $salesSubModel->getHowMany();
-                            $this->getActiveSubscriptionsResult($getBillingCount, $getHowMany);
+                            if ($getBillingCount == $getHowMany) {
+                                $this->getActiveSubscriptionsResult($salesSubModel, $subscription);
+                            }
                             $message = __('Subscription order
                              placed Successfully order#%1 .', $result['success_data']['increment_id']);
-                            $this->logger->info((string) $message);
+                            $this->logger->info((string)$message);
                         } catch (\Exception $e) {
-                            $this->logger->info((string) $e->getMessage());
+                            $this->logger->info((string)$e->getMessage());
                         }
                     }
                 } catch (\Exception $e) {
-                    $this->logger->info((string) $e->getMessage());
+                    $this->logger->info((string)$e->getMessage());
                 }
             }
         } else {
             $message = __('No collection found for the date %1 .', $currentDate);
-            $this->logger->info((string) $message);
+            $this->logger->info((string)$message);
         }
 
         return $this;
@@ -153,49 +161,44 @@ class Bill
     /**
      * Get active subscription result.
      *
-     * @param mixed $getBillingCount
-     * @param mixed $getHowMany
-     *
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @param $salesSubModel
+     * @param $subscription
+     * @throws NoSuchEntityException
      */
-    protected function getActiveSubscriptionsResult($getBillingCount, $getHowMany)
+    private function getActiveSubscriptionsResult($salesSubModel, $subscription): void
     {
-        if ($getBillingCount == $getHowMany) {
-            $status = 3;
-            $customerId = $salesSubModel->getCustomerId();
-            $salesSubModel->setStatus($status);
-            $salesSubModel->save();
+        $status = 3;
+        $customerId = $salesSubModel->getCustomerId();
+        $salesSubModel->setStatus($status);
+        $salesSubModel->save();
 
-            $getIsEnable = $this->emailHelper
-                ->getIsEmailConfigEnable(self::XML_PATH_EMAIL_TEMPLATE_ENABLE)
-            ;
-            $getIsSelectChangeStatusEmail = $this->emailHelper
-                ->getIsStatusChangeEmailCustomer(self::XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS)
-            ;
-            if (1 == $getIsEnable && 1 == $getIsSelectChangeStatusEmail) {
-                // send email to customer that subscription cycle completed
-                $emailTempVariables = $this->emailHelper
-                    ->getStatusEmailVariables($subscription->getId(), $status, $customerId)
-                ;
-                $senderInfo = $this->emailHelper
-                    ->getEmailSenderInfo(self::XML_PATH_EMAIL_TEMPLATE_FIELD_SENDER)
-                ;
-                $receiverInfo = $this->emailHelper->getRecieverInfo($customerId);
-                $result = $this->emailHelper
-                    ->sentStatusChangeEmail($emailTempVariables, $senderInfo, $receiverInfo)
-                ;
-                if (isset($result['success'])) {
-                    $message = __('Subscription
-                                        Status Change Email Sent Successfully %1'.$receiverInfo['email']);
-                    $this->logger->info((string) $message);
-                } elseif (isset($result['error'])) {
-                    $message = __($result['error_msg']);
-                    $this->logger->info((string) $message);
-                }
-            } else {
-                $message = __('Email configuration is disabled');
-                $this->logger->info((string) $message);
+        $getIsEnable = $this->emailHelper
+            ->getIsEmailConfigEnable(self::XML_PATH_EMAIL_TEMPLATE_ENABLE);
+        $getIsSelectChangeStatusEmail = $this->emailHelper
+            ->getIsStatusChangeEmailCustomer(self::XML_PATH_EMAIL_TEMPLATE_FIELD_EMAILOPTIONS);
+
+        if (1 == $getIsEnable && 1 == $getIsSelectChangeStatusEmail) {
+            // send email to customer that subscription cycle completed
+            $emailTempVariables = $this->emailHelper
+                ->getStatusEmailVariables($subscription->getId(), $status, $customerId);
+            $senderInfo = $this->emailHelper
+                ->getEmailSenderInfo(self::XML_PATH_EMAIL_TEMPLATE_FIELD_SENDER);
+            $receiverInfo = $this->emailHelper->getRecieverInfo($customerId);
+
+            $result = $this->emailHelper
+                ->sentStatusChangeEmail($emailTempVariables, $senderInfo, $receiverInfo);
+
+            if (isset($result['success'])) {
+                $message = __('Subscription Status Change Email Sent Successfully %1' . $receiverInfo['email']);
+                $this->logger->info((string)$message);
+            } elseif (isset($result['error'])) {
+                $message = __($result['error_msg']);
+                $this->logger->info((string)$message);
             }
+        } else {
+            $message = __('Email configuration is disabled');
+            $this->logger->info((string)$message);
         }
+
     }
 }
