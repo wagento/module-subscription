@@ -16,10 +16,10 @@ class EmailOptions implements \Magento\Framework\Option\ArrayInterface
     public function toOptionArray()
     {
         return [
-            ['value' => '', 'label' => __('--- Please Select ---')],
+//            ['value' => '', 'label' => __('--- Please Select ---')],
             ['value' => 1, 'label' => __('Reminder Email')],
-            ['value' => 2, 'label' => __('Billing Failed Email')],
-            ['value' => 3, 'label' => __('Payment Failed Email')],
+//            ['value' => 2, 'label' => __('Billing Failed Email')],
+//            ['value' => 3, 'label' => __('Payment Failed Email')],
             ['value' => 4, 'label' => __('Status Change by Admin → Email to Customer')],
             ['value' => 5, 'label' => __('Status Change by Customer → Email to Merchant')],
         ];
