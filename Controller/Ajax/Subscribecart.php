@@ -75,19 +75,27 @@ class Subscribecart extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        $resultJson = $this->resultJsonFactory->create();
-        $subOptionsJson = $this->helper->jsonDecode($this->getRequest()->getContent());
-        $subOptions = $this->helper->jsonDecode($subOptionsJson);
+        $isHyva = $this->getRequest()->getParam('isHyva');
+        if(isset($isHyva) && $isHyva === "1") {
+            $subOptions = $this->getRequest()->getParams();
+            $links = explode(',',$subOptions['links']);
 
+        } else {
+            $subOptionsJson = $this->helper->jsonDecode($this->getRequest()->getContent());
+            $subOptions = $this->helper->jsonDecode($subOptionsJson);
+            $links = $subOptions['links'];
+
+        }
+        $resultJson = $this->resultJsonFactory->create();
+        /* $subOptionsJson = $this->helper->jsonDecode($this->getRequest()->getContent());
+        $subOptions = $this->helper->jsonDecode($subOptionsJson);*/
         if ($subOptions['subItemId']) {
             $product_id = $subOptions['productId'];
             $qty = $subOptions['subqty'];
-            $links = $subOptions['links'];
-            $addProduct = $this->subProductHelper
-                ->addToCartSubscriptionProduct($product_id, $qty, $links, true);
+            $addProduct = $this->subProductHelper->addToCartSubscriptionProduct($product_id, $qty, $links, true);
             if ($addProduct == 1) {
                 $_product = $this->product->getById($subOptions['productId'])->getName();
-                $message = 'product ' . $_product . ' subscribed successfully';
+                $message = 'Product ' . $_product . ' Subscribed Successfully.';
                 $response_json = [
                     'status' => 'success',
                     'message' => $message

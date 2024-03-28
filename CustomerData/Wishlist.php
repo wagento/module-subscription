@@ -83,9 +83,11 @@ class Wishlist extends CoreWishlist
         $subscriptionAttribute = $product->getCustomAttribute('subscription_configurate');
         if (isset($subscriptionAttribute)) {
             $subAttributeValue = ['subscription_configurate' => $subscriptionAttribute->getValue()];
-            array_push($dataArray, $subAttributeValue);
-        }
 
+        } else {
+            $subAttributeValue = ['subscription_configurate' => ""];
+        }
+        array_push($dataArray, $subAttributeValue);
         return $dataArray;
     }
 }

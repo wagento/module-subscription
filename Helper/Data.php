@@ -307,8 +307,11 @@ class Data extends AbstractHelper
     {
         $subProduct = $this->subProductFactory
             ->create()->getCollection()->addFieldToFilter('product_id', ['eq' => $productId]);
-
-        return $subProduct->getFirstItem()->getSubscriptionId();
+        if(empty($subProduct->getData())) {
+            return false;
+        } else {
+            return $subProduct->getFirstItem()->getSubscriptionId();
+        }
     }
 
     /**
@@ -647,7 +650,9 @@ class Data extends AbstractHelper
         if (!empty($downloadableLinks)) {
             $links = $this->getLinks($productId);
             foreach ($links as $link) {
-                foreach ($downloadableLinks as $dw => $dlink) {
+
+                $linksofproduct = explode(",", $downloadableLinks);
+                foreach ($linksofproduct as $dw => $dlink) {
                     if ($link->getId() == $dlink) {
                         $baseprice += $link->getPrice();
                     }

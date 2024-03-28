@@ -57,8 +57,14 @@ class UpdatePrice implements ObserverInterface
         if ($action == 'subscription_ajax_subscribe' || $action == 'subscription_ajax_subscribecart') {
             $item = $observer->getEvent()->getData('quote_item');
             $item = ($item->getParentItem() ? $item->getParentItem() : $item);
-            $subOptionsJson = $this->helper->jsonDecode($this->_request->getContent());
-            $subOptions = $this->helper->jsonDecode($subOptionsJson);
+            $isHyva = $this->_request->getParam('isHyva');
+            if(isset($isHyva) && $isHyva === "1") {
+                $subOptions = $this->_request->getParams();
+            } else {
+                $subOptionsJson = $this->helper->jsonDecode($this->_request->getContent());
+                $subOptions = $this->helper->jsonDecode($subOptionsJson);
+            }
+
             $subQty = $subOptions['subqty'];
             $subProductId = $subOptions['productId'];
             $downloadableLinks = $subOptions['links'];

@@ -104,11 +104,21 @@ class Unsubscribe extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        $data = $this->getRequest()->getContent();
+        $isHyva = $this->getRequest()->getParam('isHyva');
+        if($isHyva) {
+            $data = $this->getRequest()->getParams();
+        } else {
+            $data = $this->getRequest()->getContent();
+        }
         if (!empty($data)) {
-            $itemJson = $this->helper->jsonDecode($data);
-            $item = $this->helper->jsonDecode($itemJson);
-            $productUnsubscribe = $item['product_id'];
+            if($isHyva==1) {
+                $productUnsubscribe = $data['product_id'];
+            } else {
+                $itemJson = $this->helper->jsonDecode($data);
+                $item = $this->helper->jsonDecode($itemJson);
+                $productUnsubscribe = $item['product_id'];
+            }
+
             if ($productUnsubscribe) {
                 try {
                     $items = $this->cart->create()->getQuote()->getAllVisibleItems();
@@ -118,11 +128,12 @@ class Unsubscribe extends \Magento\Framework\App\Action\Action
                             $this->cart->create()->removeItem($item->getItemId())->save();
                             $this->sidebar->checkQuoteItem($item->getItemId());
                             $this->sidebar->removeQuoteItem($item->getItemId());
+                            $message = __('Product '. $item['name'] .' Unsubscribed Successfully.');
                         } else {
                             continue;
                         }
                     }
-                    $message = __('Product %1 Unsubscibed Successfully', $item['product_name']);
+
                     $response_json = [
                         'status' => 'success',
                         'message' => $message

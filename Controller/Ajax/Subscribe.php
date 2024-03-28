@@ -67,16 +67,25 @@ class Subscribe extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        $subOptionsJson = $this->helper->jsonDecode($this->getRequest()->getContent());
-        $subOptions = $this->helper->jsonDecode($subOptionsJson);
+        $isHyva = $this->getRequest()->getParam('isHyva');
+
+        if(isset($isHyva) && $isHyva === "1") {
+            $subOptions = $this->getRequest()->getParams();
+            $subLinks = explode(',',$subOptions['links']);
+
+        } else {
+            $subOptionsJson = $this->helper->jsonDecode($this->getRequest()->getContent());
+            $subOptions = $this->helper->jsonDecode($subOptionsJson);
+            $subLinks =$subOptions['links'];
+        }
+
         $productId = $subOptions['productId'];
         $subQty = $subOptions['subqty'];
-        $subLinks = $subOptions['links'];
-        $addProduct = $this->subProductHelper
-            ->addToCartSubscriptionProduct($productId, $subQty, $subLinks);
+
+        $addProduct = $this->subProductHelper->addToCartSubscriptionProduct($productId, $subQty, $subLinks);
         if ($addProduct == 1) {
             $_product = $this->product->getById($subOptions['productId'])->getName();
-            $message = 'product ' . $_product . ' subscribed successfully';
+            $message = 'Product ' . $_product . ' Subscribed Successfully.';
             $response_json = [
                 'status' => 'success',
                 'message' => $message

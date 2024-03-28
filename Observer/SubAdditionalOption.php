@@ -90,10 +90,16 @@ class SubAdditionalOption implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $action = $this->_request->getFullActionName();
+        $isHyva = $this->_request->getParam('isHyva');
+
         if ($action == 'subscription_ajax_subscribe' || $action == 'subscription_ajax_subscribecart') {
             $product = $observer->getProduct();
-            $subOptionsJson = $this->helper->jsonDecode($this->_request->getContent());
-            $subOptions = $this->helper->jsonDecode($subOptionsJson);
+            if(isset($isHyva) && $isHyva === "1") {
+                $subOptions = $this->_request->getParams();
+            } else {
+                $subOptionsJson = $this->helper->jsonDecode($this->_request->getContent());
+                $subOptions = $this->helper->jsonDecode($subOptionsJson);
+            }
             $howMany = '';
             if ($subOptions['isEnableHowMany'] == 1) {
                 if (isset($subOptions['subHowMany'])) {
