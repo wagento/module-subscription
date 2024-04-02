@@ -15,6 +15,7 @@
                 <customer_cancel_subscription>1</customer_cancel_subscription>
                 <customer_pause_subscription>1</customer_pause_subscription>
                 <product_option_label>Subscription</product_option_label>
+                <customer_howmany_subscription>1</customer_howmany_subscription>
             </subscription_config>
         </braintree_subscription>
     </default>
