@@ -183,7 +183,7 @@ class SubscriptionService
         PaymentHelper $paymentHelper,
         PaymentTokenRepositoryInterface $tokenRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        \Magento\Framework\App\ProductMetadata $productMetadata = null,
+        \Magento\Framework\App\ProductMetadata $productMetadata,
         GetPaymentNonceCommand $getPaymentNonceCommand,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         CheckoutSession $checkoutSession,

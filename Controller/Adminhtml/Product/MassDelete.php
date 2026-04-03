@@ -52,7 +52,7 @@ class MassDelete extends \Magento\Catalog\Controller\Adminhtml\Product\MassDelet
         Builder $productBuilder,
         Filter $filter,
         CollectionFactory $collectionFactory,
-        ProductRepositoryInterface $productRepository = null,
+        ProductRepositoryInterface $productRepository,
         SubscriptionFactory $subscriptionFactory,
         ProductFactory $productFactory,
         SubscriptionSalesFactory $subscriptionSalesFactory
