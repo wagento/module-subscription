@@ -10,6 +10,16 @@ If you are facing any issue with module installation and configuration please se
 ## Changelog
 Based in `composer_version`
 
+v101.0.120
+- Compatible with PHP8.4
+
+v101.0.119
+- Compatible with PHP8.3
+- Hyva compatible module
+
+v101.0.118
+- Compatible with PHP8.2
+
 v101.0.117
 - Fixed the cronjob issues.
 

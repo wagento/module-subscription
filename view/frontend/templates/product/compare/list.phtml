@@ -7,15 +7,15 @@
 // @codingStandardsIgnoreFile
 
 // @var $block \Magento\Catalog\Block\Product\Compare\ListCompare
+/** @var \Magento\Framework\Escaper $escaper */
+
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 
 ?>
 <?php $_total = $block->getItems()->getSize(); ?>
 <?php if ($_total) { ?>
-    <a href="#" class="action print" title="<?php echo // @escapeNotVerified
-    __('Print This Page'); ?>">
-        <span><?php echo // @escapeNotVerified
-            __('Print This Page'); ?></span>
+    <a href="#" class="action print" title="<?= $escaper->escapeHtml('Print This Page'); ?>">
+        <span><?= $escaper->escapeHtml('Print This Page'); ?></span>
     </a>
     <div class="table-wrapper comparison">
         <table class="data table table-comparison" id="product-comparison"
@@ -25,24 +25,19 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                     "selectors":{
                         "productAddToCartSelector":"button.action.tocart"}
                 }}'>
-            <caption class="table-caption"><?php echo // @escapeNotVerified
-                __('Compare Products'); ?></caption>
+            <caption class="table-caption"><?= $escaper->escapeHtml('Compare Products'); ?></caption>
             <thead>
             <tr>
                 <?php $_i = 0; ?>
                 <?php foreach ($block->getItems() as $_item) { ?>
                     <?php if (0 == $_i++) { ?>
-                        <th scope="row" class="cell label remove"><span><?php echo // @escapeNotVerified
-                                __('Remove Product'); ?></span></th>
+                        <th scope="row" class="cell label remove"><span><?= $escaper->escapeHtml('Remove Product'); ?></span></th>
                     <?php } ?>
                     <td class="cell remove product">
                         <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare'); ?>
-                        <a href="#" data-post='<?php echo // @escapeNotVerified
-                        $compareHelper->getPostDataRemove($_item); ?>'
-                           class="action delete" title="<?php echo // @escapeNotVerified
-                        __('Remove Product'); ?>">
-                            <span><?php echo // @escapeNotVerified
-                                __('Remove Product'); ?></span>
+                        <a href="#" data-post='<?= /* @noEscape */ $compareHelper->getPostDataRemove($_item); ?>'
+                           class="action delete" title="<?= $escaper->escapeHtml('Remove Product'); ?>">
+                            <span><?= $escaper->escapeHtml('Remove Product'); ?></span>
                         </a>
                     </td>
                 <?php } ?>
@@ -55,69 +50,60 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                 <?php /** @var \Magento\Catalog\Model\Product $_item */ ?>
                 <?php foreach ($block->getItems() as $_item) { ?>
                     <?php if (0 == $_i++) { ?>
-                        <th scope="row" class="cell label product"><span><?php echo // @escapeNotVerified
-                                __('Product'); ?></span></th>
+                        <th scope="row" class="cell label product"><span><?= $escaper->escapeHtml('Product'); ?></span></th>
                     <?php } ?>
-                    <td data-th="<?php echo $block->escapeHtml(__('Product')); ?>" class="cell product info">
-                        <a class="product-item-photo" href="<?php echo // @escapeNotVerified
-                        $block->getProductUrl($_item); ?>" title="<?php echo // @escapeNotVerified
+                    <td data-th="<?= $escaper->escapeHtml('Product'); ?>" class="cell product info">
+                        <a class="product-item-photo" href="<?= /* @noEscape */
+                        $block->getProductUrl($_item); ?>" title="<?= /* @noEscape */
                         $block->stripTags($_item->getName(), null, true); ?>">
-                            <?php echo $block->getImage($_item, 'product_comparison_list')->toHtml(); ?>
+                            <?= /* @noEscape */ $block->getImage($_item, 'product_comparison_list')->toHtml(); ?>
                         </a>
                         <strong class="product-item-name">
-                            <a href="<?php echo // @escapeNotVerified
-                            $block->getProductUrl($_item); ?>" title="<?php echo // @escapeNotVerified
-                            $block->stripTags($_item->getName(), null, true); ?>">
-                                <?php echo // @escapeNotVerified
-                                $_helper->productAttribute($_item, $_item->getName(), 'name'); ?>
+                            <a href="<?= /* @noEscape */ $block->getProductUrl($_item); ?>" 
+                                title="<?= /* @noEscape */ $block->stripTags($_item->getName(), null, true); ?>">
+                                <?= /* @noEscape */ $_helper->productAttribute($_item, $_item->getName(), 'name'); ?>
                             </a>
                         </strong>
-                        <?php echo $block->getReviewsSummaryHtml($_item, 'short'); ?>
-                        <?php echo // @escapeNotVerified
-                        $block->getProductPrice($_item, '-compare-list-top'); ?>
+                        <?= /* @noEscape */$block->getReviewsSummaryHtml($_item, 'short'); ?>
+                        <?= /* @noEscape */ $block->getProductPrice($_item, '-compare-list-top'); ?>
                         <div class="product-item-actions">
                             <div class="actions-primary">
                                 <?php if ($_item->isSaleable()) { ?>
-                                    <form data-role="tocart-form" action="<?php echo // @escapeNotVerified
+                                    <form data-role="tocart-form" action="<?= /* @noEscape */
                                     $this->helper('Magento\Catalog\Helper\Product\Compare')->getAddToCartUrl($_item); ?>"
                                           method="post">
-                                        <?php echo $block->getBlockHtml('formkey'); ?>
+                                        <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
                                         <!-- Subscription View -->
                                         <?php
                                         $subConfig = $_item->getCustomAttribute('subscription_configurate')->getValue();
                                         ?>
                                         <?php if ('no' == $subConfig || is_null('subscription_configurate' == $subConfig)) { ?>
                                             <button type="submit"
-                                                    title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                    title="<?= $escaper->escapeHtml('Add to Cart'); ?>"
                                                     class="action tocart primary">
-                                                <span><?php echo // @escapeNotVerified
-                                                    __('Add to Cart'); ?></span>
+                                                <span><?= $escaper->escapeHtml('Add to Cart'); ?></span>
                                             </button>
                                         <?php } else { ?>
                                             <a class="action tocart primary"
-                                               href="<?php echo $subHelper->getProductDetailUrl($_item->getId()); ?>">
-                                                <span><?php echo // @escapeNotVerified
-                                                    __('View Details'); ?></span>
+                                               href="<?= /* @noEscape */ $subHelper->getProductDetailUrl($_item->getId()); ?>">
+                                                <span><?= $escaper->escapeHtml('View Details'); ?></span>
                                             </a>
                                         <?php } ?>
                                     </form>
                                 <?php } else { ?>
                                     <?php if ($_item->getIsSalable()) { ?>
-                                        <div class="stock available"><span><?php echo // @escapeNotVerified
-                                                __('In stock'); ?></span></div>
+                                        <div class="stock available"><span><?= $escaper->escapeHtml('In stock'); ?></span></div>
                                     <?php } else { ?>
-                                        <div class="stock unavailable"><span><?php echo // @escapeNotVerified
-                                                __('Out of stock'); ?></span></div>
+                                        <div class="stock unavailable"><span><?= $escaper->escapeHtml('Out of stock'); ?></span></div>
                                     <?php } ?>
                                 <?php } ?>
                             </div>
                             <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) { ?>
                                 <div class="secondary-addto-links actions-secondary" data-role="add-to-links">
-                                    <a href="#" data-post='<?php echo // @escapeNotVerified
+                                    <a href="#" data-post='<?= /* @noEscape */
                                     $block->getAddToWishlistParams($_item); ?>' class="action towishlist"
                                        data-action="add-to-wishlist">
-                                        <span><?php echo // @escapeNotVerified
-                                            __('Add to Wish List'); ?></span>
+                                        <span><?= $escaper->escapeHtml('Add to Wish List'); ?></span>
                                     </a>
                                 </div>
                             <?php } ?>
@@ -134,7 +120,7 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                         <?php if (0 == $_i++) { ?>
                             <th scope="row" class="cell label">
                                     <span class="attribute label">
-                                        <?php echo $block->escapeHtml($_attribute->getStoreLabel() ? $_attribute->getStoreLabel() : __($_attribute->getFrontendLabel())); ?>
+                                        <?= /* @noEscape */ $block->escapeHtml($_attribute->getStoreLabel() ? $_attribute->getStoreLabel() : __($_attribute->getFrontendLabel())); ?>
                                     </span>
                             </th>
                         <?php } ?>
@@ -142,9 +128,7 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                             <div class="attribute value">
                                 <?php switch ($_attribute->getAttributeCode()) {
                                     case 'price': ?>
-                                        <?php
-                                        // @escapeNotVerified
-                                        echo $block->getProductPrice(
+                                        <?= /* @noEscape */ $block->getProductPrice(
                                             $_item,
                                             '-compare-list-'.$_attribute->getCode()
                                         );
@@ -156,8 +140,7 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                                         <?php break;
 
                                     default: ?>
-                                        <?php echo // @escapeNotVerified
-                                        $_helper->productAttribute($_item, $block->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()); ?>
+                                        <?= /* @noEscape */ $_helper->productAttribute($_item, $block->getProductAttributeValue($_item, $_attribute), $_attribute->getAttributeCode()); ?>
                                         <?php break;
                                 } ?>
                             </div>
@@ -180,7 +163,6 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
     <?php } ?>
 <?php } else { ?>
     <div class="message info empty">
-        <div><?php echo // @escapeNotVerified
-            __('You have no items to compare.'); ?></div>
+        <div><?= $escaper->escapeHtml('You have no items to compare.'); ?></div>
     </div>
 <?php } ?>

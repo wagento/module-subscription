@@ -8,6 +8,8 @@ use Magento\Framework\App\Action\Action;
 
 // @codingStandardsIgnoreFile
 
+/** @var \Magento\Framework\Escaper $escaper */
+
 ?>
 <?php
 /**
@@ -23,12 +25,11 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 ?>
 <?php if (!$_productCollection->count()) { ?>
     <div class="message info empty">
-        <div><?php echo // @escapeNotVerified
-            __('We can\'t find products matching the selection.'); ?></div>
+        <div><?= $escaper->escapeHtml('We can\'t find products matching the selection.'); ?></div>
     </div>
 <?php } else { ?>
-    <?php echo $block->getToolbarHtml(); ?>
-    <?php echo $block->getAdditionalHtml(); ?>
+    <?= /* @noEscape */ $block->getToolbarHtml(); ?>
+    <?= /* @noEscape */ $block->getAdditionalHtml(); ?>
     <?php
     if ('grid' == $block->getMode()) {
         $viewMode = 'grid';
@@ -47,14 +48,12 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
      */
     $pos = $block->getPositioned();
     ?>
-    <div class="products wrapper <?php echo // @escapeNotVerified
-    $viewMode; ?> products-<?php echo // @escapeNotVerified
-    $viewMode; ?>">
+    <div class="products wrapper <?= /* @noEscape */ $viewMode; ?> products-<?=/* @noEscape */ $viewMode; ?>">
         <?php $iterator = 1; ?>
         <ol class="products list items product-items">
             <?php /** @var \Magento\Catalog\Model\Product $_product */ ?>
             <?php foreach ($_productCollection as $_product) { ?>
-                <?php echo // @escapeNotVerified
+                <?= /* @noEscape */ 
                 (1 == $iterator++) ? '<li class="item product product-item">' : '</li><li class="item product product-item">'; ?>
                 <div class="product-item-info" data-container="product-grid">
                     <?php
@@ -65,9 +64,8 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                     }
                     ?>
                     <?php // Product Image?>
-                    <a href="<?php echo // @escapeNotVerified
-                    $_product->getProductUrl(); ?>" class="product photo product-item-photo" tabindex="-1">
-                        <?php echo $productImage->toHtml(); ?>
+                    <a href="<?= /* @noEscape */ $_product->getProductUrl(); ?>" class="product photo product-item-photo" tabindex="-1">
+                        <?= /* @noEscape */ $productImage->toHtml(); ?>
                     </a>
                     <div class="product details product-item-details">
                         <?php
@@ -75,90 +73,79 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                         ?>
                         <strong class="product name product-item-name">
                             <a class="product-item-link"
-                               href="<?php echo // @escapeNotVerified
-                               $_product->getProductUrl(); ?>">
-                                <?php echo // @escapeNotVerified
-                                $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+                               href="<?= /* @noEscape */ $_product->getProductUrl(); ?>">
+                                <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
                             </a>
                         </strong>
-                        <?php echo $block->getReviewsSummaryHtml($_product, $templateType); ?>
-                        <?php echo // @escapeNotVerified
-                        $block->getProductPrice($_product); ?>
-                        <?php echo $block->getProductDetailsHtml($_product); ?>
+                        <?= /* @noEscape */ $block->getReviewsSummaryHtml($_product, $templateType); ?>
+                        <?= /* @noEscape */ $block->getProductPrice($_product); ?>
+                        <?= /* @noEscape */  $block->getProductDetailsHtml($_product); ?>
 
                         <div class="product-item-inner">
-                            <div class="product actions product-item-actions"<?php echo strpos((string) $pos, (string) $viewMode.'-actions') ? $position : ''; ?>>
-                                <div class="actions-primary"<?php echo strpos((string) $pos, (string) $viewMode.'-primary') ? $position : ''; ?>>
+                            <div class="product actions product-item-actions"<?= /* @noEscape */ strpos((string) $pos, (string) $viewMode.'-actions') ? $position : ''; ?>>
+                                <div class="actions-primary"<?= /* @noEscape */  strpos((string) $pos, (string) $viewMode.'-primary') ? $position : ''; ?>>
                                     <?php if ($_product->isSaleable()) { ?>
                                         <?php $postParams = $block->getAddToCartPostParams($_product); ?>
-                                        <form data-role="tocart-form" data-product-sku="<?php echo // @NoEscape
-                                        $_product->getSku(); ?>" action="<?php echo // @NoEscape
+                                        <form data-role="tocart-form" data-product-sku="<?=/* @noEscape */ $_product->getSku(); ?>" action="<?= /* @noEscape */ 
                                         $postParams['action']; ?>" method="post">
-                                            <input type="hidden" name="product" value="<?php echo // @escapeNotVerified
+                                            <input type="hidden" name="product" value="<?= /* @noEscape */ 
                                             $postParams['data']['product']; ?>">
-                                            <input type="hidden" name="<?php echo // @escapeNotVerified
-                                            Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php echo // @escapeNotVerified
-                                            $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
-                                            <?php echo $block->getBlockHtml('formkey'); ?>
+                                            <input type="hidden" name="<?= /* @noEscape */ 
+                                            Action::PARAM_NAME_URL_ENCODED; ?>" value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                            <?= /* @noEscape */  $block->getBlockHtml('formkey'); ?>
                                             <?php if ('no' == $_product->getData('subscription_configurate')
                                                 || is_null($_product->getData('subscription_configurate'))) { ?>
                                                 <button type="submit"
-                                                        title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                        title="<?= $escaper->escapeHtml('Add to Cart'); ?>"
                                                         class="action tocart primary">
-                                                    <span><?php echo // @escapeNotVerified
-                                                        __('Add to Cart'); ?></span>
+                                                    <span><?=$escaper->escapeHtml('Add to Cart'); ?></span>
                                                 </button>
                                             <?php } else { ?>
                                                 <a class="action tocart primary"
-                                                   href="<?php echo $subHelper->getProductDetailUrl($_product->getId()); ?>">
-                                                    <span><?php echo // @escapeNotVerified
-                                                        __('View Details'); ?></span>
+                                                   href="<?= /* @noEscape */ $subHelper->getProductDetailUrl($_product->getId()); ?>">
+                                                    <span><?=
+                                                        $escaper->escapeHtml('View Details'); ?></span>
                                                 </a>
                                             <?php } ?>
                                         </form>
                                     <?php } else { ?>
                                         <?php if ($_product->isAvailable()) { ?>
-                                            <div class="stock available"><span><?php echo // @escapeNotVerified
-                                                    __('In stock'); ?></span></div>
+                                            <div class="stock available"><span><?= $escaper->escapeHtml('In stock'); ?></span></div>
                                         <?php } else { ?>
-                                            <div class="stock unavailable"><span><?php echo // @escapeNotVerified
-                                                    __('Out of stock'); ?></span></div>
+                                            <div class="stock unavailable"><span><?= $escaper->escapeHtml('Out of stock'); ?></span></div>
                                         <?php } ?>
                                     <?php } ?>
                                 </div>
                                 <div data-role="add-to-links"
-                                     class="actions-secondary"<?php echo strpos((string) $pos, (string) $viewMode.'-secondary') ? $position : ''; ?>>
+                                     class="actions-secondary"<?= /* @noEscape */ strpos((string) $pos, (string) $viewMode.'-secondary') ? $position : ''; ?>>
                                     <?php if ($addToBlock = $block->getChildBlock('addto')) { ?>
-                                        <?php echo $addToBlock->setProduct($_product)->getChildHtml(); ?>
+                                        <?= /* @noEscape */ $addToBlock->setProduct($_product)->getChildHtml(); ?>
                                     <?php } ?>
                                 </div>
                             </div>
                             <?php if ($showDescription) { ?>
                                 <div class="product description product-item-description">
-                                    <?php echo // @escapeNotVerified
+                                    <?= /* @noEscpe */
                                     $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description'); ?>
-                                    <a href="<?php echo // @escapeNotVerified
-                                    $_product->getProductUrl(); ?>" title="<?php echo // @escapeNotVerified
-                                    $_productNameStripped; ?>"
-                                       class="action more"><?php echo // @escapeNotVerified
-                                        __('Learn More'); ?></a>
+                                    <a href="<?= $escaper->escapeHtml($_product->getProductUrl()); ?>" title="<?= $escaper->escapeHtml($_productNameStripped); ?>"
+                                       class="action more"><?=
+                                        $escaper->escapeHtml('Learn More'); ?></a>
                                 </div>
                             <?php } ?>
                         </div>
                     </div>
                 </div>
-                <?php echo ($iterator == count($_productCollection) + 1) ? '</li>' : ''; ?>
+                <?= /* @noEscape */ ($iterator == count($_productCollection) + 1) ? '</li>' : ''; ?>
             <?php } ?>
         </ol>
     </div>
-    <?php echo $block->getToolbarHtml(); ?>
+    <?= /* @noEscape */ $block->getToolbarHtml(); ?>
     <?php if (!$block->isRedirectToCartEnabled()) { ?>
         <script type="text/x-magento-init">
         {
             "[data-role=tocart-form], .form.map.checkout": {
                 "catalogAddToCart": {
-                    "product_sku": "<?php echo // @NoEscape
-            $_product->getSku(); ?>"
+                    "product_sku": "<?= /* @noEscape */ $_product->getSku(); ?>"
                 }
             }
         }

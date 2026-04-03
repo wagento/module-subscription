@@ -7,19 +7,22 @@
 // @codingStandardsIgnoreFile
 
 // @var $block \Magento\Checkout\Block\Cart\Grid
+
+/** @var \Magento\Framework\Escaper $escaper */
+
 ?>
 <div id="container">
     <div id="subscriptionItems">
 
         <?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
-        <?php echo $block->getChildHtml('form_before'); ?>
-        <form action="<?php echo // @escapeNotVerified
+        <?= /* @noEscape*/ $block->getChildHtml('form_before'); ?>
+        <form action="<?= /* @noEscape */ 
         $block->getUrl('checkout/cart/updatePost'); ?>"
               method="post"
               id="form-validate"
               data-mage-init='{"validation":{}}'
               class="form form-cart">
-            <?php echo $block->getBlockHtml('formkey'); ?>
+            <?= /* @noEscape*/ $block->getBlockHtml('formkey'); ?>
             <?php
             $nonSubscriptionItems = [];
             $subscriptionItems = [];
@@ -33,109 +36,97 @@
 
             <div class="resp-tabs-container">
                 <!-- Non Subscription Items -->
-                <div class="cart table-wrapper<?php echo 2 == $mergedCells ? ' detailed' : ''; ?>">
+                <div class="cart table-wrapper<?= /* @noEscape*/ 2 == $mergedCells ? ' detailed' : ''; ?>">
                     <?php if ($block->getPagerHtml()) { ?>
                         <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
-                             data-attribute="cart-products-toolbar-top"><?php echo $block->getPagerHtml(); ?></div>
+                             data-attribute="cart-products-toolbar-top"><?= /* @noEscape*/ $block->getPagerHtml(); ?></div>
                     <?php } ?>
                     <table id="shopping-cart-table"
                            class="cart items data table"
                            data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
                "updateCartActionContainer": "#update_cart_action_container"}}'>
                         <?php if (0 != sizeof($nonSubscriptionItems)) { ?>
-                            <h3><?php echo // @escapeNotVerified
-                                __('Non Subscription Items'); ?></h3>
+                            <h3><?= $escaper->escapeHtml('Non Subscription Items'); ?></h3>
                             <thead>
                             <tr>
-                                <th class="col item" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Item'); ?></span></th>
-                                <th class="col price" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Price'); ?></span></th>
-                                <th class="col qty" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Qty'); ?></span></th>
-                                <th class="col subtotal" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Subtotal'); ?></span></th>
+                                <th class="col item" scope="col"><span><?= $escaper->escapeHtml('Item'); ?></span></th>
+                                <th class="col price" scope="col"><span><?= $escaper->escapeHtml('Price'); ?></span></th>
+                                <th class="col qty" scope="col"><span><?= $escaper->escapeHtml('Qty'); ?></span></th>
+                                <th class="col subtotal" scope="col"><span><?= $escaper->escapeHtml('Subtotal'); ?></span></th>
                             </tr>
                             </thead>
                         <?php } ?>
                         <?php foreach ($nonSubscriptionItems as $_item) { ?>
-                            <?php echo $block->getItemHtml($_item); ?>
+                            <?= /* @noEscape*/ $block->getItemHtml($_item); ?>
                         <?php } ?>
                     </table>
                     <?php if ($block->getPagerHtml()) { ?>
                         <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar"
-                             data-attribute="cart-products-toolbar-bottom"><?php echo $block->getPagerHtml(); ?></div>
+                             data-attribute="cart-products-toolbar-bottom"><?= /* @noEscape*/ $block->getPagerHtml(); ?></div>
                     <?php } ?>
                 </div>
 
 
                 <!-- Subscription Items -->
-                <div class="cart table-wrapper<?php echo 2 == $mergedCells ? ' detailed' : ''; ?>">
+                <div class="cart table-wrapper<?= /* @noEscape*/ 2 == $mergedCells ? ' detailed' : ''; ?>">
                     <?php if ($block->getPagerHtml()) { ?>
                         <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
-                             data-attribute="cart-products-toolbar-top"><?php echo $block->getPagerHtml(); ?></div>
+                             data-attribute="cart-products-toolbar-top"><?= /* @noEscape*/ $block->getPagerHtml(); ?></div>
                     <?php } ?>
                     <table id="shopping-cart-table"
                            class="cart items data table"
                            data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
                "updateCartActionContainer": "#update_cart_action_container"}}'>
                         <?php if (0 != sizeof($subscriptionItems)) { ?>
-                            <h3><?php echo // @escapeNotVerified
-                                __('Subscription Items'); ?></h3>
+                            <h3><?= $escaper->escapeHtml('Subscription Items'); ?></h3>
                             <thead>
                             <tr>
-                                <th class="col item" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Item'); ?></span></th>
-                                <th class="col price" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Price'); ?></span></th>
-                                <th class="col qty" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Qty'); ?></span></th>
-                                <th class="col subtotal" scope="col"><span><?php echo // @escapeNotVerified
-                                        __('Subtotal'); ?></span></th>
+                                <th class="col item" scope="col"><span><?= $escaper->escapeHtml('Item'); ?></span></th>
+                                <th class="col price" scope="col"><span><?= $escaper->escapeHtml('Price'); ?></span></th>
+                                <th class="col qty" scope="col"><span><?= $escaper->escapeHtml('Qty'); ?></span></th>
+                                <th class="col subtotal" scope="col"><span><?= $escaper->escapeHtml('Subtotal'); ?></span></th>
                             </tr>
                             </thead>
                         <?php } ?>
                         <?php foreach ($subscriptionItems as $_item) { ?>
-                            <?php echo $block->getItemHtml($_item); ?>
+                            <?= /* @noEscape */ $block->getItemHtml($_item); ?>
                         <?php } ?>
                     </table>
                     <?php if ($block->getPagerHtml()) { ?>
                         <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar"
-                             data-attribute="cart-products-toolbar-bottom"><?php echo $block->getPagerHtml(); ?></div>
+                             data-attribute="cart-products-toolbar-bottom"><?= /* @noEscape */  $block->getPagerHtml(); ?></div>
                     <?php } ?>
                 </div>
             </div>
             <div class="cart main actions">
                 <?php if ($block->getContinueShoppingUrl()) { ?>
                     <a class="action continue"
-                       href="<?php echo $block->escapeUrl($block->getContinueShoppingUrl()); ?>"
-                       title="<?php echo $block->escapeHtml(__('Continue Shopping')); ?>">
-                        <span><?php echo // @escapeNotVerified
-                            __('Continue Shopping'); ?></span>
+                       href="<?= $block->escapeUrl($block->getContinueShoppingUrl()); ?>"
+                       title="<?= $escaper->escapeHtml('Continue Shopping'); ?>">
+                        <span><?=
+                            $escaper->escapeHtml('Continue Shopping'); ?></span>
                     </a>
                 <?php } ?>
                 <button type="submit"
                         name="update_cart_action"
                         data-cart-empty=""
                         value="empty_cart"
-                        title="<?php echo $block->escapeHtml(__('Clear Shopping Cart')); ?>"
+                        title="<?= $escaper->escapeHtml('Clear Shopping Cart'); ?>"
                         class="action clear" id="empty_cart_button">
-                    <span><?php echo // @escapeNotVerified
-                        __('Clear Shopping Cart'); ?></span>
+                    <span><?= $escaper->escapeHtml('Clear Shopping Cart'); ?></span>
                 </button>
                 <button type="submit"
                         name="update_cart_action"
                         data-cart-item-update=""
                         value="update_qty"
-                        title="<?php echo $block->escapeHtml(__('Update Shopping Cart')); ?>"
+                        title="<?= $escaper->escapeHtml('Update Shopping Cart'); ?>"
                         class="action update">
-                    <span><?php echo // @escapeNotVerified
-                        __('Update Shopping Cart'); ?></span>
+                    <span><?= $escaper->escapeHtml('Update Shopping Cart'); ?></span>
                 </button>
                 <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
             </div>
     </div>
 </div>
 </form>
-<?php echo $block->getChildHtml('checkout.cart.order.actions'); ?>
-<?php echo $block->getChildHtml('shopping.cart.table.after'); ?>
+<?= /* @noEscape */ $block->getChildHtml('checkout.cart.order.actions');?>
+<?= /* @noEscape */ $block->getChildHtml('shopping.cart.table.after');?>

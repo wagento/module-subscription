@@ -7,19 +7,18 @@
 // @codingStandardsIgnoreFile
 
 // @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit
+/** @var \Magento\Framework\Escaper $escaper */
+
 ?>
-<?php
-$isSubscribed = $block->getItem()->getIsSubscribed();
-if (!$isSubscribed) {
-    ?>
-<?php if ($block->isProductVisibleInSiteVisibility()) { ?>
-    <a class="action action-edit"
-       href="<?php echo /* @escapeNotVerified */ $block->getConfigureUrl(); ?>"
-       title="<?php echo $block->escapeHtml(__('Edit item parameters')); ?>">
-        <span>
-            <?php echo /* @escapeNotVerified */ __('Edit'); ?>
-        </span>
-    </a>
-<?php } ?>
-<?php
-} ?>
+<?php $isSubscribed = $block->getItem()->getIsSubscribed(); ?>
+<?php if (!$isSubscribed): ?>
+    <?php if ($block->isProductVisibleInSiteVisibility()) { ?>
+        <a class="action action-edit"
+           href="<?= /* @noEscape */ $block->getConfigureUrl(); ?>"
+           title="<?= $escaper->escapeHtml('Edit item parameters'); ?>">
+            <span>
+                <?= $escaper->escapeHtml('Edit'); ?>
+            </span>
+        </a>
+    <?php } ?>
+<?php endif; ?>

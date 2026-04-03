@@ -9,13 +9,14 @@
 /** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart $block */
 
 /** @var \Magento\Wishlist\Model\Item $item */
+/** @var \Magento\Framework\Escaper $escaper */
+
 $item = $block->getItem();
 $product = $item->getProduct();
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 ?>
 <?php foreach ($block->getChildNames() as $childName) { ?>
-    <?php echo // @noEscape
-    $block->getLayout()->renderElement($childName, false); ?>
+    <?= /* @noEscape */ $block->getLayout()->renderElement($childName, false); ?>
 <?php } ?>
 <div class="box-tocart">
     <fieldset class="fieldset">
@@ -23,12 +24,12 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
             <?php if ('subscription_only' !== $product->getData('subscription_configurate')) { ?>
                 <div class="field qty">
                     <label class="label"
-                           for="qty[<?php echo $block->escapeHtmlAttr($item->getId()); ?>]"><span><?php echo $block->escapeHtml(__('Qty')); ?></span></label>
+                           for="qty[<?= $escaper->escapeHtml($item->getId()); ?>]"><span><?= $escaper->escapeHtml('Qty'); ?></span></label>
                     <div class="control">
                         <input type="number" data-role="qty" id="qty[<?php echo $block->escapeHtmlAttr($item->getId()); ?>]"
                                class="input-text qty"
                                data-validate="{'required-number':true,'validate-greater-than-zero':true}"
-                               name="qty[<?php echo $block->escapeHtmlAttr($item->getId()); ?>]" value="<?php echo // @noEscape
+                               name="qty[<?= /* @noEscape */  $block->escapeHtmlAttr($item->getId()); ?>]" value="<?php echo // @noEscape
                         (int) ($block->getAddToCartQty($item) * 1); ?>">
                     </div>
                 </div>
@@ -40,31 +41,29 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                 || is_null($product->getData('subscription_configurate'))) { ?>
                 <div class="product-item-actions">
                     <div class="actions-primary">
-                        <button type="button" data-role="tocart" data-post='<?php echo // @noEscape
-                        $block->getItemAddToCartParams($item); ?>'
-                                title="<?php echo $block->escapeHtmlAttr(__('Add to Cart')); ?>"
+                        <button type="button" data-role="tocart" data-post='<?= /* @noEscape */ $block->getItemAddToCartParams($item); ?>'
+                                title="<?= $escaper->escapeHtml('Add to Cart'); ?>"
                                 data-item-id="<?php echo $block->escapeHtmlAttr($item->getId()); ?>"
                                 class="action tocart primary">
-                            <span><?php echo $block->escapeHtml(__('Add to Cart')); ?></span>
+                            <span><?= $escaper->escapeHtml('Add to Cart'); ?></span>
                         </button>
                     </div>
                 </div>
 
             <?php } else { ?>
-                <a class="action tocart primary" href="<?php echo $subHelper->getProductDetailUrl($product->getId()); ?>">
-                    <span><?php echo // @escapeNotVerified
-                        __('View Details'); ?></span>
+                <a class="action tocart primary" href="<?= /* @noEscape */ $subHelper->getProductDetailUrl($product->getId()); ?>">
+                    <span><?= $escaper->escapeHtml('View Details'); ?></span>
                 </a>
             <?php } ?>
 
         <?php } else { ?>
             <?php if ($product->getIsSalable()) { ?>
-                <p class="available stock" title="<?php echo $block->escapeHtmlAttr(__('Availability')); ?>">
-                    <span><?php echo $block->escapeHtml(__('In stock')); ?></span>
+                <p class="available stock" title="<?= $escaper->escapeHtml('Availability'); ?>">
+                    <span><?= $escaper->escapeHtml('In stock'); ?></span>
                 </p>
             <?php } else { ?>
-                <p class="unavailable stock" title="<?php echo $block->escapeHtmlAttr(__('Availability')); ?>">
-                    <span><?php echo $block->escapeHtml(__('Out of stock')); ?></span>
+                <p class="unavailable stock" title="<?php echo $escaper->escapeHtmlAttr('Availability'); ?>">
+                    <span><?= $escaper->escapeHtml('Out of stock'); ?></span>
                 </p>
             <?php } ?>
         <?php } ?>

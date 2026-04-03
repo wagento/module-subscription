@@ -5,6 +5,9 @@
  */
 
 // @codingStandardsIgnoreFile
+
+/** @var \Magento\Framework\Escaper $escaper */
+
 $productId = $this->getData('productId');
 $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
 ?>
@@ -13,20 +16,20 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
     <?php $_links = $block->getLinks($productId); ?>
     <?php $_linksLength = 0; ?>
     <?php $_isRequired = $block->getLinkSelectionRequired($productId); ?>
-    <legend class="legend links-title"><span><?php echo // @escapeNotVerified
+    <legend class="legend links-title"><span><?= /* @noEscape */ 
             $block->getLinksTitle($productId); ?></span></legend><br>
     <div class="field downloads<?php if ($_isRequired) {
                 echo ' required';
             } ?><?php if (!$_linksPurchasedSeparately) {
                 echo ' downloads-no-separately';
             } ?>">
-        <label class="label"><span><?php echo // @escapeNotVerified
+        <label class="label"><span><?= /* @noEscape */ 
                 $block->getLinksTitle($productId); ?></span></label>
         <div class="control" id="downloadable-links-list"
              data-mage-init='{"downloadable":{
                  "linkElement":"input:checkbox[value]",
                  "allElements":"#links_all",
-                 "config":<?php echo // @escapeNotVerified
+                 "config":<?= /* @noEscape */ 
              $block->getJsonConfig1($productId); ?>}
              }'
              data-container-for="downloadable-links">
@@ -37,25 +40,24 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
                         <input type="checkbox"
                                <?php if ($_isRequired) { ?>data-validate="{'validate-one-checkbox-required-by-name':'downloadable-links-list'}" <?php } ?>
                                name="links[]"
-                               id="links_<?php echo // @escapeNotVerified
+                               id="links_<?= /* @noEscape */ 
                                $_link->getId(); ?>"
-                               value="<?php echo // @escapeNotVerified
-                               $_link->getId(); ?>" <?php echo // @escapeNotVerified
+                               value="<?= /* @noEscape */ 
+                               $_link->getId(); ?>" <?= /* @noEscape */ 
                         $block->getLinkCheckedValue($_link, $productId); ?> />
                     <?php } ?>
-                    <label class="label" for="links_<?php echo // @escapeNotVerified
+                    <label class="label" for="links_<?= /* @noEscape */  
                     $_link->getId(); ?>">
-                        <span><?php echo $block->escapeHtml($_link->getTitle()); ?></span>
+                        <span><?= $escaper->escapeHtml($_link->getTitle()); ?></span>
                         <?php if ($_link->getSampleFile() || $_link->getSampleUrl()) { ?>
                             <a class="sample link"
-                               href="<?php echo // @escapeNotVerified
-                               $block->getLinkSampleUrl($_link, $productId); ?>" <?php echo $block->getIsOpenInNewWindow() ? 'target="_blank"' : ''; ?>>
-                                <?php echo // @escapeNotVerified
-                                __('sample'); ?>
+                               href="<?= // @noEscape
+                               $block->getLinkSampleUrl($_link, $productId); ?>" <?= /* @noEscape */ $block->getIsOpenInNewWindow() ? 'target="_blank"' : ''; ?>>
+                                <?= $escaper->escapeHtml('sample'); ?>
                             </a>
                         <?php } ?>
                         <?php if ($_linksPurchasedSeparately) { ?>
-                            <?php echo // @escapeNotVerified
+                            <?= /* @noEscape */ 
                             $block->getLinkPrice($_link, $productId); ?>
                         <?php } ?>
                     </label>
@@ -64,13 +66,10 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
             <?php if ($_linksPurchasedSeparately && $_linksLength > 1) { ?>
                 <div class="field choice downloads-all">
                     <input type="checkbox"
-                           data-notchecked="<?php echo // @escapeNotVerified
-                           __('Select all'); ?>"
-                           data-checked="<?php echo // @escapeNotVerified
-                           __('Unselect all'); ?>"
+                           data-notchecked="<?= $escaper->escapeHtml('Select all'); ?>"
+                           data-checked="<?= $escaper->escapeHtml('Unselect all'); ?>"
                            id="links_all"/>
-                    <label class="label" for="links_all"><span><?php echo // @escapeNotVerified
-                            __('Select all'); ?></span></label>
+                    <label class="label" for="links_all"><span><?= $escaper->escapeHtml('Select all'); ?></span></label>
                 </div>
             <?php } ?>
         </div>

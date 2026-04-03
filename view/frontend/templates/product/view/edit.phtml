@@ -4,6 +4,9 @@
  * See COPYING.txt for license details.
  */
 // @codingStandardsIgnoreFile
+
+/** @var \Magento\Framework\Escaper $escaper */
+
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
 ?>
@@ -20,17 +23,17 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
     <?php if ('optional' == $subscriptionOptions || 'subscription_only' == $subscriptionOptions) { ?>
         <?php // if(!$isSubscribed):?>
         <div class="field subscription">
-            <input type="checkbox" id="subscriptionPopup<?php echo $itemId; ?>"
-                   data-bind="scope: subscriptionPopup<?php echo $itemId; ?>"
-                   data-role="subscriptionPopup<?php echo $itemId; ?>"
-                   class="subscriptionPopup<?php echo $itemId; ?> subscriptionPopup<?php echo $actionSubscription; ?><?php echo $itemId; ?>"
-                   title="<?php echo $subHelper->getProductOptionLabel(); ?>" class="checkbox"
+            <input type="checkbox" id="subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>"
+                   data-bind="scope: subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>"
+                   data-role="subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>"
+                   class="subscriptionPopup<?= $escaper->escapeHtml($itemId); ?> subscriptionPopup<?= $escaper->escapeHtml($actionSubscription); ?><?= $escaper->escapeHtml($itemId); ?>"
+                   title="<?= $escaper->escapeHtml($subHelper->getProductOptionLabel()); ?>" class="checkbox"
                    <?php if ($isSubscribed) { ?> checked="checked" <?php } ?>
             >
             <label class="label" for="product_subscription">
                 <span>
                     <!--get label value from system configurations -->
-                    <?php echo $subHelper->getProductOptionLabel(); ?>
+                    <?= /* @noEscape */ $subHelper->getProductOptionLabel(); ?>
                 </span>
             </label>
         </div>
@@ -48,37 +51,37 @@ $subHelperLinks = $this->helper('Wagento\Subscription\Helper\Product');
             $_isRequired = $subHelperLinks->getLinkSelectionRequired($productId);
             $_links = $subHelperLinks->getLinks($productId);
             ?>
-            <div id="subscriptionPopup<?php echo $itemId; ?>" data-bind="scope:'subscriptionPopup<?php echo $itemId; ?>'"
-                 data-role="subscriptionPopup<?php echo $itemId; ?>" class="subscriptionPopup<?php echo $itemId; ?>">
+            <div id="subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>" data-bind="scope:'subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>'"
+                 data-role="subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>" class="subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>">
 
                 <!-- ko template: getTemplate() --><!-- /ko -->
                 <script type="text/x-magento-init">
                 {
-                    "#subscriptionPopup<?php echo $itemId; ?>": {
+                    "#subscriptionPopup<?=$escaper->escapeHtml($itemId);?>": {
                         "Magento_Ui/js/core/app": {
                             "components": {
-                                "subscriptionPopup<?php echo $itemId; ?>": {
+                                "subscriptionPopup<?= $escaper->escapeHtml($itemId); ?>": {
                                     "component": "Wagento_Subscription/js/view/subscription-popup-cart",
                                     "isVisible": true,
-                                    "subsname": "<?php echo $subHelper->getSubName($subId); ?>",
-                                    "frequency": "<?php echo $subHelper->getSubFrequency($subId); ?>",
-                                    "discountWithoutCurrency": "<?php echo $subHelper->getSubscriptionDiscount($subId); ?>",
-                                    "discount": "<?php echo $discount; ?>",
-                                    "cost": "<?php echo $fee; ?>",
-                                    "costWithoutCurrency": "<?php echo $subHelper->getSubFee($subId); ?>",
-                                    "subscriptionId" : "<?php echo $subHelper->getSubscriptionId($productId); ?>",
-                                    "state": "<?php echo $actionSubscription; ?>",
-                                    "productId" : "<?php echo $productId; ?>",
-                                    "itemId":"<?php echo $itemId; ?>",
-                                    "howMany" : "<?php echo $subHelper->getDefaultSubscriptionHowMany($subId); ?>",
-                                    "isEnableHowMany" : "<?php echo $subHelper->isSubscriptionEnableHowMany(); ?>",
-                                    "howManyUnit": "<?php echo $subHelper->getHowManyUnits($subId); ?>",
-                                    "linksPurchasedSeparately" : "<?php echo $_linksPurchasedSeparately; ?>",
-                                    "isSaleable" : "<?php echo $isSaleable; ?>",
-                                    "hasLinks" : "<?php echo $hasLinks; ?>",
-                                    "linksTitle" : "<?php echo $getLinksTitle; ?>",
-                                    "isRequired" : "<?php echo $_isRequired; ?>",
-                                    "links" : <?php echo $subHelper->getJsonEncode($subHelperLinks->getLinks($productId)); ?>
+                                    "subsname": "<?=$escaper->escapeHtml( $subHelper->getSubName($subId)); ?>",
+                                    "frequency": "<?= $escaper->escapeHtml($subHelper->getSubFrequency($subId)); ?>",
+                                    "discountWithoutCurrency": "<?= $escaper->escapeHtml($subHelper->getSubscriptionDiscount($subId)); ?>",
+                                    "discount": "<?=$escaper->escapeHtml($discount); ?>",
+                                    "cost": "<?=$escaper->escapeHtml($fee); ?>",
+                                    "costWithoutCurrency": "<?= $escaper->escapeHtml($subHelper->getSubFee($subId)); ?>",
+                                    "subscriptionId" : "<?= $escaper->escapeHtml($subHelper->getSubscriptionId($productId)); ?>",
+                                    "state": "<?= $escaper->escapeHtml($actionSubscription); ?>",
+                                    "productId" : "<?= $escaper->escapeHtml($productId); ?>",
+                                    "itemId":"<?= $escaper->escapeHtml($itemId); ?>",
+                                    "howMany" : "<?= $escaper->escapeHtml($subHelper->getDefaultSubscriptionHowMany($subId)); ?>",
+                                    "isEnableHowMany" : "<?= $escaper->escapeHtml($subHelper->isSubscriptionEnableHowMany()); ?>",
+                                    "howManyUnit": "<?= $escaper->escapeHtml($subHelper->getHowManyUnits($subId)); ?>",
+                                    "linksPurchasedSeparately" : "<?= $escaper->escapeHtml($_linksPurchasedSeparately); ?>",
+                                    "isSaleable" : "<?= $escaper->escapeHtml($isSaleable); ?>",
+                                    "hasLinks" : "<?= $escaper->escapeHtml($hasLinks); ?>",
+                                    "linksTitle" : "<?= $escaper->escapeHtml($getLinksTitle); ?>",
+                                    "isRequired" : "<?= $escaper->escapeHtml($_isRequired); ?>",
+                                    "links" : <?= $escaper->escapeHtml($subHelper->getJsonEncode($subHelperLinks->getLinks($productId))); ?>
                                 }
                             }
                         }

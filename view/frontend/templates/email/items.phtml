@@ -6,6 +6,8 @@
 
 // @codingStandardsIgnoreFile
 
+/** @var \Magento\Framework\Escaper $escaper */
+
 ?>
 <?php $_order = $block->getOrder(); ?>
 <?php $subProductId = $_order->getSubProductId(); ?>
@@ -15,13 +17,13 @@
         <thead>
         <tr>
             <th class="item-info">
-                <?php echo /* @escapeNotVerified */ __('Items'); ?>
+                <?= $ecaper->escapeHtml('Items'); ?>
             </th>
             <th class="item-qty">
-                <?php echo /* @escapeNotVerified */ __('Qty'); ?>
+                <?= $ecaper->escapeHtml('Qty'); ?>
             </th>
             <th class="item-price">
-                <?php echo /* @escapeNotVerified */ __('Price'); ?>
+                <?= $ecaper->escapeHtml('Price'); ?>
             </th>
         </tr>
         </thead>
@@ -32,7 +34,7 @@
                 ?>
                 <?php if (!$_item->getParentItem()) { ?>
                     <tbody>
-                    <?php echo $block->getItemHtml($_item); ?>
+                    <?= /* @noEscape */ $block->getItemHtml($_item); ?>
                     </tbody>
                 <?php } ?>
             <?php
@@ -48,11 +50,11 @@
             <table class="message-gift">
                 <tr>
                     <td>
-                        <h3><?php echo /* @escapeNotVerified */ __('Gift Message for this Order'); ?></h3>
-                        <strong><?php echo /* @escapeNotVerified */ __('From:'); ?></strong> <?php echo $block->escapeHtml($_giftMessage->getSender()); ?>
-                        <br /><strong><?php echo /* @escapeNotVerified */ __('To:'); ?></strong> <?php echo $block->escapeHtml($_giftMessage->getRecipient()); ?>
-                        <br /><strong><?php echo /* @escapeNotVerified */ __('Message:'); ?></strong>
-                        <br /><?php echo $block->escapeHtml($_giftMessage->getMessage()); ?>
+                        <h3><?= $ecaper->escapeHtml('Gift Message for this Order'); ?></h3>
+                        <strong><?= $ecaper->escapeHtml('From:'); ?></strong> <?= $escaper->escapeHtml($_giftMessage->getSender()); ?>
+                        <br /><strong><?= $ecaper->escapeHtml('To:'); ?></strong> <?= $escaper->escapeHtml($_giftMessage->getRecipient()); ?>
+                        <br /><strong><?= $ecaper->escapeHtml('Message:'); ?></strong>
+                        <br /><?= $escaper->escapeHtml($_giftMessage->getMessage()); ?>
                     </td>
                 </tr>
             </table>

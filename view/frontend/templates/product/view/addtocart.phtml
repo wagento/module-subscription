@@ -7,28 +7,29 @@
 // @codingStandardsIgnoreFile
 
 /** @var \Magento\Catalog\Block\Product\View $block */
+/** @var \Magento\Framework\Escaper $escaper */
 $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
 ?>
 <?php $_product = $block->getProduct(); ?>
-<?php $buttonTitle = __('Add to Cart'); ?>
+<?php $buttonTitle = $escaper->escapeHtml('Add to Cart'); ?>
 <?php if ($_product->isSaleable()) { ?>
     <div class="box-tocart">
         <div class="fieldset">
             <?php if ($block->shouldRenderQuantity()) { ?>
                 <?php if ('subscription_only' !== $_product->getData('subscription_configurate')) { ?>
                     <div class="field qty">
-                        <label class="label" for="qty"><span><?php echo // @escapeNotVerified
-                                __('Qty'); ?></span></label>
+                        <label class="label" for="qty"><span><?=
+                                $escaper->escapeHtml('Qty'); ?></span></label>
                         <div class="control">
                             <input type="number"
                                    name="qty"
                                    id="qty"
-                                   value="<?php echo // @escapeNotVerified
+                                   value="<?= // @noEscape
                                    $block->getProductDefaultQty() * 1; ?>"
-                                   title="<?php echo // @escapeNotVerified
+                                   title="<?= // @noEscape
                                    __('Qty'); ?>"
                                    class="input-text qty"
-                                   data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())); ?>"
+                                   data-validate="<?= $escaper->escapeHtml(json_encode($block->getQuantityValidators())); ?>"
                             />
                         </div>
                     </div>
@@ -44,14 +45,14 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                             checked="checked"<?php } ?>
                                 type="checkbox" id="subscriptionPopup" data-bind="scope:'subscriptionPopup'"
                                 data-role="subscriptionPopup" class="subscriptionPopup"
-                                title="<?php echo $block->escapeHtmlAttr(__('Subscribe')); ?>" class="checkbox"/>
+                                title="<?= $block->escapeHtmlAttr(__('Subscribe')); ?>" class="checkbox"/>
                         <label class="label" for="subscriptionPopup">
                     <span>
                         <?php $label = $subHelper->getProductOptionLabel(); ?>
                         <?php if (is_null($label)) { ?>
-                            <?php echo _('Subscription'); ?>
+                            <?= $escaper->escapeHtml('Subscription'); ?>
                         <?php } else { ?>
-                            <?php echo $subHelper->getProductOptionLabel(); ?>
+                            <?= /* @noEscape */ $subHelper->getProductOptionLabel(); ?>
                         <?php }?>
 
                     </span>
@@ -63,15 +64,15 @@ $subHelper = $this->helper('Wagento\Subscription\Helper\Data');
                     || 'optional' == $_product->getData('subscription_configurate')
                     || is_null($_product->getData('subscription_configurate'))) { ?>
                     <button type="submit"
-                            title="<?php echo // @escapeNotVerified
+                            title="<?=  /* @noEscape */
                             $buttonTitle; ?>"
                             class="action primary tocart"
                             id="product-addtocart-button">
-                        <span><?php echo // @escapeNotVerified
+                        <span><?= /* @noEscape */
                             $buttonTitle; ?></span>
                     </button>
                 <?php } ?>
-                <?php echo $block->getChildHtml('', true); ?>
+                <?=  /* @noEscape */ $block->getChildHtml('', true); ?>
 
             </div>
         </div>

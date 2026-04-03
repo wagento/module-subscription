@@ -22,17 +22,17 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
             <?php /* Subscription Sales Order Information */ ?>
             <div class="admin__page-section-item-title">
                 <span class="title">
-                        <?= /* @noEscape */ $block->escapeHtml(__('Subscription Profile # %1', $subDetails->getId())); //phpcs:ignore?>
+                        <?= $ecaper->escapeHtml('Subscription Profile # %1', $subDetails->getId()); //phpcs:ignore?>
                 </span>
             </div>
             <div class="admin__page-section-item-content">
                 <table class="admin__table-secondary order-information-table sales-subscription">
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Plan name')); ?></th>
-                        <td><?= /* @noEscape */ $block->escapeHtml($subDetails->getSubName()); ?></td>
+                        <th><?= $ecaper->escapeHtml('Subscription Plan name'); ?></th>
+                        <td><?= $escaper->escapeHtml($subDetails->getSubName()); ?></td>
                     </tr>
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Status')); ?></th>
+                        <th><?= $ecaper->escapeHtml('Subscription Status'); ?></th>
                         <td>
                             <span id="subscription_status">
                                 <?= /* @noEscape */ $block->getSubscriptionStatus($subDetails->getStatus()); ?>
@@ -40,7 +40,7 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
                         </td>
                     </tr>
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Frequency')); ?></th>
+                        <th><?= $ecaper->escapeHtml('Subscription Frequency'); ?></th>
                         <td>
                             <?= /* @noEscape */ $block->escapeHtml(
                                 $block->getSubscriptionFrequency($subDetails->getSubFrequency())
@@ -56,12 +56,12 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
                     </tr>
 
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Started Date')); ?></th>
+                        <th><?= $ecaper->escapeHtml('Subscription Started Date'); ?></th>
                         <td><?= /* @noEscape */ $block->escapeHtml($subAdminDate); ?></td>
                     </tr>
 
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Last Renewed')); ?></th>
+                        <th><?= $ecaper->escapeHtml('Last Renewed'); ?></th>
                         <td><?= /* @noEscape */ $block->escapeHtml($subLastRenewedDate); ?></td>
                     </tr>
                 </table>
@@ -71,12 +71,12 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
         <div class="admin__page-section-item order-account-information sales-subscription">
             <?php /* Account Information */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Customer Information')); ?></span>
+                <span class="title"><?= $ecaper->escapeHtml('Customer Information'); ?></span>
                 <div class="actions">
                     <?php if ($customerUrl = $block->getCustomerViewUrl($subDetails->getCustomerId())) { ?>
                         <a href="<?= /* @noEscape */
                         $block->getCustomerViewUrl($subDetails->getCustomerId()); ?>" target="_blank">
-                            <?= /* @noEscape */ $block->escapeHtml(__('Edit Customer')); ?>
+                            <?= $ecaper->escapeHtml('Edit Customer'); ?>
                         </a>
                     <?php } ?>
                 </div>
@@ -84,7 +84,7 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
             <div class="admin__page-section-item-content">
                 <table class="admin__table-secondary order-account-information-table sales-subscription">
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Customer Name')); ?></th>
+                        <th><?= $ecaper->escapeHtml('Customer Name'); ?></th>
                         <td>
                             <?php if ($customerUrl = $block->getCustomerViewUrl($subDetails->getCustomerId())) { ?>
                                 <a href="<?= /* @noEscape */ $block->escapeUrl($customerUrl); ?>" target="_blank">
@@ -98,19 +98,19 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
                         </td>
                     </tr>
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Email')); ?></th>
+                        <th><?= $ecaper->escapeHtml('Email'); ?></th>
                         <td><a href="mailto:<?= /* @noEscape */ $block->escapeHtml($subDetails->getEmail()); ?>">
                                 <?= /* @noEscape */ $block->escapeHtml($subDetails->getEmail()); ?></a></td>
                     </tr>
                     <tr>
-                        <th><?= /* @noEscape */ $block->escapeHtml(__('Subscription Billing Count')); ?></th>
+                        <th><?= $ecaper->escapeHtml('Subscription Billing Count'); ?></th>
                         <td><?= /* @noEscape */ $block->escapeHtml($subDetails->getBillingCount()); ?></td>
 
                     </tr>
                     <?php if (false == $block->isSingleStoreMode()) { ?>
                         <tr>
                             <th>
-                                <?= /* @noEscape */ $block->escapeHtml(__('Purchased From')); ?>
+                                <?= $ecaper->escapeHtml('Purchased From'); ?>
                             </th>
                             <td>
                                 <?= $block->escapeHtml($block->getSubscriptionStoreName($subDetails->getStoreId()), ['br']); //phpcs:ignore ?>
@@ -125,13 +125,13 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
 
 <section class="admin__page-section order-addresses">
     <div class="admin__page-section-title">
-        <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Subscription Address Information')); ?></span>
+        <span class="title"><?= $ecaper->escapeHtml('Subscription Address Information'); ?></span>
     </div>
     <div class="admin__page-section-content">
         <div class="admin__page-section-item order-billing-address">
             <?php /* Billing Address */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Billing Address')); ?></span>
+                <span class="title"><?= $ecaper->escapeHtml('Billing Address'); ?></span>
                 <div class="actions"></div>
             </div>
             <address class="admin__page-section-item-content"><?= /* @noEscape */
@@ -140,7 +140,7 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
         <div class="admin__page-section-item order-shipping-address">
             <?php /* Shipping Address */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Shipping Address')); ?></span>
+                <span class="title"><?= $ecaper->escapeHtml('Shipping Address'); ?></span>
                 <div class="actions"></div>
             </div>
             <address class="admin__page-section-item-content"><?= /* @noEscape */
@@ -159,7 +159,7 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
         <div class="admin__page-section-item order-payment-method">
             <?php /* Billing Address */ ?>
             <div class="admin__page-section-item-title">
-                <span class="title"><?= /* @noEscape */ $block->escapeHtml(__('Payment Information')); ?></span>
+                <span class="title"><?= $ecaper->escapeHtml('Payment Information'); ?></span>
                 <div class="actions"></div>
             </div>
             <?php
@@ -170,11 +170,11 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
                     <p><?= /* @noEscape */ $paymentDetail['method_title']; ?></p>
                     <?php if (isset($paymentDetail['cc_type'])) { ?>
                         <dd class="content">
-                            <strong><?= /* @noEscape */ $block->escapeHtml(__('Credit Card Type')); ?></strong>
+                            <strong><?= $ecaper->escapeHtml('Credit Card Type'); ?></strong>
                             <?= /* @noEscape */ $paymentDetail['cc_type']; ?>
 
                             <br/>
-                            <strong><?= /* @noEscape */ $block->escapeHtml(__('Credit Card Number')); ?></strong>
+                            <strong><?= $ecaper->escapeHtml('Credit Card Number'); ?></strong>
                             <?= /* @noEscape */ $paymentDetail['cc_number']; ?>
                         </dd>
                     <?php } ?>
@@ -185,7 +185,7 @@ $subLastRenewedDate = $dateLastRenew->format('F d, Y h:i:s');
             <?php /* Shipping Address */ ?>
             <div class="admin__page-section-item-title">
                 <span class="title">
-                    <?= /* @noEscape */ $block->escapeHtml(__('Shipping & Handling Information')); ?>
+                    <?= $ecaper->escapeHtml('Shipping & Handling Information'); ?>
                 </span>
                 <div class="actions"></div>
             </div>

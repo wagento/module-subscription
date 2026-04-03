@@ -7,18 +7,17 @@
 // @codingStandardsIgnoreFile
 
 // @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove
+/** @var \Magento\Framework\Escaper $escaper */
+
 ?>
-<?php
-$isSubscribed = $block->getItem()->getIsSubscribed();
-if (!$isSubscribed) {
-    ?>
-<a href="#"
-   title="<?php echo $block->escapeHtml(__('Remove item')); ?>"
-   class="action action-delete"
-   data-post='<?php echo /* @escapeNotVerified */ $block->getDeletePostJson(); ?>'>
-    <span>
-        <?php echo /* @escapeNotVerified */ __('Remove item'); ?>
-    </span>
-</a>
-<?php
-} ?>
+<?php $isSubscribed = $block->getItem()->getIsSubscribed();?>
+<?php if (!$isSubscribed): ?>
+    <a href="#"
+       title="<?= $escaper->escapeHtml('Remove item'); ?>"
+       class="action action-delete"
+       data-post='<?= /* @noEscape */ $block->getDeletePostJson(); ?>'>
+        <span>
+            <?= $escaper->escapeHtml('Remove item'); ?>
+        </span>
+    </a>
+<?php endif; ?>
